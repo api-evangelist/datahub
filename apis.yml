@@ -1,0 +1,76 @@
+name: DataHub
+description: DataHub is LinkedIn's generalized metadata search & discovery tool
+image: https://datahubproject.io/img/datahub-logo.svg
+tags:
+- metadata
+- data catalog
+- data discovery
+- data governance
+- data lineage
+created: '2024-01-15'
+modified: '2024-01-15'
+url: https://datahubproject.io
+specificationVersion: '0.16'
+apis:
+- name: DataHub GraphQL API
+  description: Primary API for querying and mutating metadata in DataHub
+  image: https://datahubproject.io/img/datahub-logo.svg
+  humanURL: https://datahubproject.io/docs/graphql/overview
+  baseURL: http://localhost:8080/api/graphql
+  tags:
+  - graphql
+  - metadata
+  - search
+  properties:
+  - type: Documentation
+    url: https://datahubproject.io/docs/graphql/overview
+  - type: OpenAPI
+    url: https://datahubproject.io/docs/graphql/queries
+  - type: Playground
+    url: http://localhost:8080/api/graphiql
+- name: DataHub REST API
+  description: REST API for programmatic access to DataHub metadata
+  image: https://datahubproject.io/img/datahub-logo.svg
+  humanURL: https://datahubproject.io/docs/api/restli/restli-overview
+  baseURL: http://localhost:8080/
+  tags:
+  - rest
+  - metadata
+  - entities
+  properties:
+  - type: Documentation
+    url: https://datahubproject.io/docs/api/restli/restli-overview
+  - type: OpenAPI
+    url: https://datahubproject.io/docs/api/openapi/openapi-usage-guide
+- name: DataHub Python SDK
+  description: Python client for interacting with DataHub
+  image: https://datahubproject.io/img/datahub-logo.svg
+  humanURL: https://datahubproject.io/docs/metadata-ingestion/
+  baseURL: https://pypi.org/project/acryl-datahub/
+  tags:
+  - python
+  - sdk
+  - ingestion
+  properties:
+  - type: Documentation
+    url: https://datahubproject.io/docs/metadata-ingestion/
+  - type: GitHub
+    url: https://github.com/datahub-project/datahub
+common:
+- type: Website
+  url: https://datahubproject.io
+- type: GitHub
+  url: https://github.com/datahub-project/datahub
+- type: Slack
+  url: https://slack.datahubproject.io
+- type: Documentation
+  url: https://datahubproject.io/docs/
+- type: Blog
+  url: https://blog.datahubproject.io/
+- type: Demo
+  url: https://demo.datahubproject.io/
+maintainers:
+- name: DataHub Project
+  twitter: https://twitter.com/datahubproject
+  email: datahub@linkedin.com
+  github: https://github.com/datahub-project

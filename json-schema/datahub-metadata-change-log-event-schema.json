@@ -1,0 +1,165 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/api-evangelist/datahub/json-schema/datahub-metadata-change-log-event-schema.json",
+  "title": "DataHub Metadata Change Log Event",
+  "description": "Represents a Metadata Change Log event emitted when any aspect on the DataHub metadata graph is changed. This includes creates, updates, and removals of both versioned aspects (ownership, tags, glossary terms) and time-series aspects (dataset profiles, quality assertions). These events are consumed by the DataHub Actions Framework to trigger downstream processing pipelines.",
+  "type": "object",
+  "required": [
+    "entityUrn",
+    "entityType",
+    "changeType",
+    "aspectName"
+  ],
+  "properties": {
+    "entityUrn": {
+      "type": "string",
+      "description": "The unique URN identifier for the entity being changed. Follows the format urn:li:{entityType}:{key}.",
+      "pattern": "^urn:li:[a-zA-Z]+:.+$",
+      "examples": [
+        "urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)",
+        "urn:li:chart:(looker,dashboard_elements.1)",
+        "urn:li:dashboard:(looker,dashboards.1)"
+      ]
+    },
+    "entityType": {
+      "type": "string",
+      "description": "The type of the entity being changed. Corresponds to one of the entity types registered in the DataHub metadata model.",
+      "enum": [
+        "dataset",
+        "chart",
+        "dashboard",
+        "dataFlow",
+        "dataJob",
+        "corpUser",
+        "corpGroup",
+        "tag",
+        "domain",
+        "glossaryTerm",
+        "glossaryNode",
+        "container",
+        "dataPlatform",
+        "mlModel",
+        "mlModelGroup",
+        "mlFeature",
+        "mlFeatureTable",
+        "mlPrimaryKey",
+        "dataProduct",
+        "notebook",
+        "dataHubPolicy",
+        "dataHubRole"
+      ]
+    },
+    "changeType": {
+      "type": "string",
+      "description": "The type of change that occurred on the aspect. UPSERT indicates a create or update, DELETE indicates removal, CREATE indicates first-time creation, and RESTATE indicates a re-emission without modification.",
+      "enum": [
+        "UPSERT",
+        "DELETE",
+        "CREATE",
+        "RESTATE"
+      ]
+    },
+    "aspectName": {
+      "type": "string",
+      "description": "The name of the entity aspect that was changed. Each aspect represents a specific facet of metadata such as properties, ownership, tags, or schema information.",
+      "examples": [
+        "datasetProperties",
+        "schemaMetadata",
+        "ownership",
+        "globalTags",
+        "glossaryTerms",
+        "status",
+        "editableDatasetProperties",
+        "upstreamLineage",
+        "institutionalMemory",
+        "datasetKey"
+      ]
+    },
+    "aspect": {
+      "$ref": "#/$defs/SerializedAspect",
+      "description": "The new aspect value after the change. Contains the JSON-serialized aspect payload and its content type."
+    },
+    "previousAspectValue": {
+      "$ref": "#/$defs/SerializedAspect",
+      "description": "The previous aspect value before the change. Null if this is the first time the aspect is being set for the entity."
+    },
+    "systemMetadata": {
+      "$ref": "#/$defs/SystemMetadata",
+      "description": "System-level metadata associated with this change, including ingestion run identifiers and model registry information."
+    },
+    "created": {
+      "$ref": "#/$defs/AuditStamp",
+      "description": "Audit stamp recording who made the change and when."
+    }
+  },
+  "$defs": {
+    "SerializedAspect": {
+      "type": "object",
+      "description": "A serialized aspect value containing the content type and the JSON-encoded aspect payload. The value field contains a JSON string representing the aspect following its PDL schema definition.",
+      "required": [
+        "contentType",
+        "value"
+      ],
+      "properties": {
+        "contentType": {
+          "type": "string",
+          "description": "The MIME type of the serialized aspect value.",
+          "enum": [
+            "application/json"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "description": "The JSON-serialized aspect value as a string. The structure of the JSON depends on the aspect name and follows the corresponding PDL schema definition."
+        }
+      }
+    },
+    "SystemMetadata": {
+      "type": "object",
+      "description": "System-level metadata providing provenance and tracking information for a metadata change.",
+      "properties": {
+        "runId": {
+          "type": "string",
+          "description": "The identifier of the ingestion run that produced this change. Used to correlate changes across a single ingestion execution."
+        },
+        "lastObserved": {
+          "type": "integer",
+          "description": "The timestamp when this metadata was last observed, in epoch milliseconds.",
+          "minimum": 0
+        },
+        "registryName": {
+          "type": "string",
+          "description": "The name of the model registry associated with this change."
+        },
+        "registryVersion": {
+          "type": "string",
+          "description": "The version of the model registry."
+        }
+      }
+    },
+    "AuditStamp": {
+      "type": "object",
+      "description": "An audit stamp recording the actor and timestamp of a metadata modification.",
+      "required": [
+        "time",
+        "actor"
+      ],
+      "properties": {
+        "time": {
+          "type": "integer",
+          "description": "The timestamp of the change in epoch milliseconds.",
+          "minimum": 0
+        },
+        "actor": {
+          "type": "string",
+          "description": "The URN of the actor who made the change.",
+          "pattern": "^urn:li:corpuser:.+$",
+          "examples": [
+            "urn:li:corpuser:datahub",
+            "urn:li:corpuser:admin"
+          ]
+        }
+      }
+    }
+  }
+}

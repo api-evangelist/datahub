@@ -1,0 +1,285 @@
+asyncapi: 2.6.0
+info:
+  title: DataHub Actions Framework Events
+  description: >-
+    Event-driven interface for responding to real-time changes in the DataHub
+    metadata graph. The Actions Framework consumes Metadata Change Log events
+    and Platform Events from Kafka topics, enabling seamless integration of
+    DataHub into a broader event-based architecture. Events are emitted when
+    any aspect on the DataHub metadata graph is changed, including creates,
+    updates, and removals of both versioned and time-series aspects.
+  version: '1.4.0'
+  contact:
+    name: DataHub Project
+    url: https://datahubproject.io
+  license:
+    name: Apache License 2.0
+    url: https://github.com/datahub-project/datahub/blob/master/LICENSE
+externalDocs:
+  description: DataHub Actions Framework Documentation
+  url: https://docs.datahub.com/docs/actions
+servers:
+  kafkaBroker:
+    url: '{kafkaHost}:{kafkaPort}'
+    protocol: kafka
+    description: >-
+      Kafka broker for consuming DataHub metadata events. The default event
+      source used by the DataHub Actions Framework subscribes to Kafka topics
+      that stream metadata changes and platform events from the DataHub
+      metadata service.
+    variables:
+      kafkaHost:
+        default: localhost
+        description: Kafka broker hostname
+      kafkaPort:
+        default: '9092'
+        description: Kafka broker port
+    security:
+      - saslPlain: []
+channels:
+  MetadataChangeLog_Versioned_v1:
+    description: >-
+      Kafka topic for versioned aspect changes. Emitted when any versioned
+      aspect on the DataHub metadata graph is created, updated, or removed.
+      Versioned aspects maintain numeric versions and are persisted in the
+      relational database. Examples include ownership, tags, glossary terms,
+      dataset properties, and schema metadata.
+    subscribe:
+      operationId: onVersionedMetadataChange
+      summary: Receive versioned metadata change log events
+      description: >-
+        Subscribe to versioned metadata change events emitted when entities
+        have their versioned aspects modified. These events contain the new
+        aspect value, the previous aspect value (if applicable), the change
+        type, and audit information about who made the change and when.
+      message:
+        $ref: '#/components/messages/MetadataChangeLogEvent'
+  MetadataChangeLog_Timeseries_v1:
+    description: >-
+      Kafka topic for time-series aspect changes. Emitted when any time-series
+      aspect on the DataHub metadata graph is created or updated. Time-series
+      aspects carry timestamps and are stored in search indexes. Examples
+      include dataset profiles, data quality assertions, and usage statistics.
+    subscribe:
+      operationId: onTimeseriesMetadataChange
+      summary: Receive time-series metadata change log events
+      description: >-
+        Subscribe to time-series metadata change events emitted when entities
+        have their time-series aspects modified. These events are useful for
+        tracking operational metadata such as profiling results, quality checks,
+        and usage patterns over time.
+      message:
+        $ref: '#/components/messages/MetadataChangeLogEvent'
+  PlatformEvent_v1:
+    description: >-
+      Kafka topic for platform-level events. Contains semantic change events
+      that represent higher-level operations on the DataHub platform, such as
+      entity creation, tag additions, ownership changes, and glossary term
+      assignments. The Entity Change Event is the most important platform event
+      type and serves as a key component of the DataHub Actions Framework.
+    subscribe:
+      operationId: onPlatformEvent
+      summary: Receive platform events
+      description: >-
+        Subscribe to platform events that represent semantic changes in the
+        DataHub metadata graph. These events provide a higher-level abstraction
+        over raw metadata changes and are useful for triggering actions based
+        on specific business-meaningful operations.
+      message:
+        $ref: '#/components/messages/EntityChangeEvent'
+components:
+  securitySchemes:
+    saslPlain:
+      type: plain
+      description: >-
+        SASL/PLAIN authentication for Kafka broker connections. Configure
+        with the appropriate credentials for your Kafka deployment.
+  messages:
+    MetadataChangeLogEvent:
+      name: MetadataChangeLogEvent_v1
+      title: Metadata Change Log Event
+      summary: >-
+        Emitted when any aspect on the DataHub metadata graph is changed.
+      description: >-
+        A metadata change log event recording a modification to an entity's
+        aspect in the DataHub metadata graph. Contains the entity URN, entity
+        type, change type, aspect name, new aspect value, previous aspect
+        value, system metadata, and audit information. These events are the
+        primary mechanism for tracking all metadata modifications in DataHub.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/MetadataChangeLogEventPayload'
+    EntityChangeEvent:
+      name: EntityChangeEvent_v1
+      title: Entity Change Event
+      summary: >-
+        Semantic change event representing a meaningful operation on an entity.
+      description: >-
+        An entity change event representing a semantic change in the DataHub
+        metadata graph. Unlike raw metadata change log events, entity change
+        events provide higher-level abstractions that describe business-meaningful
+        operations such as tag additions, ownership assignments, and glossary
+        term linkages.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/EntityChangeEventPayload'
+  schemas:
+    MetadataChangeLogEventPayload:
+      type: object
+      description: >-
+        Payload of a Metadata Change Log event containing the full details
+        of a metadata change in the DataHub graph.
+      required:
+        - entityUrn
+        - entityType
+        - changeType
+        - aspectName
+      properties:
+        entityUrn:
+          type: string
+          description: >-
+            The unique URN identifier for the entity being changed.
+          example: urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)
+        entityType:
+          type: string
+          description: >-
+            The type of the entity being changed, such as dataset, chart,
+            dashboard, dataFlow, dataJob, corpUser, corpGroup, tag, domain,
+            glossaryTerm, or glossaryNode.
+          example: dataset
+        changeType:
+          type: string
+          description: >-
+            The type of change that occurred on the aspect.
+          enum:
+            - UPSERT
+            - DELETE
+            - CREATE
+            - RESTATE
+        aspectName:
+          type: string
+          description: >-
+            The name of the entity aspect that was changed, such as
+            datasetProperties, schemaMetadata, ownership, globalTags,
+            glossaryTerms, or status.
+          example: globalTags
+        aspect:
+          $ref: '#/components/schemas/SerializedAspect'
+        previousAspectValue:
+          $ref: '#/components/schemas/SerializedAspect'
+        systemMetadata:
+          $ref: '#/components/schemas/SystemMetadata'
+        created:
+          $ref: '#/components/schemas/AuditStamp'
+    EntityChangeEventPayload:
+      type: object
+      description: >-
+        Payload of an Entity Change Event representing a semantic change
+        in the DataHub metadata graph.
+      required:
+        - entityUrn
+        - entityType
+        - category
+        - operation
+      properties:
+        entityUrn:
+          type: string
+          description: >-
+            The unique URN identifier for the entity that was changed.
+          example: urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)
+        entityType:
+          type: string
+          description: >-
+            The type of the entity that was changed.
+          example: dataset
+        category:
+          type: string
+          description: >-
+            The category of the change, representing the semantic domain
+            of the modification.
+          enum:
+            - TAG
+            - GLOSSARY_TERM
+            - OWNERSHIP
+            - TECHNICAL_SCHEMA
+            - DOCUMENTATION
+            - DOMAIN
+            - DEPRECATION
+            - LIFECYCLE
+        operation:
+          type: string
+          description: >-
+            The semantic operation that was performed.
+          enum:
+            - ADD
+            - REMOVE
+            - MODIFY
+        modifier:
+          type: string
+          description: >-
+            Additional context about the change, such as the specific tag
+            URN or glossary term URN that was added or removed.
+          example: urn:li:tag:PII
+        parameters:
+          type: object
+          description: >-
+            Additional parameters providing context for the change event.
+          additionalProperties:
+            type: string
+        auditStamp:
+          $ref: '#/components/schemas/AuditStamp'
+    SerializedAspect:
+      type: object
+      description: >-
+        A serialized aspect value containing the content type and the
+        JSON-encoded aspect payload.
+      properties:
+        contentType:
+          type: string
+          description: >-
+            The content type of the serialized aspect value.
+          example: application/json
+        value:
+          type: string
+          description: >-
+            The JSON-serialized aspect value following the PDL schema
+            definition for the given aspect name.
+    SystemMetadata:
+      type: object
+      description: >-
+        System-level metadata associated with a metadata change, providing
+        provenance and tracking information.
+      properties:
+        runId:
+          type: string
+          description: >-
+            The identifier of the ingestion run that produced this change.
+        lastObserved:
+          type: integer
+          format: int64
+          description: >-
+            The timestamp when this metadata was last observed in epoch
+            milliseconds.
+        registryName:
+          type: string
+          description: >-
+            The name of the model registry associated with this change.
+        registryVersion:
+          type: string
+          description: >-
+            The version of the model registry.
+    AuditStamp:
+      type: object
+      description: >-
+        An audit stamp recording who made a change and when.
+      properties:
+        time:
+          type: integer
+          format: int64
+          description: >-
+            The timestamp of the change in epoch milliseconds.
+        actor:
+          type: string
+          description: >-
+            The URN of the actor who made the change.
+          example: urn:li:corpuser:datahub

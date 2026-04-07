@@ -24,12 +24,22 @@ servers:
   - url: http://localhost:9002
     description: DataHub Frontend Proxy (Local Quickstart)
 tags:
+  - name: Batch
+    description: >-
+      Batch operations for fetching multiple entities and their aspects in a
+      single request. Supports version-specific retrieval and conditional
+      writes.
   - name: Entities
     description: >-
       Read, write, and delete metadata entities in the DataHub metadata graph.
       The entities endpoints support upserting entity-aspect pairs, retrieving
       the latest aspects for a given entity, and performing soft or hard deletes
       on entities.
+  - name: Platform
+    description: >-
+      Write metadata events using the standard platform format. Provides an
+      alternative ingestion path for emitting metadata change proposals to the
+      DataHub metadata graph.
   - name: Relationships
     description: >-
       Query the relationship graph to navigate connections between entities.
@@ -40,16 +50,6 @@ tags:
       Query the versioned history of entity aspects over time. Useful for
       tracking schema changes, documentation updates, and other temporal
       metadata modifications for a given entity.
-  - name: Platform
-    description: >-
-      Write metadata events using the standard platform format. Provides an
-      alternative ingestion path for emitting metadata change proposals to the
-      DataHub metadata graph.
-  - name: Batch
-    description: >-
-      Batch operations for fetching multiple entities and their aspects in a
-      single request. Supports version-specific retrieval and conditional
-      writes.
 security:
   - bearerAuth: []
 paths:

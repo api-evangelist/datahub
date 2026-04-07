@@ -3,11 +3,11 @@ description: >-
   DataHub is LinkedIn's generalized metadata search & discovery tool.
 image: https://datahubproject.io/img/datahub-logo.svg
 tags:
-  - metadata
-  - data catalog
-  - data discovery
-  - data governance
-  - data lineage
+  - Data Catalog
+  - Data Discovery
+  - Data Governance
+  - Data Lineage
+  - Metadata
 created: '2024-01-15'
 modified: '2026-03-16'
 url: https://datahubproject.io
@@ -25,8 +25,8 @@ apis:
     tags:
       - GraphQL
       - Metadata
-      - Search
       - Queries
+      - Search
     properties:
       - type: Documentation
         url: https://docs.datahub.com/docs/api/graphql/overview
@@ -47,10 +47,10 @@ apis:
     humanURL: https://docs.datahub.com/docs/api/openapi/openapi-usage-guide
     baseURL: http://localhost:8080/openapi/
     tags:
+      - Entities
+      - Metadata
       - OpenAPI
       - REST
-      - Metadata
-      - Entities
     properties:
       - type: Documentation
         url: https://docs.datahub.com/docs/api/openapi/openapi-usage-guide
@@ -65,10 +65,10 @@ apis:
     humanURL: https://docs.datahub.com/docs/api/datahub-apis
     baseURL: http://localhost:8080/
     tags:
-      - REST
-      - Metadata
       - Entities
       - Internal
+      - Metadata
+      - REST
     properties:
       - type: Documentation
         url: https://docs.datahub.com/docs/api/datahub-apis
@@ -83,10 +83,10 @@ apis:
     humanURL: https://docs.datahub.com/docs/metadata-ingestion/as-a-library
     baseURL: https://pypi.org/project/acryl-datahub/
     tags:
+      - Emitter
+      - Ingestion
       - Python
       - SDK
-      - Ingestion
-      - Emitter
     properties:
       - type: Documentation
         url: https://docs.datahub.com/docs/metadata-ingestion/as-a-library
@@ -102,18 +102,16 @@ apis:
       Dataset, Chart, Dashboard, Container, DataFlow, DataJob, MLModel, and
       MLModelGroup.
     image: https://datahubproject.io/img/datahub-logo.svg
-    humanURL: 
-      https://docs.datahub.com/docs/metadata-integration/java/as-a-library
+    humanURL: https://docs.datahub.com/docs/metadata-integration/java/as-a-library
     baseURL: https://github.com/datahub-project/datahub
     tags:
-      - Java
-      - SDK
       - Emitter
+      - Java
       - Metadata
+      - SDK
     properties:
       - type: Documentation
-        url: 
-          https://docs.datahub.com/docs/metadata-integration/java/as-a-library
+        url: https://docs.datahub.com/docs/metadata-integration/java/as-a-library
       - type: GitHubRepository
         url: https://github.com/datahub-project/datahub
   - name: DataHub CLI
@@ -128,8 +126,8 @@ apis:
     baseURL: https://pypi.org/project/acryl-datahub/
     tags:
       - CLI
-      - Ingestion
       - Command Line
+      - Ingestion
       - Metadata
     properties:
       - type: Documentation
@@ -150,8 +148,8 @@ apis:
     baseURL: https://pypi.org/project/acryl-datahub-actions/
     tags:
       - Actions
-      - Events
       - Automation
+      - Events
       - Real-Time
     properties:
       - type: Documentation

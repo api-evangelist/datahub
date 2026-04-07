@@ -56,7 +56,7 @@ paths:
   /entities/v1/:
     post:
       operationId: upsertEntities
-      summary: Upsert entity aspects
+      summary: DataHub Upsert entity aspects
       description: >-
         Create or update one or more entity aspects in the DataHub metadata
         graph. Supports upserting entity-aspect pairs where the entire DataHub
@@ -98,7 +98,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     delete:
       operationId: deleteEntities
-      summary: Delete entities
+      summary: DataHub Delete entities
       description: >-
         Delete one or more entities from the DataHub metadata graph. Supports
         both soft deletes (marking entities as removed while preserving
@@ -133,7 +133,7 @@ paths:
   /entities/v1/latest:
     get:
       operationId: getEntityLatestAspects
-      summary: Retrieve latest entity aspects
+      summary: DataHub Retrieve latest entity aspects
       description: >-
         Retrieve the latest aspects for one or more entities from the DataHub
         metadata graph. Requires raw URN strings and supports fetching specific
@@ -173,7 +173,7 @@ paths:
   /relationships/v1/:
     get:
       operationId: getRelationships
-      summary: Query entity relationships
+      summary: DataHub Query entity relationships
       description: >-
         Query the relationship graph to navigate connections between entities.
         Returns relationships for a given entity URN, with support for filtering
@@ -248,7 +248,7 @@ paths:
   /timeline/:
     get:
       operationId: getTimeline
-      summary: Query entity timeline
+      summary: DataHub Query entity timeline
       description: >-
         Query the versioned history of an entity's aspects over time. Useful for
         tracking changes such as schema modifications, documentation updates,
@@ -320,7 +320,7 @@ paths:
   /platform/entities/v1:
     post:
       operationId: emitPlatformEvents
-      summary: Emit platform metadata events
+      summary: DataHub Emit platform metadata events
       description: >-
         Write metadata events using the standard platform format. Provides an
         alternative ingestion path for emitting metadata change proposals (MCPs)
@@ -354,7 +354,7 @@ paths:
   /v3/entity/{entityName}/batchGet:
     post:
       operationId: batchGetEntities
-      summary: Batch fetch entities
+      summary: DataHub Batch fetch entities
       description: >-
         Fetch multiple entities and their aspects in a single request. Supports
         retrieving specific aspect versions using the If-Version-Match header

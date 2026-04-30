@@ -1,7 +1,12 @@
+aid: datahub
 name: DataHub
 description: >-
-  DataHub is LinkedIn's generalized metadata search & discovery tool.
+  DataHub is LinkedIn's generalized metadata search and discovery platform,
+  providing a unified data catalog, lineage graph, governance tooling, and
+  event-driven Actions Framework. It exposes GraphQL, OpenAPI, and Rest.li
+  APIs along with Python and Java SDKs and a CLI for metadata ingestion.
 image: https://datahubproject.io/img/datahub-logo.svg
+type: Index
 tags:
   - Data Catalog
   - Data Discovery
@@ -9,11 +14,16 @@ tags:
   - Data Lineage
   - Metadata
 created: '2024-01-15'
-modified: '2026-03-16'
-url: https://datahubproject.io
-specificationVersion: '0.16'
+modified: '2026-04-28'
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/datahub/refs/heads/main/apis.yml
+specificationVersion: '0.19'
+xType: opensource
+position: Consumer
+access: 3rd-Party
 apis:
-  - name: DataHub GraphQL API
+  - aid: datahub:datahub-graphql-api
+    name: DataHub GraphQL API
     description: >-
       Primary API for querying and mutating metadata in DataHub. The GraphQL API
       serves as the main public API for the platform and can be used to fetch and
@@ -36,7 +46,8 @@ apis:
         url: https://docs.datahub.com/docs/graphql/queries
       - type: Playground
         url: http://localhost:8080/api/graphiql
-  - name: DataHub OpenAPI
+  - aid: datahub:datahub-openapi
+    name: DataHub OpenAPI
     description: >-
       RESTful API endpoints documented using the OpenAPI standard for interacting
       with DataHub metadata. Provides endpoints for entities, relationships,
@@ -54,7 +65,12 @@ apis:
     properties:
       - type: Documentation
         url: https://docs.datahub.com/docs/api/openapi/openapi-usage-guide
-  - name: DataHub REST API
+      - type: OpenAPI
+        url: openapi/datahub-openapi-openapi.yml
+      - type: JSONSchema
+        url: json-schema/datahub-metadata-change-log-event-schema.json
+  - aid: datahub:datahub-rest-api
+    name: DataHub REST API
     description: >-
       The Rest.li API represents the underlying persistence layer and exposes the
       raw PDL models used in storage. It powers the GraphQL API under the hood
@@ -72,7 +88,8 @@ apis:
     properties:
       - type: Documentation
         url: https://docs.datahub.com/docs/api/datahub-apis
-  - name: DataHub Python SDK
+  - aid: datahub:datahub-python-sdk
+    name: DataHub Python SDK
     description: >-
       Python client for interacting with DataHub. The acryl-datahub package
       provides a CLI and SDK for DataHub, including REST and Kafka emitter APIs
@@ -94,7 +111,8 @@ apis:
         url: https://github.com/datahub-project/datahub
       - type: SDKs
         url: https://pypi.org/project/acryl-datahub/
-  - name: DataHub Java SDK
+  - aid: datahub:datahub-java-sdk
+    name: DataHub Java SDK
     description: >-
       Java client for interacting with DataHub. The io.acryl datahub-client
       package offers REST emitter APIs that can be used to emit metadata from
@@ -114,7 +132,8 @@ apis:
         url: https://docs.datahub.com/docs/metadata-integration/java/as-a-library
       - type: GitHubRepository
         url: https://github.com/datahub-project/datahub
-  - name: DataHub CLI
+  - aid: datahub:datahub-cli
+    name: DataHub CLI
     description: >-
       Command line tool for interacting with DataHub. The datahub CLI allows you
       to perform common operations including metadata ingestion, entity
@@ -136,7 +155,8 @@ apis:
         url: https://docs.datahub.com/docs/metadata-ingestion/cli-ingestion
       - type: SDKs
         url: https://pypi.org/project/acryl-datahub/
-  - name: DataHub Actions Framework
+  - aid: datahub:datahub-actions-framework
+    name: DataHub Actions Framework
     description: >-
       Event-driven framework for responding to real-time changes in the DataHub
       metadata graph. The Actions Framework allows you to configure event sources,
@@ -158,6 +178,8 @@ apis:
         url: https://docs.datahub.com/docs/actions/quickstart
       - type: SDKs
         url: https://pypi.org/project/acryl-datahub-actions/
+      - type: AsyncAPI
+        url: asyncapi/datahub-actions-asyncapi.yml
 common:
   - type: Website
     url: https://datahub.com
@@ -191,6 +213,14 @@ common:
     url: https://datahub.com/privacy-policy/
   - type: Security
     url: https://docs.datahub.com/docs/security_stance
+  - type: JSON-LD
+    url: json-ld/datahub-context.jsonld
+  - type: Vocabulary
+    url: vocabulary/datahub-vocabulary.yml
+  - type: Capabilities
+    url: capabilities/datahub-capabilities.yml
+  - type: Rules
+    url: rules/datahub-rules.yml
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

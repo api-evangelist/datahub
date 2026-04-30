@@ -1,0 +1,88 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "datahub": "https://docs.datahub.com/docs/",
+    "Entity": {
+      "@id": "datahub:what-is-datahub/datahub-concepts",
+      "@context": {
+        "urn": "https://schema.org/identifier",
+        "type": "https://schema.org/additionalType",
+        "name": "https://schema.org/name",
+        "description": "https://schema.org/description",
+        "platform": "https://schema.org/sourceOrganization",
+        "owners": "https://schema.org/owner",
+        "tags": "https://schema.org/keywords"
+      }
+    },
+    "Aspect": {
+      "@id": "datahub:what-is-datahub/datahub-concepts",
+      "@context": {
+        "name": "https://schema.org/name",
+        "version": "https://schema.org/version",
+        "value": "https://schema.org/value",
+        "createdOn": "https://schema.org/dateCreated",
+        "modifiedOn": "https://schema.org/dateModified"
+      }
+    },
+    "Dataset": {
+      "@id": "https://schema.org/Dataset",
+      "@context": {
+        "urn": "https://schema.org/identifier",
+        "name": "https://schema.org/name",
+        "platform": "https://schema.org/sourceOrganization",
+        "schema": "https://schema.org/variableMeasured"
+      }
+    },
+    "Chart": {
+      "@id": "datahub:generated/metamodel/entities/chart",
+      "@context": {
+        "urn": "https://schema.org/identifier",
+        "title": "https://schema.org/name",
+        "type": "https://schema.org/additionalType",
+        "url": "https://schema.org/url"
+      }
+    },
+    "Dashboard": {
+      "@id": "datahub:generated/metamodel/entities/dashboard",
+      "@context": {
+        "urn": "https://schema.org/identifier",
+        "title": "https://schema.org/name",
+        "url": "https://schema.org/url"
+      }
+    },
+    "DataFlow": {
+      "@id": "datahub:generated/metamodel/entities/dataflow",
+      "@context": {
+        "urn": "https://schema.org/identifier",
+        "name": "https://schema.org/name",
+        "orchestrator": "https://schema.org/sourceOrganization"
+      }
+    },
+    "DataJob": {
+      "@id": "datahub:generated/metamodel/entities/datajob",
+      "@context": {
+        "urn": "https://schema.org/identifier",
+        "name": "https://schema.org/name",
+        "type": "https://schema.org/additionalType"
+      }
+    },
+    "MetadataChangeLog": {
+      "@id": "datahub:advanced/mcp-mcl",
+      "@context": {
+        "entityType": "https://schema.org/additionalType",
+        "entityUrn": "https://schema.org/identifier",
+        "aspectName": "https://schema.org/name",
+        "changeType": "https://schema.org/Action",
+        "created": "https://schema.org/dateCreated"
+      }
+    },
+    "GlossaryTerm": {
+      "@id": "datahub:glossary/business-glossary",
+      "@context": {
+        "urn": "https://schema.org/identifier",
+        "name": "https://schema.org/name",
+        "definition": "https://schema.org/description"
+      }
+    }
+  }
+}

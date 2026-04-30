@@ -1,0 +1,60 @@
+name: DataHub Vocabulary
+description: >-
+  Shared vocabulary of terms used across DataHub's GraphQL, OpenAPI, REST,
+  CLI, SDKs, and Actions Framework for metadata management.
+terms:
+  - term: Entity
+    definition: >-
+      A first-class object in DataHub such as a Dataset, Chart, Dashboard,
+      Container, DataFlow, DataJob, MLModel, or Tag.
+  - term: Aspect
+    definition: >-
+      A versioned, schema-defined component of an entity describing one
+      facet such as ownership, schema, or status.
+  - term: URN
+    definition: >-
+      A globally unique uniform resource name identifying an entity within
+      DataHub.
+  - term: Metadata Change Log
+    definition: >-
+      An event emitted when an aspect of an entity is created, updated, or
+      deleted, consumed by ingestion and the Actions Framework.
+  - term: Platform Event
+    definition: >-
+      A higher-level event published by DataHub describing a meaningful
+      change such as an entity update or notification.
+  - term: Ingestion
+    definition: >-
+      The process of pulling metadata from source systems and emitting it
+      to DataHub through the REST or Kafka emitters.
+  - term: Source
+    definition: >-
+      A connector configured in an ingestion recipe to read metadata from
+      a system such as Snowflake, BigQuery, Looker, or Airflow.
+  - term: Recipe
+    definition: >-
+      A YAML configuration file declaring sources, sinks, and
+      transformations for an ingestion pipeline.
+  - term: Lineage
+    definition: >-
+      The graph of upstream and downstream relationships between datasets,
+      charts, dashboards, and pipelines.
+  - term: Glossary Term
+    definition: >-
+      A business term in the DataHub glossary linked to entities for
+      semantic context.
+  - term: Domain
+    definition: >-
+      An organizational grouping of entities used for ownership and
+      browsing.
+  - term: Tag
+    definition: >-
+      A free-form label that can be applied to entities and aspects.
+  - term: Action
+    definition: >-
+      A unit of work in the Actions Framework that responds to events on
+      the metadata graph.
+  - term: Emitter
+    definition: >-
+      A REST or Kafka client used by the Python and Java SDKs to push
+      metadata to DataHub.

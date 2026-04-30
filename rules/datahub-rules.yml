@@ -1,0 +1,39 @@
+extends:
+  - spectral:oas
+rules:
+  datahub-info-contact:
+    description: API info should provide a contact for the DataHub project.
+    given: $.info
+    severity: warn
+    then:
+      field: contact
+      function: truthy
+  datahub-openapi-prefix:
+    description: OpenAPI paths should be served under /openapi.
+    given: $.paths
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: "^/openapi"
+  datahub-urn-pattern:
+    description: URN parameters must follow the urn:li:<entityType>:<id> pattern.
+    given: $.paths.*.*.parameters[?(@.name=='urn')].schema
+    severity: warn
+    then:
+      field: pattern
+      function: truthy
+  datahub-operation-tags:
+    description: Every operation must declare at least one tag.
+    given: $.paths[*][*]
+    severity: error
+    then:
+      field: tags
+      function: truthy
+  datahub-aspect-versioned:
+    description: Aspect schemas should include a version field for timeline history.
+    given: $.components.schemas[?(@.title && @.title.match(/Aspect/))]
+    severity: warn
+    then:
+      field: properties.version
+      function: truthy

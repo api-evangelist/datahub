@@ -1,0 +1,49 @@
+name: DataHub Capabilities
+description: >-
+  Capabilities exposed across DataHub's GraphQL, OpenAPI, REST APIs, SDKs,
+  CLI, and Actions Framework.
+capabilities:
+  - name: GraphQL Metadata Queries
+    description: Query and mutate entities, aspects, lineage, and search via the GraphQL API.
+    api: datahub:datahub-graphql-api
+  - name: OpenAPI Entity Read and Write
+    description: Read and write entity-aspect pairs and traverse relationships through OpenAPI endpoints.
+    api: datahub:datahub-openapi
+  - name: Timeline History
+    description: Retrieve versioned aspect history for entities through the OpenAPI timeline endpoints.
+    api: datahub:datahub-openapi
+  - name: Rest.li Persistence Access
+    description: Access raw PDL aspects via the underlying Rest.li REST API.
+    api: datahub:datahub-rest-api
+  - name: Python Emitter and CLI
+    description: Push metadata and run ingestion recipes with the acryl-datahub Python SDK and CLI.
+    api: datahub:datahub-python-sdk
+  - name: Java Emitter
+    description: Emit metadata from JVM systems with the io.acryl datahub-client Java SDK.
+    api: datahub:datahub-java-sdk
+  - name: Metadata Ingestion
+    description: Configure source-to-DataHub ingestion pipelines through CLI recipes.
+    api: datahub:datahub-cli
+  - name: Actions Framework
+    description: React to Metadata Change Logs and Platform Events with YAML-configured actions.
+    api: datahub:datahub-actions-framework
+  - name: Search and Discovery
+    description: Search across entities and lineage using GraphQL and OpenAPI search endpoints.
+    api: datahub:datahub-graphql-api
+  - name: Lineage Graph
+    description: Traverse upstream and downstream lineage between datasets, jobs, charts, and dashboards.
+    api: datahub:datahub-graphql-api
+  - name: Governance Tagging
+    description: Apply tags, glossary terms, and domains to entities through the API surfaces.
+    api: datahub:datahub-graphql-api
+use_cases:
+  - name: Cross-platform data catalog
+    description: Centralize metadata across data warehouses, lakehouses, BI tools, and pipelines.
+  - name: Data lineage visibility
+    description: Trace data flow from raw sources through transformations to consumption.
+  - name: Event-driven metadata automation
+    description: Use the Actions Framework to trigger workflows on metadata changes.
+  - name: Programmatic governance
+    description: Apply tags, glossary terms, and ownership at scale via SDKs and emitters.
+  - name: Search-driven discovery
+    description: Help analysts and engineers find trusted datasets through search.

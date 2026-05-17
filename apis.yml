@@ -18,7 +18,7 @@ modified: '2026-04-28'
 url: >-
   https://raw.githubusercontent.com/api-evangelist/datahub/refs/heads/main/apis.yml
 specificationVersion: '0.19'
-xType: opensource
+kind: opensource
 position: Consumer
 access: 3rd-Party
 apis:
@@ -40,7 +40,7 @@ apis:
     properties:
       - type: Documentation
         url: https://docs.datahub.com/docs/api/graphql/overview
-      - type: Getting Started
+      - type: GettingStarted
         url: https://docs.datahub.com/docs/api/graphql/getting-started
       - type: Reference
         url: https://docs.datahub.com/docs/graphql/queries
@@ -151,7 +151,7 @@ apis:
     properties:
       - type: Documentation
         url: https://docs.datahub.com/docs/cli
-      - type: Getting Started
+      - type: GettingStarted
         url: https://docs.datahub.com/docs/metadata-ingestion/cli-ingestion
       - type: SDKs
         url: https://pypi.org/project/acryl-datahub/
@@ -174,7 +174,7 @@ apis:
     properties:
       - type: Documentation
         url: https://docs.datahub.com/docs/actions
-      - type: Getting Started
+      - type: GettingStarted
         url: https://docs.datahub.com/docs/actions/quickstart
       - type: SDKs
         url: https://pypi.org/project/acryl-datahub-actions/
@@ -187,7 +187,7 @@ common:
     url: https://docs.datahub.com
   - type: Documentation
     url: https://docs.datahub.com/docs/
-  - type: Getting Started
+  - type: GettingStarted
     url: https://docs.datahub.com/docs/quickstart
   - type: Authentication
     url: https://docs.datahub.com/docs/authentication
@@ -199,9 +199,9 @@ common:
     url: https://datahub.com/blog/
   - type: Demo
     url: https://demo.datahubproject.io/
-  - type: Change Log
+  - type: ChangeLog
     url: https://github.com/datahub-project/datahub/releases
-  - type: Status
+  - type: StatusPage
     url: https://status.datahub.com
   - type: Community
     url: https://forum.datahubproject.io/
@@ -209,11 +209,11 @@ common:
     url: https://youtube.com/@datahubproject
   - type: LinkedIn
     url: https://www.linkedin.com/company/datahub-cloud
-  - type: Privacy Policy
+  - type: PrivacyPolicy
     url: https://datahub.com/privacy-policy/
   - type: Security
     url: https://docs.datahub.com/docs/security_stance
-  - type: JSON-LD
+  - type: JSONLD
     url: json-ld/datahub-context.jsonld
   - type: Vocabulary
     url: vocabulary/datahub-vocabulary.yml

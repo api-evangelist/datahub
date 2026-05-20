@@ -5,9 +5,10 @@
       "source": "https://datahub.com/blog/",
       "feed_url": "https://datahub.com/blog/feed/",
       "title": "DataHub",
-      "saved": 12
+      "saved": 0,
+      "last_error": "req_err:SSLError"
     }
   ],
-  "fetched": "2026-05-09T20:17:51Z",
+  "fetched": "2026-05-17T20:20:35Z",
   "post_count": 12
 }

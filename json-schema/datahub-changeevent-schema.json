@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ChangeEvent",
+  "title": "ChangeEvent",
+  "type": "object",
+  "description": "An individual change event describing a modification to a specific aspect of an entity.",
+  "properties": {
+    "changeType": {
+      "type": "string",
+      "description": "The type of change that occurred.",
+      "enum": [
+        "ADD",
+        "MODIFY",
+        "REMOVE"
+      ]
+    },
+    "semVerChange": {
+      "type": "string",
+      "description": "The semantic versioning category of this change.",
+      "enum": [
+        "MAJOR",
+        "MINOR",
+        "PATCH"
+      ]
+    },
+    "description": {
+      "type": "string",
+      "description": "A human-readable description of the change."
+    },
+    "target": {
+      "type": "string",
+      "description": "The target element that was changed, such as a field name."
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/BatchGetRequest",
+  "title": "BatchGetRequest",
+  "type": "object",
+  "description": "A request to fetch a specific entity and its aspects in a batch operation.",
+  "required": [
+    "urn"
+  ],
+  "properties": {
+    "urn": {
+      "type": "string",
+      "description": "The URN of the entity to fetch.",
+      "example": "urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)"
+    },
+    "aspectNames": {
+      "type": "array",
+      "description": "Specific aspects to retrieve. If not provided, all aspects are returned.",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

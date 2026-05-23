@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/TimelineResponse",
+  "title": "TimelineResponse",
+  "type": "object",
+  "description": "Response containing the versioned history of an entity's aspects.",
+  "properties": {
+    "changeTransactions": {
+      "type": "array",
+      "description": "A chronological list of change transactions for the entity.",
+      "items": {
+        "$ref": "#/components/schemas/ChangeTransaction"
+      }
+    }
+  }
+}

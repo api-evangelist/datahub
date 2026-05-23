@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AspectValue",
+  "title": "AspectValue",
+  "type": "object",
+  "description": "The value of an aspect including its content and metadata.",
+  "properties": {
+    "value": {
+      "type": "object",
+      "description": "The aspect payload following its PDL schema definition."
+    },
+    "contentType": {
+      "type": "string",
+      "description": "The content type of the aspect value, typically application/json.",
+      "example": "application/json"
+    },
+    "created": {
+      "$ref": "#/components/schemas/AuditStamp"
+    }
+  }
+}

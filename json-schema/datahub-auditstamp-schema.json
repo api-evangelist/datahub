@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AuditStamp",
+  "title": "AuditStamp",
+  "type": "object",
+  "description": "An audit stamp recording who made a change and when.",
+  "properties": {
+    "time": {
+      "type": "integer",
+      "format": "int64",
+      "description": "The timestamp of the change in epoch milliseconds."
+    },
+    "actor": {
+      "type": "string",
+      "description": "The URN of the actor who made the change.",
+      "example": "urn:li:corpuser:datahub"
+    }
+  }
+}

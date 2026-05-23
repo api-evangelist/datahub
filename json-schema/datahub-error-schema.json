@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Error",
+  "title": "Error",
+  "type": "object",
+  "description": "An error response from the DataHub API.",
+  "properties": {
+    "message": {
+      "type": "string",
+      "description": "A human-readable description of the error."
+    },
+    "status": {
+      "type": "integer",
+      "description": "The HTTP status code."
+    },
+    "exceptionClass": {
+      "type": "string",
+      "description": "The exception class name if applicable."
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/MetadataChangeProposal",
+  "title": "MetadataChangeProposal",
+  "type": "object",
+  "description": "A metadata change proposal (MCP) representing a proposed change to the metadata graph. MCPs are the standard format for ingesting metadata into DataHub and are processed asynchronously.",
+  "required": [
+    "entityUrn",
+    "entityType",
+    "aspectName",
+    "changeType",
+    "aspect"
+  ],
+  "properties": {
+    "entityUrn": {
+      "type": "string",
+      "description": "The unique URN identifier for the target entity.",
+      "example": "urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)"
+    },
+    "entityType": {
+      "type": "string",
+      "description": "The type of the target entity.",
+      "example": "dataset"
+    },
+    "aspectName": {
+      "type": "string",
+      "description": "The name of the aspect being changed.",
+      "example": "datasetProperties"
+    },
+    "changeType": {
+      "type": "string",
+      "description": "The type of change being proposed.",
+      "enum": [
+        "UPSERT",
+        "CREATE",
+        "DELETE",
+        "RESTATE"
+      ]
+    },
+    "aspect": {
+      "type": "object",
+      "description": "The new aspect value following its PDL schema definition."
+    },
+    "systemMetadata": {
+      "$ref": "#/components/schemas/SystemMetadata"
+    }
+  }
+}

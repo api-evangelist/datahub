@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SystemMetadata",
+  "title": "SystemMetadata",
+  "type": "object",
+  "description": "System-level metadata associated with a metadata change, including ingestion run identifiers and provenance information.",
+  "properties": {
+    "runId": {
+      "type": "string",
+      "description": "The identifier of the ingestion run that produced this change."
+    },
+    "lastObserved": {
+      "type": "integer",
+      "format": "int64",
+      "description": "The timestamp when this metadata was last observed in epoch milliseconds."
+    },
+    "registryName": {
+      "type": "string",
+      "description": "The name of the model registry associated with this change."
+    },
+    "registryVersion": {
+      "type": "string",
+      "description": "The version of the model registry."
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/EntityAspectResponse",
+  "title": "EntityAspectResponse",
+  "type": "object",
+  "description": "A response containing an entity and its requested aspects from the DataHub metadata graph.",
+  "properties": {
+    "entityUrn": {
+      "type": "string",
+      "description": "The unique URN identifier for the entity.",
+      "example": "urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)"
+    },
+    "entityType": {
+      "type": "string",
+      "description": "The type of the entity.",
+      "example": "dataset"
+    },
+    "aspects": {
+      "type": "object",
+      "description": "A map of aspect names to their values for the requested entity.",
+      "additionalProperties": {
+        "$ref": "#/components/schemas/AspectValue"
+      }
+    }
+  }
+}

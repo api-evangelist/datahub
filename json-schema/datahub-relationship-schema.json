@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Relationship",
+  "title": "Relationship",
+  "type": "object",
+  "description": "A named edge connecting two entities in the metadata graph.",
+  "properties": {
+    "type": {
+      "type": "string",
+      "description": "The relationship type name, such as OwnedBy, Contains, DownstreamOf, or Produces.",
+      "example": "DownstreamOf"
+    },
+    "entity": {
+      "type": "string",
+      "description": "The URN of the related entity.",
+      "example": "urn:li:dataset:(urn:li:dataPlatform:hive,OtherDataset,PROD)"
+    },
+    "direction": {
+      "type": "string",
+      "description": "The traversal direction of this relationship.",
+      "enum": [
+        "INCOMING",
+        "OUTGOING"
+      ]
+    }
+  }
+}

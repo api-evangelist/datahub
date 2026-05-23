@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ChangeTransaction",
+  "title": "ChangeTransaction",
+  "type": "object",
+  "description": "A single change transaction in the entity's timeline representing one or more aspect modifications at a specific point in time.",
+  "properties": {
+    "timestamp": {
+      "type": "integer",
+      "format": "int64",
+      "description": "The timestamp of the change in epoch milliseconds."
+    },
+    "semVer": {
+      "type": "string",
+      "description": "The semantic version assigned to this change."
+    },
+    "versionStamp": {
+      "type": "string",
+      "description": "A version stamp uniquely identifying this change."
+    },
+    "changeEvents": {
+      "type": "array",
+      "description": "The individual change events within this transaction.",
+      "items": {
+        "$ref": "#/components/schemas/ChangeEvent"
+      }
+    }
+  }
+}

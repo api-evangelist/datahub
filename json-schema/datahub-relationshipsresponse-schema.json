@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/RelationshipsResponse",
+  "title": "RelationshipsResponse",
+  "type": "object",
+  "description": "Response containing relationships for a queried entity.",
+  "properties": {
+    "start": {
+      "type": "integer",
+      "description": "The pagination offset of the result set."
+    },
+    "count": {
+      "type": "integer",
+      "description": "The number of relationships returned."
+    },
+    "total": {
+      "type": "integer",
+      "description": "The total number of matching relationships."
+    },
+    "relationships": {
+      "type": "array",
+      "description": "The list of relationships matching the query.",
+      "items": {
+        "$ref": "#/components/schemas/Relationship"
+      }
+    }
+  }
+}

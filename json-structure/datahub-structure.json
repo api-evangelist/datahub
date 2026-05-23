@@ -1,0 +1,166 @@
+{
+  "provider": "DataHub",
+  "providerId": "datahub",
+  "kind": "json-structure",
+  "description": "Structural overview of the DataHub API surface; extracted from openapi/.",
+  "schemaCount": 13,
+  "operationCount": 7,
+  "schemas": [
+    {
+      "name": "EntityAspectRequest",
+      "type": "object",
+      "propertyCount": 4,
+      "required": [
+        "entityUrn",
+        "entityType",
+        "aspectName",
+        "aspect"
+      ]
+    },
+    {
+      "name": "EntityAspectResponse",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "AspectValue",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "AuditStamp",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "MetadataChangeProposal",
+      "type": "object",
+      "propertyCount": 6,
+      "required": [
+        "entityUrn",
+        "entityType",
+        "aspectName",
+        "changeType",
+        "aspect"
+      ]
+    },
+    {
+      "name": "SystemMetadata",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "RelationshipsResponse",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "Relationship",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "TimelineResponse",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "ChangeTransaction",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "ChangeEvent",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "BatchGetRequest",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "urn"
+      ]
+    },
+    {
+      "name": "Error",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    }
+  ],
+  "operations": [
+    {
+      "method": "POST",
+      "path": "/entities/v1/",
+      "operationId": "upsertEntities",
+      "summary": "DataHub Upsert entity aspects",
+      "tags": [
+        "Entities"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/entities/v1/",
+      "operationId": "deleteEntities",
+      "summary": "DataHub Delete entities",
+      "tags": [
+        "Entities"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/entities/v1/latest",
+      "operationId": "getEntityLatestAspects",
+      "summary": "DataHub Retrieve latest entity aspects",
+      "tags": [
+        "Entities"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/relationships/v1/",
+      "operationId": "getRelationships",
+      "summary": "DataHub Query entity relationships",
+      "tags": [
+        "Relationships"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/timeline/",
+      "operationId": "getTimeline",
+      "summary": "DataHub Query entity timeline",
+      "tags": [
+        "Timeline"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/platform/entities/v1",
+      "operationId": "emitPlatformEvents",
+      "summary": "DataHub Emit platform metadata events",
+      "tags": [
+        "Platform"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v3/entity/{entityName}/batchGet",
+      "operationId": "batchGetEntities",
+      "summary": "DataHub Batch fetch entities",
+      "tags": [
+        "Batch"
+      ]
+    }
+  ]
+}

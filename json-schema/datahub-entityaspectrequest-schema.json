@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/EntityAspectRequest",
+  "title": "EntityAspectRequest",
+  "type": "object",
+  "description": "A request to upsert an entity-aspect pair in the DataHub metadata graph. Contains the entity URN, entity type, aspect name, and the aspect value to write.",
+  "required": [
+    "entityUrn",
+    "entityType",
+    "aspectName",
+    "aspect"
+  ],
+  "properties": {
+    "entityUrn": {
+      "type": "string",
+      "description": "The unique URN identifier for the entity being modified.",
+      "example": "urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)"
+    },
+    "entityType": {
+      "type": "string",
+      "description": "The type of the entity being modified, such as dataset, chart, dashboard, dataFlow, or dataJob.",
+      "example": "dataset"
+    },
+    "aspectName": {
+      "type": "string",
+      "description": "The name of the aspect being written, such as datasetProperties, schemaMetadata, ownership, or globalTags.",
+      "example": "datasetProperties"
+    },
+    "aspect": {
+      "type": "object",
+      "description": "The aspect value to write. The structure varies depending on the aspect name and follows the PDL schema definitions in the DataHub metadata models."
+    }
+  }
+}

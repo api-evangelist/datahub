@@ -2,13 +2,14 @@
   "repo": "datahub",
   "feeds": [
     {
-      "source": "https://datahub.com/blog/",
-      "feed_url": "https://datahub.com/blog/feed/",
-      "title": "DataHub",
-      "saved": 0,
-      "last_error": "req_err:SSLError"
+      "source": "https://datahub.com/blog/feed/",
+      "error": "URLError"
+    },
+    {
+      "source": "https://slack.datahubproject.io",
+      "error": "URLError"
     }
   ],
-  "fetched": "2026-05-17T20:20:35Z",
+  "fetched": "2026-06-01T23:35:02Z",
   "post_count": 12
 }

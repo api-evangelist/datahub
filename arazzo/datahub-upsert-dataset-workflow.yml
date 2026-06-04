@@ -1,0 +1,89 @@
+arazzo: 1.0.1
+info:
+  title: DataHub Upsert Dataset and Verify
+  summary: Write a dataset's properties aspect into the metadata graph, then read the entity back to confirm the write landed.
+  description: >-
+    A foundational catalog ingestion pattern for DataHub. The workflow upserts a
+    dataset entity by writing its datasetProperties aspect through the OpenAPI
+    entities endpoint, then immediately retrieves the latest aspects for the same
+    URN to confirm the entity now exists in the metadata graph. Every step spells
+    out its request inline so the flow can be read and executed without opening
+    the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: datahubApi
+  url: ../openapi/datahub-openapi-openapi.yml
+  type: openapi
+workflows:
+- workflowId: upsert-dataset
+  summary: Create or update a dataset's datasetProperties aspect and read it back.
+  description: >-
+    Writes the datasetProperties aspect for a dataset URN and then fetches the
+    latest aspects for that same URN to verify the entity is present.
+  inputs:
+    type: object
+    required:
+    - token
+    - entityUrn
+    - datasetProperties
+    properties:
+      token:
+        type: string
+        description: DataHub personal access token passed as a Bearer token.
+      entityUrn:
+        type: string
+        description: The dataset URN to upsert (e.g. urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)).
+      datasetProperties:
+        type: object
+        description: The datasetProperties aspect value to write for the dataset.
+      createEntityIfNotExists:
+        type: boolean
+        description: When true, only create the entity if it does not already exist.
+  steps:
+  - stepId: writeDataset
+    description: >-
+      Upsert the datasetProperties aspect for the supplied dataset URN into the
+      DataHub metadata graph.
+    operationId: upsertEntities
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.token
+    - name: createEntityIfNotExists
+      in: query
+      value: $inputs.createEntityIfNotExists
+    requestBody:
+      contentType: application/json
+      payload:
+      - entityUrn: $inputs.entityUrn
+        entityType: dataset
+        aspectName: datasetProperties
+        aspect: $inputs.datasetProperties
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      writtenUrn: $response.body#/0/entityUrn
+  - stepId: readDataset
+    description: >-
+      Retrieve the latest aspects for the dataset URN that was just written to
+      confirm the entity exists in the metadata graph.
+    operationId: getEntityLatestAspects
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.token
+    - name: urns
+      in: query
+      value: $steps.writeDataset.outputs.writtenUrn
+    - name: aspectNames
+      in: query
+      value:
+      - datasetProperties
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      entityUrn: $response.body#/0/entityUrn
+      aspects: $response.body#/0/aspects
+  outputs:
+    entityUrn: $steps.readDataset.outputs.entityUrn
+    aspects: $steps.readDataset.outputs.aspects

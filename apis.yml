@@ -169,6 +169,30 @@ apis:
   - type: AsyncAPI
     url: asyncapi/datahub-actions-asyncapi.yml
 common:
+- type: ArazzoWorkflows
+  url: arazzo/
+  workflows:
+  - url: arazzo/datahub-add-glossary-terms-workflow.yml
+    name: DataHub Add Glossary Terms to a Dataset
+    summary: Confirm a dataset, attach glossary terms via its glossaryTerms aspect, then review the change in the entity timeline.
+  - url: arazzo/datahub-assign-ownership-workflow.yml
+    name: DataHub Assign Dataset Ownership
+    summary: Write an ownership aspect onto a dataset, then read it back to verify the owners were recorded.
+  - url: arazzo/datahub-decommission-dataset-workflow.yml
+    name: DataHub Decommission a Dataset
+    summary: Confirm a dataset, check it has no downstream dependents, then soft delete it from the metadata graph.
+  - url: arazzo/datahub-emit-and-audit-workflow.yml
+    name: DataHub Emit Platform Event and Audit
+    summary: Emit a metadata change proposal through the platform ingestion path, then read the entity back and review its timeline.
+  - url: arazzo/datahub-tag-dataset-workflow.yml
+    name: DataHub Tag a Dataset
+    summary: Confirm a dataset exists, then write its globalTags aspect to apply governance tags.
+  - url: arazzo/datahub-trace-lineage-workflow.yml
+    name: DataHub Trace Dataset Lineage
+    summary: Confirm a dataset, query its downstream relationships, then batch fetch the related datasets' aspects.
+  - url: arazzo/datahub-upsert-dataset-workflow.yml
+    name: DataHub Upsert Dataset and Verify
+    summary: Write a dataset's properties aspect into the metadata graph, then read the entity back to confirm the write landed.
 - type: Website
   url: https://datahub.com
 - type: Portal

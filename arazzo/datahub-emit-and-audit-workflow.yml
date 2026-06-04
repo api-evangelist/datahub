@@ -1,0 +1,112 @@
+arazzo: 1.0.1
+info:
+  title: DataHub Emit Platform Event and Audit
+  summary: Emit a metadata change proposal through the platform ingestion path, then read the entity back and review its timeline.
+  description: >-
+    The platform events endpoint offers an asynchronous ingestion path for
+    emitting metadata change proposals into DataHub. This workflow emits an UPSERT
+    metadata change proposal for an entity, retrieves the latest aspects for that
+    entity to observe the result, and queries the entity timeline to audit the
+    change that was proposed. Every step spells out its request inline so the flow
+    can be read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: datahubApi
+  url: ../openapi/datahub-openapi-openapi.yml
+  type: openapi
+workflows:
+- workflowId: emit-and-audit
+  summary: Emit an MCP, read the entity back, and audit the change in its timeline.
+  description: >-
+    Emits an UPSERT metadata change proposal for an entity, fetches its latest
+    aspects, and reviews the entity timeline to audit the recorded change.
+  inputs:
+    type: object
+    required:
+    - token
+    - entityUrn
+    - entityType
+    - aspectName
+    - aspect
+    properties:
+      token:
+        type: string
+        description: DataHub personal access token passed as a Bearer token.
+      entityUrn:
+        type: string
+        description: The URN of the entity the metadata change proposal targets.
+      entityType:
+        type: string
+        description: The type of the target entity (e.g. dataset).
+      aspectName:
+        type: string
+        description: The name of the aspect being changed (e.g. datasetProperties).
+      aspect:
+        type: object
+        description: The new aspect value to propose.
+  steps:
+  - stepId: emitEvent
+    description: >-
+      Emit an UPSERT metadata change proposal for the target entity through the
+      platform ingestion path.
+    operationId: emitPlatformEvents
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.token
+    requestBody:
+      contentType: application/json
+      payload:
+      - entityUrn: $inputs.entityUrn
+        entityType: $inputs.entityType
+        aspectName: $inputs.aspectName
+        changeType: UPSERT
+        aspect: $inputs.aspect
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      emitStatus: $statusCode
+  - stepId: readEntity
+    description: >-
+      Retrieve the latest aspects for the target entity to observe the result
+      of the emitted change proposal.
+    operationId: getEntityLatestAspects
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.token
+    - name: urns
+      in: query
+      value: $inputs.entityUrn
+    - name: aspectNames
+      in: query
+      value:
+      - $inputs.aspectName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      entityUrn: $response.body#/0/entityUrn
+      aspects: $response.body#/0/aspects
+  - stepId: auditTimeline
+    description: >-
+      Query the entity timeline for the changed aspect to audit the recorded
+      change transaction.
+    operationId: getTimeline
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.token
+    - name: urn
+      in: query
+      value: $inputs.entityUrn
+    - name: aspectNames
+      in: query
+      value:
+      - $inputs.aspectName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      changeTransactions: $response.body#/changeTransactions
+  outputs:
+    aspects: $steps.readEntity.outputs.aspects
+    changeTransactions: $steps.auditTimeline.outputs.changeTransactions

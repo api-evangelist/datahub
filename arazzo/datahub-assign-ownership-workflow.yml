@@ -1,0 +1,83 @@
+arazzo: 1.0.1
+info:
+  title: DataHub Assign Dataset Ownership
+  summary: Write an ownership aspect onto a dataset, then read it back to verify the owners were recorded.
+  description: >-
+    Establishing accountability is a core governance activity in DataHub. This
+    workflow upserts the ownership aspect for a dataset URN to record one or more
+    owners, then retrieves the latest ownership aspect for the same URN to confirm
+    the assignment took effect. Every step spells out its request inline so the
+    flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: datahubApi
+  url: ../openapi/datahub-openapi-openapi.yml
+  type: openapi
+workflows:
+- workflowId: assign-ownership
+  summary: Set the ownership aspect on a dataset and verify the recorded owners.
+  description: >-
+    Writes the ownership aspect for a dataset URN, then reads the latest
+    ownership aspect back to confirm the owners were persisted.
+  inputs:
+    type: object
+    required:
+    - token
+    - entityUrn
+    - ownership
+    properties:
+      token:
+        type: string
+        description: DataHub personal access token passed as a Bearer token.
+      entityUrn:
+        type: string
+        description: The dataset URN to assign ownership to.
+      ownership:
+        type: object
+        description: The ownership aspect value listing owners and their ownership types.
+  steps:
+  - stepId: writeOwnership
+    description: >-
+      Upsert the ownership aspect for the dataset URN to record the supplied
+      owners in the metadata graph.
+    operationId: upsertEntities
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.token
+    requestBody:
+      contentType: application/json
+      payload:
+      - entityUrn: $inputs.entityUrn
+        entityType: dataset
+        aspectName: ownership
+        aspect: $inputs.ownership
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      ownedUrn: $response.body#/0/entityUrn
+  - stepId: verifyOwnership
+    description: >-
+      Retrieve the latest ownership aspect for the dataset URN to confirm the
+      owners were persisted.
+    operationId: getEntityLatestAspects
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.token
+    - name: urns
+      in: query
+      value: $steps.writeOwnership.outputs.ownedUrn
+    - name: aspectNames
+      in: query
+      value:
+      - ownership
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      entityUrn: $response.body#/0/entityUrn
+      aspects: $response.body#/0/aspects
+  outputs:
+    entityUrn: $steps.verifyOwnership.outputs.entityUrn
+    aspects: $steps.verifyOwnership.outputs.aspects

@@ -1,0 +1,112 @@
+arazzo: 1.0.1
+info:
+  title: DataHub Decommission a Dataset
+  summary: Confirm a dataset, check it has no downstream dependents, then soft delete it from the metadata graph.
+  description: >-
+    Safely retiring a dataset requires checking that nothing depends on it
+    first. This workflow confirms the dataset exists, queries the relationship
+    graph for outgoing DownstreamOf edges to detect any downstream dependents,
+    and branches: when downstream dependents are found it stops, and when none are
+    found it performs a soft delete that marks the entity as removed while
+    preserving its metadata. Every step spells out its request inline so the flow
+    can be read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: datahubApi
+  url: ../openapi/datahub-openapi-openapi.yml
+  type: openapi
+workflows:
+- workflowId: decommission-dataset
+  summary: Soft delete a dataset only when it has no downstream dependents.
+  description: >-
+    Confirms a dataset exists, checks its DownstreamOf relationships, and soft
+    deletes the entity only when no downstream dependents are present.
+  inputs:
+    type: object
+    required:
+    - token
+    - entityUrn
+    properties:
+      token:
+        type: string
+        description: DataHub personal access token passed as a Bearer token.
+      entityUrn:
+        type: string
+        description: The dataset URN to decommission.
+  steps:
+  - stepId: confirmDataset
+    description: >-
+      Retrieve the latest aspects for the dataset URN to confirm the entity
+      exists before attempting to decommission it.
+    operationId: getEntityLatestAspects
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.token
+    - name: urns
+      in: query
+      value: $inputs.entityUrn
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      confirmedUrn: $response.body#/0/entityUrn
+  - stepId: checkDependents
+    description: >-
+      Query the relationship graph for outgoing DownstreamOf edges to detect
+      any datasets that depend on this one before deleting it.
+    operationId: getRelationships
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.token
+    - name: urn
+      in: query
+      value: $steps.confirmDataset.outputs.confirmedUrn
+    - name: relationshipTypes
+      in: query
+      value:
+      - DownstreamOf
+    - name: direction
+      in: query
+      value: OUTGOING
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      total: $response.body#/total
+    onSuccess:
+    - name: noDependents
+      type: goto
+      stepId: softDelete
+      criteria:
+      - context: $response.body
+        condition: $.relationships.length == 0
+        type: jsonpath
+    - name: hasDependents
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.relationships.length > 0
+        type: jsonpath
+  - stepId: softDelete
+    description: >-
+      Soft delete the dataset, marking the entity as removed while preserving
+      its metadata, since no downstream dependents were found.
+    operationId: deleteEntities
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.token
+    - name: urns
+      in: query
+      value:
+      - $inputs.entityUrn
+    - name: soft
+      in: query
+      value: true
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      deleteStatus: $statusCode
+  outputs:
+    dependentCount: $steps.checkDependents.outputs.total
+    deleteStatus: $steps.softDelete.outputs.deleteStatus

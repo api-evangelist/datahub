@@ -1,0 +1,108 @@
+arazzo: 1.0.1
+info:
+  title: DataHub Add Glossary Terms to a Dataset
+  summary: Confirm a dataset, attach glossary terms via its glossaryTerms aspect, then review the change in the entity timeline.
+  description: >-
+    Linking datasets to a business glossary is a key semantic-layer workflow in
+    DataHub. The flow first reads the latest aspects for the target dataset to
+    confirm it exists, then upserts the glossaryTerms aspect to attach one or more
+    glossary term associations, and finally queries the entity timeline to surface
+    the glossaryTerms change that was just recorded. Every step spells out its
+    request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: datahubApi
+  url: ../openapi/datahub-openapi-openapi.yml
+  type: openapi
+workflows:
+- workflowId: add-glossary-terms
+  summary: Attach glossary terms to a dataset and confirm the change in its timeline.
+  description: >-
+    Verifies a dataset exists, writes the glossaryTerms aspect to associate
+    business terms with it, then reads the entity timeline to confirm the change
+    landed.
+  inputs:
+    type: object
+    required:
+    - token
+    - entityUrn
+    - glossaryTerms
+    properties:
+      token:
+        type: string
+        description: DataHub personal access token passed as a Bearer token.
+      entityUrn:
+        type: string
+        description: The dataset URN to attach glossary terms to.
+      glossaryTerms:
+        type: object
+        description: The glossaryTerms aspect value listing the glossary term associations.
+  steps:
+  - stepId: confirmEntity
+    description: >-
+      Retrieve the latest aspects for the dataset URN to confirm the entity
+      exists before attaching glossary terms.
+    operationId: getEntityLatestAspects
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.token
+    - name: urns
+      in: query
+      value: $inputs.entityUrn
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      confirmedUrn: $response.body#/0/entityUrn
+    onSuccess:
+    - name: entityExists
+      type: goto
+      stepId: attachTerms
+      criteria:
+      - context: $response.body
+        condition: $.length > 0
+        type: jsonpath
+  - stepId: attachTerms
+    description: >-
+      Upsert the glossaryTerms aspect for the dataset URN to associate the
+      supplied business glossary terms with the dataset.
+    operationId: upsertEntities
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.token
+    requestBody:
+      contentType: application/json
+      payload:
+      - entityUrn: $steps.confirmEntity.outputs.confirmedUrn
+        entityType: dataset
+        aspectName: glossaryTerms
+        aspect: $inputs.glossaryTerms
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      termedUrn: $response.body#/0/entityUrn
+  - stepId: reviewTimeline
+    description: >-
+      Query the entity timeline for the glossaryTerms aspect to confirm the
+      term association was recorded.
+    operationId: getTimeline
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.token
+    - name: urn
+      in: query
+      value: $steps.attachTerms.outputs.termedUrn
+    - name: aspectNames
+      in: query
+      value:
+      - glossaryTerms
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      changeTransactions: $response.body#/changeTransactions
+  outputs:
+    termedUrn: $steps.attachTerms.outputs.termedUrn
+    changeTransactions: $steps.reviewTimeline.outputs.changeTransactions

@@ -1,0 +1,114 @@
+arazzo: 1.0.1
+info:
+  title: DataHub Trace Dataset Lineage
+  summary: Confirm a dataset, query its downstream relationships, then batch fetch the related datasets' aspects.
+  description: >-
+    Lineage discovery is one of the highest-value uses of the DataHub metadata
+    graph. This workflow confirms a starting dataset exists, queries the
+    relationship graph for its outgoing DownstreamOf edges to find the datasets
+    that depend on it, and then batch fetches the latest aspects for those
+    downstream datasets to enrich the lineage view. Every step spells out its
+    request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: datahubApi
+  url: ../openapi/datahub-openapi-openapi.yml
+  type: openapi
+workflows:
+- workflowId: trace-lineage
+  summary: Walk downstream lineage from a dataset and hydrate the related entities.
+  description: >-
+    Confirms a dataset exists, queries its DownstreamOf relationships, and batch
+    fetches the aspects of the first downstream dataset discovered.
+  inputs:
+    type: object
+    required:
+    - token
+    - entityUrn
+    properties:
+      token:
+        type: string
+        description: DataHub personal access token passed as a Bearer token.
+      entityUrn:
+        type: string
+        description: The dataset URN to trace lineage from.
+      direction:
+        type: string
+        description: Traversal direction relative to the entity (INCOMING or OUTGOING).
+        default: OUTGOING
+  steps:
+  - stepId: confirmDataset
+    description: >-
+      Retrieve the latest aspects for the dataset URN to confirm the entity
+      exists before walking its lineage.
+    operationId: getEntityLatestAspects
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.token
+    - name: urns
+      in: query
+      value: $inputs.entityUrn
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      confirmedUrn: $response.body#/0/entityUrn
+  - stepId: queryDownstream
+    description: >-
+      Query the relationship graph for DownstreamOf edges from the dataset URN
+      to discover datasets that depend on it.
+    operationId: getRelationships
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.token
+    - name: urn
+      in: query
+      value: $steps.confirmDataset.outputs.confirmedUrn
+    - name: relationshipTypes
+      in: query
+      value:
+      - DownstreamOf
+    - name: direction
+      in: query
+      value: $inputs.direction
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      relationships: $response.body#/relationships
+      firstRelatedUrn: $response.body#/relationships/0/entity
+    onSuccess:
+    - name: hasDownstream
+      type: goto
+      stepId: hydrateRelated
+      criteria:
+      - context: $response.body
+        condition: $.relationships.length > 0
+        type: jsonpath
+  - stepId: hydrateRelated
+    description: >-
+      Batch fetch the latest aspects for the first downstream dataset discovered
+      to enrich the lineage view.
+    operationId: batchGetEntities
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.token
+    - name: entityName
+      in: path
+      value: dataset
+    requestBody:
+      contentType: application/json
+      payload:
+      - urn: $steps.queryDownstream.outputs.firstRelatedUrn
+        aspectNames:
+        - datasetProperties
+        - ownership
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      relatedEntities: $response.body
+  outputs:
+    relationships: $steps.queryDownstream.outputs.relationships
+    relatedEntities: $steps.hydrateRelated.outputs.relatedEntities

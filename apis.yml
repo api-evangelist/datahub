@@ -1,8 +1,9 @@
 aid: datahub
 name: DataHub
-description: DataHub is LinkedIn's generalized metadata search and discovery platform, providing a unified data catalog, lineage
-  graph, governance tooling, and event-driven Actions Framework. It exposes GraphQL, OpenAPI, and Rest.li APIs along with
-  Python and Java SDKs and a CLI for metadata ingestion.
+description: >-
+  DataHub is LinkedIn's generalized metadata search and discovery platform, providing a unified data catalog, lineage
+  graph, governance tooling, and event-driven Actions Framework. It exposes GraphQL, OpenAPI, and Rest.li APIs along
+  with Python and Java SDKs and a CLI for metadata ingestion.
 image: https://datahubproject.io/img/datahub-logo.svg
 type: Index
 tags:
@@ -21,8 +22,9 @@ access: 3rd-Party
 apis:
 - aid: datahub:datahub-graphql-api
   name: DataHub GraphQL API
-  description: Primary API for querying and mutating metadata in DataHub. The GraphQL API serves as the main public API for
-    the platform and can be used to fetch and update metadata programmatically in the language of your choice. It mirrors
+  description: >-
+    Primary API for querying and mutating metadata in DataHub. The GraphQL API serves as the main public API for the
+    platform and can be used to fetch and update metadata programmatically in the language of your choice. It mirrors
     the capabilities available in the DataHub UI.
   image: https://datahubproject.io/img/datahub-logo.svg
   humanURL: https://docs.datahub.com/docs/api/graphql/overview
@@ -41,12 +43,15 @@ apis:
     url: https://docs.datahub.com/docs/graphql/queries
   - type: Playground
     url: http://localhost:8080/api/graphiql
+  - url: graphql/datahub-graphql.md
+    type: GraphQL
 - aid: datahub:datahub-openapi
   name: DataHub OpenAPI
-  description: RESTful API endpoints documented using the OpenAPI standard for interacting with DataHub metadata. Provides
-    endpoints for entities, relationships, timeline, and platform events. The OpenAPI spec is auto-generated and available
-    via Swagger UI for interactive exploration. Recommended for advanced users who need lower-level access to the metadata
-    graph.
+  description: >-
+    RESTful API endpoints documented using the OpenAPI standard for interacting with DataHub metadata. Provides
+    endpoints for entities, relationships, timeline, and platform events. The OpenAPI spec is auto-generated and
+    available via Swagger UI for interactive exploration. Recommended for advanced users who need lower-level access
+    to the metadata graph.
   image: https://datahubproject.io/img/datahub-logo.svg
   humanURL: https://docs.datahub.com/docs/api/openapi/openapi-usage-guide
   baseURL: http://localhost:8080/openapi/
@@ -62,21 +67,12 @@ apis:
     url: openapi/datahub-openapi-openapi.yml
   - type: JSONSchema
     url: json-schema/datahub-metadata-change-log-event-schema.json
-  - type: NaftikoCapability
-    url: capabilities/openapi-batch.yaml
-  - type: NaftikoCapability
-    url: capabilities/openapi-entities.yaml
-  - type: NaftikoCapability
-    url: capabilities/openapi-platform.yaml
-  - type: NaftikoCapability
-    url: capabilities/openapi-relationships.yaml
-  - type: NaftikoCapability
-    url: capabilities/openapi-timeline.yaml
 - aid: datahub:datahub-rest-api
   name: DataHub REST API
-  description: The Rest.li API represents the underlying persistence layer and exposes the raw PDL models used in storage.
-    It powers the GraphQL API under the hood and is used for system-specific ingestion of metadata by the Metadata Ingestion
-    Framework. This API is considered system-internal and is not recommended for direct external use.
+  description: >-
+    The Rest.li API represents the underlying persistence layer and exposes the raw PDL models used in storage. It
+    powers the GraphQL API under the hood and is used for system-specific ingestion of metadata by the Metadata
+    Ingestion Framework. This API is considered system-internal and is not recommended for direct external use.
   image: https://datahubproject.io/img/datahub-logo.svg
   humanURL: https://docs.datahub.com/docs/api/datahub-apis
   baseURL: http://localhost:8080/
@@ -90,9 +86,10 @@ apis:
     url: https://docs.datahub.com/docs/api/datahub-apis
 - aid: datahub:datahub-python-sdk
   name: DataHub Python SDK
-  description: Python client for interacting with DataHub. The acryl-datahub package provides a CLI and SDK for DataHub, including
-    REST and Kafka emitter APIs for pushing metadata programmatically. It is one of the most recommended tools for extending
-    and customizing DataHub behavior, especially for ingestion and bulk metadata operations.
+  description: >-
+    Python client for interacting with DataHub. The acryl-datahub package provides a CLI and SDK for DataHub,
+    including REST and Kafka emitter APIs for pushing metadata programmatically. It is one of the most recommended
+    tools for extending and customizing DataHub behavior, especially for ingestion and bulk metadata operations.
   image: https://datahubproject.io/img/datahub-logo.svg
   humanURL: https://docs.datahub.com/docs/metadata-ingestion/as-a-library
   baseURL: https://pypi.org/project/acryl-datahub/
@@ -110,8 +107,9 @@ apis:
     url: https://pypi.org/project/acryl-datahub/
 - aid: datahub:datahub-java-sdk
   name: DataHub Java SDK
-  description: Java client for interacting with DataHub. The io.acryl datahub-client package offers REST emitter APIs that
-    can be used to emit metadata from JVM-based systems. It supports all major DataHub entity types including Dataset, Chart,
+  description: >-
+    Java client for interacting with DataHub. The io.acryl datahub-client package offers REST emitter APIs that can be
+    used to emit metadata from JVM-based systems. It supports all major DataHub entity types including Dataset, Chart,
     Dashboard, Container, DataFlow, DataJob, MLModel, and MLModelGroup.
   image: https://datahubproject.io/img/datahub-logo.svg
   humanURL: https://docs.datahub.com/docs/metadata-integration/java/as-a-library
@@ -128,9 +126,10 @@ apis:
     url: https://github.com/datahub-project/datahub
 - aid: datahub:datahub-cli
   name: DataHub CLI
-  description: Command line tool for interacting with DataHub. The datahub CLI allows you to perform common operations including
-    metadata ingestion, entity management, and system administration from the command line. It is installed as part of the
-    acryl-datahub Python package and supports a plugin architecture for different data source connectors.
+  description: >-
+    Command line tool for interacting with DataHub. The datahub CLI allows you to perform common operations including
+    metadata ingestion, entity management, and system administration from the command line. It is installed as part of
+    the acryl-datahub Python package and supports a plugin architecture for different data source connectors.
   image: https://datahubproject.io/img/datahub-logo.svg
   humanURL: https://docs.datahub.com/docs/cli
   baseURL: https://pypi.org/project/acryl-datahub/
@@ -148,9 +147,11 @@ apis:
     url: https://pypi.org/project/acryl-datahub/
 - aid: datahub:datahub-actions-framework
   name: DataHub Actions Framework
-  description: Event-driven framework for responding to real-time changes in the DataHub metadata graph. The Actions Framework
-    allows you to configure event sources, transformations, and actions using YAML configuration files. It enables seamless
-    integration of DataHub into a broader event-based architecture by consuming Metadata Change Logs and Platform Events.
+  description: >-
+    Event-driven framework for responding to real-time changes in the DataHub metadata graph. The Actions Framework
+    allows you to configure event sources, transformations, and actions using YAML configuration files. It enables
+    seamless integration of DataHub into a broader event-based architecture by consuming Metadata Change Logs and
+    Platform Events.
   image: https://datahubproject.io/img/datahub-logo.svg
   humanURL: https://docs.datahub.com/docs/actions
   baseURL: https://pypi.org/project/acryl-datahub-actions/
@@ -169,12 +170,16 @@ apis:
   - type: AsyncAPI
     url: asyncapi/datahub-actions-asyncapi.yml
 common:
+- type: PostmanWorkspace
+  url: https://www.postman.com/kinlaneapi/datahub/overview
 - type: ArazzoWorkflows
   url: arazzo/
   workflows:
   - url: arazzo/datahub-add-glossary-terms-workflow.yml
     name: DataHub Add Glossary Terms to a Dataset
-    summary: Confirm a dataset, attach glossary terms via its glossaryTerms aspect, then review the change in the entity timeline.
+    summary: >-
+      Confirm a dataset, attach glossary terms via its glossaryTerms aspect, then review the change in the entity
+      timeline.
   - url: arazzo/datahub-assign-ownership-workflow.yml
     name: DataHub Assign Dataset Ownership
     summary: Write an ownership aspect onto a dataset, then read it back to verify the owners were recorded.
@@ -183,7 +188,9 @@ common:
     summary: Confirm a dataset, check it has no downstream dependents, then soft delete it from the metadata graph.
   - url: arazzo/datahub-emit-and-audit-workflow.yml
     name: DataHub Emit Platform Event and Audit
-    summary: Emit a metadata change proposal through the platform ingestion path, then read the entity back and review its timeline.
+    summary: >-
+      Emit a metadata change proposal through the platform ingestion path, then read the entity back and review its
+      timeline.
   - url: arazzo/datahub-tag-dataset-workflow.yml
     name: DataHub Tag a Dataset
     summary: Confirm a dataset exists, then write its globalTags aspect to apply governance tags.
@@ -192,7 +199,9 @@ common:
     summary: Confirm a dataset, query its downstream relationships, then batch fetch the related datasets' aspects.
   - url: arazzo/datahub-upsert-dataset-workflow.yml
     name: DataHub Upsert Dataset and Verify
-    summary: Write a dataset's properties aspect into the metadata graph, then read the entity back to confirm the write landed.
+    summary: >-
+      Write a dataset's properties aspect into the metadata graph, then read the entity back to confirm the write
+      landed.
 - type: Website
   url: https://datahub.com
 - type: Portal

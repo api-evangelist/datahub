@@ -1,0 +1,1955 @@
+{
+  "item": [
+    {
+      "id": "9064a07f-d97b-4230-b267-a1683b876f98",
+      "name": "Batch",
+      "description": {
+        "content": "Batch operations for fetching multiple entities and their aspects in a single request. Supports version-specific retrieval and conditional writes.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c8c06501-2222-479f-a2ff-6ce5fe263301",
+          "name": "DataHub Batch fetch entities",
+          "request": {
+            "name": "DataHub Batch fetch entities",
+            "description": {
+              "content": "Fetch multiple entities and their aspects in a single request. Supports retrieving specific aspect versions using the If-Version-Match header for conditional reads. Allows fetching entities in bulk with fine-grained control over which aspects and versions are returned.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "entity",
+                ":entityName",
+                "batchGet"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "entityName",
+                  "description": "(Required) The type name of the entities to fetch, such as dataset, chart, dashboard, dataFlow, dataJob, or corpUser."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"urn\": \"<string>\",\n    \"aspectNames\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  {\n    \"urn\": \"<string>\",\n    \"aspectNames\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fdb4f349-7f95-4aa1-916d-bbd189895049",
+              "name": "Entities fetched successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "entity",
+                    ":entityName",
+                    "batchGet"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entityName",
+                      "description": "(Required) The type name of the entities to fetch, such as dataset, chart, dashboard, dataFlow, dataJob, or corpUser."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"urn\": \"urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)\",\n    \"aspectNames\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  {\n    \"urn\": \"urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)\",\n    \"aspectNames\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"entityUrn\": \"urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)\",\n    \"entityType\": \"dataset\",\n    \"aspects\": {\n      \"key_0\": {\n        \"value\": {},\n        \"contentType\": \"application/json\",\n        \"created\": {\n          \"time\": 7376,\n          \"actor\": \"urn:li:corpuser:datahub\"\n        }\n      },\n      \"key_1\": {\n        \"value\": {},\n        \"contentType\": \"application/json\",\n        \"created\": {\n          \"time\": 8441,\n          \"actor\": \"urn:li:corpuser:datahub\"\n        }\n      }\n    }\n  },\n  {\n    \"entityUrn\": \"urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)\",\n    \"entityType\": \"dataset\",\n    \"aspects\": {\n      \"key_0\": {\n        \"value\": {},\n        \"contentType\": \"application/json\",\n        \"created\": {\n          \"time\": 283,\n          \"actor\": \"urn:li:corpuser:datahub\"\n        }\n      }\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "898b55c4-2efb-4f75-92d9-4f516ce4db00",
+              "name": "Invalid request body or entity name",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "entity",
+                    ":entityName",
+                    "batchGet"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entityName",
+                      "description": "(Required) The type name of the entities to fetch, such as dataset, chart, dashboard, dataFlow, dataJob, or corpUser."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"urn\": \"urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)\",\n    \"aspectNames\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  {\n    \"urn\": \"urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)\",\n    \"aspectNames\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 6105,\n  \"exceptionClass\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eb1c1600-6c8c-4b98-95a8-af751fd0e301",
+              "name": "Authentication required or token is invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "entity",
+                    ":entityName",
+                    "batchGet"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entityName",
+                      "description": "(Required) The type name of the entities to fetch, such as dataset, chart, dashboard, dataFlow, dataJob, or corpUser."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"urn\": \"urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)\",\n    \"aspectNames\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  {\n    \"urn\": \"urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)\",\n    \"aspectNames\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 6105,\n  \"exceptionClass\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "7b2f8349-e902-494b-a615-6d138c09c17d",
+      "name": "Entities",
+      "description": {
+        "content": "Read, write, and delete metadata entities in the DataHub metadata graph. The entities endpoints support upserting entity-aspect pairs, retrieving the latest aspects for a given entity, and performing soft or hard deletes on entities.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "acfaae65-5c44-4b64-8a90-cbfef25dc785",
+          "name": "DataHub Upsert entity aspects",
+          "request": {
+            "name": "DataHub Upsert entity aspects",
+            "description": {
+              "content": "Create or update one or more entity aspects in the DataHub metadata graph. Supports upserting entity-aspect pairs where the entire DataHub metadata model is available for writing. Use the createEntityIfNotExists query parameter to conditionally create entities only if they do not already exist.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "entities",
+                "v1",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "createEntityIfNotExists",
+                  "value": "false",
+                  "description": "When set to true, the entity will only be created if it does not already exist. If the entity already exists, the request is ignored."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"entityUrn\": \"<string>\",\n    \"entityType\": \"<string>\",\n    \"aspectName\": \"<string>\",\n    \"aspect\": \"<object>\"\n  },\n  {\n    \"entityUrn\": \"<string>\",\n    \"entityType\": \"<string>\",\n    \"aspectName\": \"<string>\",\n    \"aspect\": \"<object>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "38343537-e96b-496e-8fb3-7952c96d4a56",
+              "name": "Entities upserted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entities",
+                    "v1",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "createEntityIfNotExists",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"entityUrn\": \"urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)\",\n    \"entityType\": \"dataset\",\n    \"aspectName\": \"datasetProperties\",\n    \"aspect\": {}\n  },\n  {\n    \"entityUrn\": \"urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)\",\n    \"entityType\": \"dataset\",\n    \"aspectName\": \"datasetProperties\",\n    \"aspect\": {}\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"entityUrn\": \"urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)\",\n    \"entityType\": \"dataset\",\n    \"aspects\": {\n      \"key_0\": {\n        \"value\": {},\n        \"contentType\": \"application/json\",\n        \"created\": {\n          \"time\": 7376,\n          \"actor\": \"urn:li:corpuser:datahub\"\n        }\n      },\n      \"key_1\": {\n        \"value\": {},\n        \"contentType\": \"application/json\",\n        \"created\": {\n          \"time\": 8441,\n          \"actor\": \"urn:li:corpuser:datahub\"\n        }\n      }\n    }\n  },\n  {\n    \"entityUrn\": \"urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)\",\n    \"entityType\": \"dataset\",\n    \"aspects\": {\n      \"key_0\": {\n        \"value\": {},\n        \"contentType\": \"application/json\",\n        \"created\": {\n          \"time\": 283,\n          \"actor\": \"urn:li:corpuser:datahub\"\n        }\n      }\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b3715c19-f697-4367-9934-fb6a6c262ae8",
+              "name": "Invalid request body or schema validation failure",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entities",
+                    "v1",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "createEntityIfNotExists",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"entityUrn\": \"urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)\",\n    \"entityType\": \"dataset\",\n    \"aspectName\": \"datasetProperties\",\n    \"aspect\": {}\n  },\n  {\n    \"entityUrn\": \"urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)\",\n    \"entityType\": \"dataset\",\n    \"aspectName\": \"datasetProperties\",\n    \"aspect\": {}\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 6105,\n  \"exceptionClass\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e54fcdd9-45b8-4815-9836-d2671d3c2ac0",
+              "name": "Authentication required or token is invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entities",
+                    "v1",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "createEntityIfNotExists",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"entityUrn\": \"urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)\",\n    \"entityType\": \"dataset\",\n    \"aspectName\": \"datasetProperties\",\n    \"aspect\": {}\n  },\n  {\n    \"entityUrn\": \"urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)\",\n    \"entityType\": \"dataset\",\n    \"aspectName\": \"datasetProperties\",\n    \"aspect\": {}\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 6105,\n  \"exceptionClass\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fe38c330-2f4f-4769-819e-f0c625ebd3ec",
+          "name": "DataHub Delete entities",
+          "request": {
+            "name": "DataHub Delete entities",
+            "description": {
+              "content": "Delete one or more entities from the DataHub metadata graph. Supports both soft deletes (marking entities as removed while preserving metadata) and hard deletes (permanently removing all entity metadata). Soft delete is the default behavior.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "entities",
+                "v1",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "urns",
+                  "value": "<string>",
+                  "description": "(Required) One or more entity URNs to operate on. Only a single entity type may be queried per request. URNs follow the format urn:li:{entityType}:{key}."
+                },
+                {
+                  "disabled": false,
+                  "key": "urns",
+                  "value": "<string>",
+                  "description": "(Required) One or more entity URNs to operate on. Only a single entity type may be queried per request. URNs follow the format urn:li:{entityType}:{key}."
+                },
+                {
+                  "disabled": false,
+                  "key": "soft",
+                  "value": "true",
+                  "description": "Whether to perform a soft delete (marking the entity as removed while preserving metadata) or a hard delete (permanently removing all metadata). Defaults to true (soft delete)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9f08c515-10e1-4b1d-9d64-5a5d89b53b89",
+              "name": "Entities deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entities",
+                    "v1",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "urns",
+                      "value": "urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)"
+                    },
+                    {
+                      "key": "soft",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bde22c92-e983-49c1-9704-4aa7429fa8f0",
+              "name": "Invalid URN format or missing required parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entities",
+                    "v1",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "urns",
+                      "value": "urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)"
+                    },
+                    {
+                      "key": "soft",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 6105,\n  \"exceptionClass\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d8738c8f-d973-4788-b4b4-b0bf7ff64866",
+              "name": "Authentication required or token is invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entities",
+                    "v1",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "urns",
+                      "value": "urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)"
+                    },
+                    {
+                      "key": "soft",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 6105,\n  \"exceptionClass\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "47d3b5ec-2742-4833-8e10-75e2ff64c576",
+              "name": "One or more entities not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entities",
+                    "v1",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "urns",
+                      "value": "urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)"
+                    },
+                    {
+                      "key": "soft",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 6105,\n  \"exceptionClass\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8c469098-39e3-4508-b328-a3c3ec3690a8",
+          "name": "DataHub Retrieve latest entity aspects",
+          "request": {
+            "name": "DataHub Retrieve latest entity aspects",
+            "description": {
+              "content": "Retrieve the latest aspects for one or more entities from the DataHub metadata graph. Requires raw URN strings and supports fetching specific aspects by name. Only a single entity type may be queried per request.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "entities",
+                "v1",
+                "latest"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "urns",
+                  "value": "<string>",
+                  "description": "(Required) One or more entity URNs to operate on. Only a single entity type may be queried per request. URNs follow the format urn:li:{entityType}:{key}."
+                },
+                {
+                  "disabled": false,
+                  "key": "urns",
+                  "value": "<string>",
+                  "description": "(Required) One or more entity URNs to operate on. Only a single entity type may be queried per request. URNs follow the format urn:li:{entityType}:{key}."
+                },
+                {
+                  "disabled": false,
+                  "key": "aspectNames",
+                  "value": "<string>",
+                  "description": "Specific aspect names to retrieve for the requested entities. If not provided, all aspects are returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "aspectNames",
+                  "value": "<string>",
+                  "description": "Specific aspect names to retrieve for the requested entities. If not provided, all aspects are returned."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f16f8666-9fc2-4457-aecc-f7af7f1df5b5",
+              "name": "Entity aspects retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entities",
+                    "v1",
+                    "latest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "urns",
+                      "value": "urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)"
+                    },
+                    {
+                      "key": "aspectNames",
+                      "value": "datasetProperties"
+                    },
+                    {
+                      "key": "aspectNames",
+                      "value": "schemaMetadata"
+                    },
+                    {
+                      "key": "aspectNames",
+                      "value": "ownership"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"entityUrn\": \"urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)\",\n    \"entityType\": \"dataset\",\n    \"aspects\": {\n      \"key_0\": {\n        \"value\": {},\n        \"contentType\": \"application/json\",\n        \"created\": {\n          \"time\": 7376,\n          \"actor\": \"urn:li:corpuser:datahub\"\n        }\n      },\n      \"key_1\": {\n        \"value\": {},\n        \"contentType\": \"application/json\",\n        \"created\": {\n          \"time\": 8441,\n          \"actor\": \"urn:li:corpuser:datahub\"\n        }\n      }\n    }\n  },\n  {\n    \"entityUrn\": \"urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)\",\n    \"entityType\": \"dataset\",\n    \"aspects\": {\n      \"key_0\": {\n        \"value\": {},\n        \"contentType\": \"application/json\",\n        \"created\": {\n          \"time\": 283,\n          \"actor\": \"urn:li:corpuser:datahub\"\n        }\n      }\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "284d2467-ed39-4f0b-816c-3d920609ae26",
+              "name": "Invalid URN format or mixed entity types in a single request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entities",
+                    "v1",
+                    "latest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "urns",
+                      "value": "urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)"
+                    },
+                    {
+                      "key": "aspectNames",
+                      "value": "datasetProperties"
+                    },
+                    {
+                      "key": "aspectNames",
+                      "value": "schemaMetadata"
+                    },
+                    {
+                      "key": "aspectNames",
+                      "value": "ownership"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 6105,\n  \"exceptionClass\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dceefe53-c419-4d8c-a09f-77c87a6a45c9",
+              "name": "Authentication required or token is invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entities",
+                    "v1",
+                    "latest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "urns",
+                      "value": "urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)"
+                    },
+                    {
+                      "key": "aspectNames",
+                      "value": "datasetProperties"
+                    },
+                    {
+                      "key": "aspectNames",
+                      "value": "schemaMetadata"
+                    },
+                    {
+                      "key": "aspectNames",
+                      "value": "ownership"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 6105,\n  \"exceptionClass\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "022963a5-26e6-4d5d-a7b0-32614b30eb7b",
+              "name": "Entity not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "entities",
+                    "v1",
+                    "latest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "urns",
+                      "value": "urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)"
+                    },
+                    {
+                      "key": "aspectNames",
+                      "value": "datasetProperties"
+                    },
+                    {
+                      "key": "aspectNames",
+                      "value": "schemaMetadata"
+                    },
+                    {
+                      "key": "aspectNames",
+                      "value": "ownership"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 6105,\n  \"exceptionClass\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "6eb5317d-aba6-4dc9-92d5-02ce3b134f98",
+      "name": "Platform",
+      "description": {
+        "content": "Write metadata events using the standard platform format. Provides an alternative ingestion path for emitting metadata change proposals to the DataHub metadata graph.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4ad8fe21-86db-44aa-a741-826450f565aa",
+          "name": "DataHub Emit platform metadata events",
+          "request": {
+            "name": "DataHub Emit platform metadata events",
+            "description": {
+              "content": "Write metadata events using the standard platform format. Provides an alternative ingestion path for emitting metadata change proposals (MCPs) to the DataHub metadata graph. Events are processed asynchronously and undergo basic schema validation upon receipt.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "platform",
+                "entities",
+                "v1"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"entityUrn\": \"<string>\",\n    \"entityType\": \"<string>\",\n    \"aspectName\": \"<string>\",\n    \"changeType\": \"<string>\",\n    \"aspect\": \"<object>\",\n    \"systemMetadata\": {\n      \"runId\": \"<string>\",\n      \"lastObserved\": \"<long>\",\n      \"registryName\": \"<string>\",\n      \"registryVersion\": \"<string>\"\n    }\n  },\n  {\n    \"entityUrn\": \"<string>\",\n    \"entityType\": \"<string>\",\n    \"aspectName\": \"<string>\",\n    \"changeType\": \"<string>\",\n    \"aspect\": \"<object>\",\n    \"systemMetadata\": {\n      \"runId\": \"<string>\",\n      \"lastObserved\": \"<long>\",\n      \"registryName\": \"<string>\",\n      \"registryVersion\": \"<string>\"\n    }\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c5dc5aba-4c18-4e10-8102-e2c7a5f937aa",
+              "name": "Platform events accepted for processing",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "platform",
+                    "entities",
+                    "v1"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"entityUrn\": \"urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)\",\n    \"entityType\": \"dataset\",\n    \"aspectName\": \"datasetProperties\",\n    \"changeType\": \"UPSERT\",\n    \"aspect\": {},\n    \"systemMetadata\": {\n      \"runId\": \"string\",\n      \"lastObserved\": 7864,\n      \"registryName\": \"string\",\n      \"registryVersion\": \"string\"\n    }\n  },\n  {\n    \"entityUrn\": \"urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)\",\n    \"entityType\": \"dataset\",\n    \"aspectName\": \"datasetProperties\",\n    \"changeType\": \"RESTATE\",\n    \"aspect\": {},\n    \"systemMetadata\": {\n      \"runId\": \"string\",\n      \"lastObserved\": 8485,\n      \"registryName\": \"string\",\n      \"registryVersion\": \"string\"\n    }\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1727e635-d21c-4a19-819d-6700b8f09256",
+              "name": "Invalid event format or schema validation failure",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "platform",
+                    "entities",
+                    "v1"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"entityUrn\": \"urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)\",\n    \"entityType\": \"dataset\",\n    \"aspectName\": \"datasetProperties\",\n    \"changeType\": \"UPSERT\",\n    \"aspect\": {},\n    \"systemMetadata\": {\n      \"runId\": \"string\",\n      \"lastObserved\": 7864,\n      \"registryName\": \"string\",\n      \"registryVersion\": \"string\"\n    }\n  },\n  {\n    \"entityUrn\": \"urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)\",\n    \"entityType\": \"dataset\",\n    \"aspectName\": \"datasetProperties\",\n    \"changeType\": \"RESTATE\",\n    \"aspect\": {},\n    \"systemMetadata\": {\n      \"runId\": \"string\",\n      \"lastObserved\": 8485,\n      \"registryName\": \"string\",\n      \"registryVersion\": \"string\"\n    }\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 6105,\n  \"exceptionClass\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a4cfabb4-da8d-45f2-b486-0ee716f65eb3",
+              "name": "Authentication required or token is invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "platform",
+                    "entities",
+                    "v1"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"entityUrn\": \"urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)\",\n    \"entityType\": \"dataset\",\n    \"aspectName\": \"datasetProperties\",\n    \"changeType\": \"UPSERT\",\n    \"aspect\": {},\n    \"systemMetadata\": {\n      \"runId\": \"string\",\n      \"lastObserved\": 7864,\n      \"registryName\": \"string\",\n      \"registryVersion\": \"string\"\n    }\n  },\n  {\n    \"entityUrn\": \"urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)\",\n    \"entityType\": \"dataset\",\n    \"aspectName\": \"datasetProperties\",\n    \"changeType\": \"RESTATE\",\n    \"aspect\": {},\n    \"systemMetadata\": {\n      \"runId\": \"string\",\n      \"lastObserved\": 8485,\n      \"registryName\": \"string\",\n      \"registryVersion\": \"string\"\n    }\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 6105,\n  \"exceptionClass\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "3bc60aba-ec20-4e1a-8afc-d074f72ed703",
+      "name": "Relationships",
+      "description": {
+        "content": "Query the relationship graph to navigate connections between entities. Supports filtering by relationship type and traversal direction (incoming or outgoing) from a given entity URN.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b40eadeb-be28-4a00-8542-94636a72d1d0",
+          "name": "DataHub Query entity relationships",
+          "request": {
+            "name": "DataHub Query entity relationships",
+            "description": {
+              "content": "Query the relationship graph to navigate connections between entities. Returns relationships for a given entity URN, with support for filtering by relationship type and traversal direction. Use this endpoint to discover lineage, ownership, containment, and other graph edges.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "relationships",
+                "v1",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "urn",
+                  "value": "<string>",
+                  "description": "(Required) The URN of the target entity to query relationships for."
+                },
+                {
+                  "disabled": false,
+                  "key": "relationshipTypes",
+                  "value": "<string>",
+                  "description": "Filter results to specific relationship types such as OwnedBy, Contains, DownstreamOf, or Produces."
+                },
+                {
+                  "disabled": false,
+                  "key": "relationshipTypes",
+                  "value": "<string>",
+                  "description": "Filter results to specific relationship types such as OwnedBy, Contains, DownstreamOf, or Produces."
+                },
+                {
+                  "disabled": false,
+                  "key": "direction",
+                  "value": "<string>",
+                  "description": "Direction of relationship traversal relative to the target entity."
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "0",
+                  "description": "Pagination offset for the result set."
+                },
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "10",
+                  "description": "Maximum number of relationships to return."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "553184c5-6cb5-4486-94b8-bf5109a93e77",
+              "name": "Relationships retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "relationships",
+                    "v1",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "urn",
+                      "value": "urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)"
+                    },
+                    {
+                      "key": "relationshipTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "relationshipTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "direction",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "0"
+                    },
+                    {
+                      "key": "count",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"start\": 5521,\n  \"count\": 1134,\n  \"total\": 1333,\n  \"relationships\": [\n    {\n      \"type\": \"DownstreamOf\",\n      \"entity\": \"urn:li:dataset:(urn:li:dataPlatform:hive,OtherDataset,PROD)\",\n      \"direction\": \"OUTGOING\"\n    },\n    {\n      \"type\": \"DownstreamOf\",\n      \"entity\": \"urn:li:dataset:(urn:li:dataPlatform:hive,OtherDataset,PROD)\",\n      \"direction\": \"INCOMING\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8e894f1a-22d3-4563-ab87-5b604de456ba",
+              "name": "Invalid URN format or query parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "relationships",
+                    "v1",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "urn",
+                      "value": "urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)"
+                    },
+                    {
+                      "key": "relationshipTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "relationshipTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "direction",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "0"
+                    },
+                    {
+                      "key": "count",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 6105,\n  \"exceptionClass\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "58bcb1fb-2bf2-481f-b7c3-5018cbf86d0d",
+              "name": "Authentication required or token is invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "relationships",
+                    "v1",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "urn",
+                      "value": "urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)"
+                    },
+                    {
+                      "key": "relationshipTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "relationshipTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "direction",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "0"
+                    },
+                    {
+                      "key": "count",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 6105,\n  \"exceptionClass\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "c3f2a27a-ca6b-4016-b9cd-3f839197b859",
+      "name": "Timeline",
+      "description": {
+        "content": "Query the versioned history of entity aspects over time. Useful for tracking schema changes, documentation updates, and other temporal metadata modifications for a given entity.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b9a26a34-9e86-4264-a806-f5f81974e490",
+          "name": "DataHub Query entity timeline",
+          "request": {
+            "name": "DataHub Query entity timeline",
+            "description": {
+              "content": "Query the versioned history of an entity's aspects over time. Useful for tracking changes such as schema modifications, documentation updates, ownership transfers, and tag additions that have occurred on a given entity. Returns a chronological list of aspect versions with timestamps and audit information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "timeline",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "urn",
+                  "value": "<string>",
+                  "description": "(Required) The URN of the entity whose timeline to retrieve."
+                },
+                {
+                  "disabled": false,
+                  "key": "aspectNames",
+                  "value": "<string>",
+                  "description": "The names of aspects to include in the timeline. If not specified, all aspects are returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "aspectNames",
+                  "value": "<string>",
+                  "description": "The names of aspects to include in the timeline. If not specified, all aspects are returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "startTimeMillis",
+                  "value": "<long>",
+                  "description": "Start of the time range in epoch milliseconds."
+                },
+                {
+                  "disabled": false,
+                  "key": "endTimeMillis",
+                  "value": "<long>",
+                  "description": "End of the time range in epoch milliseconds."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "52dbb46e-c1b2-4732-95cd-583fe2ed8f9f",
+              "name": "Timeline retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "timeline",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "urn",
+                      "value": "urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)"
+                    },
+                    {
+                      "key": "aspectNames",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "aspectNames",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startTimeMillis",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "endTimeMillis",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"changeTransactions\": [\n    {\n      \"timestamp\": 3677,\n      \"semVer\": \"string\",\n      \"versionStamp\": \"string\",\n      \"changeEvents\": [\n        {\n          \"changeType\": \"ADD\",\n          \"semVerChange\": \"MAJOR\",\n          \"description\": \"string\",\n          \"target\": \"string\"\n        },\n        {\n          \"changeType\": \"REMOVE\",\n          \"semVerChange\": \"PATCH\",\n          \"description\": \"string\",\n          \"target\": \"string\"\n        }\n      ]\n    },\n    {\n      \"timestamp\": 6508,\n      \"semVer\": \"string\",\n      \"versionStamp\": \"string\",\n      \"changeEvents\": [\n        {\n          \"changeType\": \"REMOVE\",\n          \"semVerChange\": \"MINOR\",\n          \"description\": \"string\",\n          \"target\": \"string\"\n        },\n        {\n          \"changeType\": \"ADD\",\n          \"semVerChange\": \"MINOR\",\n          \"description\": \"string\",\n          \"target\": \"string\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "68dc137b-64d0-4f76-a62c-0412bc49b330",
+              "name": "Invalid URN format or query parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "timeline",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "urn",
+                      "value": "urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)"
+                    },
+                    {
+                      "key": "aspectNames",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "aspectNames",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startTimeMillis",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "endTimeMillis",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 6105,\n  \"exceptionClass\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "52036673-1f9d-465b-a655-8a265488ca61",
+              "name": "Authentication required or token is invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "timeline",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "urn",
+                      "value": "urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)"
+                    },
+                    {
+                      "key": "aspectNames",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "aspectNames",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startTimeMillis",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "endTimeMillis",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 6105,\n  \"exceptionClass\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "91d50728-2eea-4788-b42e-345f01f446ca",
+              "name": "Entity not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "timeline",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "urn",
+                      "value": "urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)"
+                    },
+                    {
+                      "key": "aspectNames",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "aspectNames",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startTimeMillis",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "endTimeMillis",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 6105,\n  \"exceptionClass\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:8080",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "91c51c3a-5b34-4749-b418-34078dc65d40",
+    "name": "DataHub OpenAPI",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "RESTful API endpoints for interacting with DataHub metadata using the OpenAPI standard. Provides endpoints for managing entities, querying relationships, retrieving timeline history, and emitting platform events. The OpenAPI endpoints offer the most powerful and flexible lower-level access to the DataHub metadata graph, supporting reads and writes of entity-aspect pairs, relationship traversal, versioned history queries, and batch operations. Recommended for advanced users who need programmatic control over the metadata graph beyond what the GraphQL API provides.\n\nContact Support:\n Name: DataHub Project",
+      "type": "text/plain"
+    }
+  }
+}

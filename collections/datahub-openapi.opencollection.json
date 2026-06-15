@@ -1,0 +1,247 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DataHub OpenAPI",
+    "version": "1.4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Entities",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "DataHub Upsert entity aspects",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8080/entities/v1/",
+            "params": [
+              {
+                "name": "createEntityIfNotExists",
+                "value": "",
+                "type": "query",
+                "description": "When set to true, the entity will only be created if it does not already exist. If the entity already exists, the request is ignored."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create or update one or more entity aspects in the DataHub metadata graph. Supports upserting entity-aspect pairs where the entire DataHub metadata model is available for writing. Use the createEntityIfNotExists query parameter to conditionally create entities only if they do not already exist."
+        },
+        {
+          "info": {
+            "name": "DataHub Delete entities",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:8080/entities/v1/",
+            "params": [
+              {
+                "name": "urns",
+                "value": "",
+                "type": "query",
+                "description": "One or more entity URNs to operate on. Only a single entity type may be queried per request. URNs follow the format urn:li:{entityType}:{key}."
+              },
+              {
+                "name": "soft",
+                "value": "",
+                "type": "query",
+                "description": "Whether to perform a soft delete (marking the entity as removed while preserving metadata) or a hard delete (permanently removing all metadata). Defaults to true (soft delete)."
+              }
+            ]
+          },
+          "docs": "Delete one or more entities from the DataHub metadata graph. Supports both soft deletes (marking entities as removed while preserving metadata) and hard deletes (permanently removing all entity metadata). Soft delete is the default behavior."
+        },
+        {
+          "info": {
+            "name": "DataHub Retrieve latest entity aspects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8080/entities/v1/latest",
+            "params": [
+              {
+                "name": "urns",
+                "value": "",
+                "type": "query",
+                "description": "One or more entity URNs to operate on. Only a single entity type may be queried per request. URNs follow the format urn:li:{entityType}:{key}."
+              },
+              {
+                "name": "aspectNames",
+                "value": "",
+                "type": "query",
+                "description": "Specific aspect names to retrieve for the requested entities. If not provided, all aspects are returned."
+              }
+            ]
+          },
+          "docs": "Retrieve the latest aspects for one or more entities from the DataHub metadata graph. Requires raw URN strings and supports fetching specific aspects by name. Only a single entity type may be queried per request."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Relationships",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "DataHub Query entity relationships",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8080/relationships/v1/",
+            "params": [
+              {
+                "name": "urn",
+                "value": "",
+                "type": "query",
+                "description": "The URN of the target entity to query relationships for."
+              },
+              {
+                "name": "relationshipTypes",
+                "value": "",
+                "type": "query",
+                "description": "Filter results to specific relationship types such as OwnedBy, Contains, DownstreamOf, or Produces."
+              },
+              {
+                "name": "direction",
+                "value": "",
+                "type": "query",
+                "description": "Direction of relationship traversal relative to the target entity."
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset for the result set."
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of relationships to return."
+              }
+            ]
+          },
+          "docs": "Query the relationship graph to navigate connections between entities. Returns relationships for a given entity URN, with support for filtering by relationship type and traversal direction. Use this endpoint to discover lineage, ownership, containment, and other graph edges."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Timeline",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "DataHub Query entity timeline",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8080/timeline/",
+            "params": [
+              {
+                "name": "urn",
+                "value": "",
+                "type": "query",
+                "description": "The URN of the entity whose timeline to retrieve."
+              },
+              {
+                "name": "aspectNames",
+                "value": "",
+                "type": "query",
+                "description": "The names of aspects to include in the timeline. If not specified, all aspects are returned."
+              },
+              {
+                "name": "startTimeMillis",
+                "value": "",
+                "type": "query",
+                "description": "Start of the time range in epoch milliseconds."
+              },
+              {
+                "name": "endTimeMillis",
+                "value": "",
+                "type": "query",
+                "description": "End of the time range in epoch milliseconds."
+              }
+            ]
+          },
+          "docs": "Query the versioned history of an entity's aspects over time. Useful for tracking changes such as schema modifications, documentation updates, ownership transfers, and tag additions that have occurred on a given entity. Returns a chronological list of aspect versions with timestamps and audit information."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Platform",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "DataHub Emit platform metadata events",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8080/platform/entities/v1",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Write metadata events using the standard platform format. Provides an alternative ingestion path for emitting metadata change proposals (MCPs) to the DataHub metadata graph. Events are processed asynchronously and undergo basic schema validation upon receipt."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Batch",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "DataHub Batch fetch entities",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8080/v3/entity/:entityName/batchGet",
+            "params": [
+              {
+                "name": "entityName",
+                "value": "",
+                "type": "path",
+                "description": "The type name of the entities to fetch, such as dataset, chart, dashboard, dataFlow, dataJob, or corpUser."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Fetch multiple entities and their aspects in a single request. Supports retrieving specific aspect versions using the If-Version-Match header for conditional reads. Allows fetching entities in bulk with fine-grained control over which aspects and versions are returned."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

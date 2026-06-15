@@ -1,0 +1,1997 @@
+{
+  "info": {
+    "_postman_id": "5719ee25-34c6-4980-81f1-03facb82b32f",
+    "name": "DataHub OpenAPI",
+    "description": "RESTful API endpoints for interacting with DataHub metadata using the OpenAPI standard. Provides endpoints for managing entities, querying relationships, retrieving timeline history, and emitting platform events. The OpenAPI endpoints offer the most powerful and flexible lower-level access to the DataHub metadata graph, supporting reads and writes of entity-aspect pairs, relationship traversal, versioned history queries, and batch operations. Recommended for advanced users who need programmatic control over the metadata graph beyond what the GraphQL API provides.\n\nContact Support:\n Name: DataHub Project",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:07:19.000Z",
+    "updatedAt": "2026-06-05T15:07:19.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-5719ee25-34c6-4980-81f1-03facb82b32f"
+  },
+  "item": [
+    {
+      "name": "entities",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "latest",
+              "item": [
+                {
+                  "name": "DataHub Retrieve latest entity aspects",
+                  "id": "c5717eef-766a-4e7f-8f01-bca50a1f6300",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/entities/v1/latest?urns=<string>&urns=<string>&aspectNames=<string>&aspectNames=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "entities",
+                        "v1",
+                        "latest"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) One or more entity URNs to operate on. Only a single entity type may be queried per request. URNs follow the format urn:li:{entityType}:{key}.",
+                          "key": "urns",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) One or more entity URNs to operate on. Only a single entity type may be queried per request. URNs follow the format urn:li:{entityType}:{key}.",
+                          "key": "urns",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Specific aspect names to retrieve for the requested entities. If not provided, all aspects are returned.",
+                          "key": "aspectNames",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Specific aspect names to retrieve for the requested entities. If not provided, all aspects are returned.",
+                          "key": "aspectNames",
+                          "value": "<string>"
+                        }
+                      ]
+                    },
+                    "description": "Retrieve the latest aspects for one or more entities from the DataHub metadata graph. Requires raw URN strings and supports fetching specific aspects by name. Only a single entity type may be queried per request."
+                  },
+                  "response": [
+                    {
+                      "id": "a5d16a84-af76-4275-90fb-929bf8696375",
+                      "name": "Entity aspects retrieved successfully",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/entities/v1/latest?urns=<string>&aspectNames=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "entities",
+                            "v1",
+                            "latest"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) One or more entity URNs to operate on. Only a single entity type may be queried per request. URNs follow the format urn:li:{entityType}:{key}.",
+                              "key": "urns",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Specific aspect names to retrieve for the requested entities. If not provided, all aspects are returned.",
+                              "key": "aspectNames",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"entityUrn\": \"<string>\",\n    \"entityType\": \"<string>\",\n    \"aspects\": {\n      \"proident30b\": {\n        \"value\": {},\n        \"contentType\": \"<string>\",\n        \"created\": {\n          \"time\": \"<long>\",\n          \"actor\": \"<string>\"\n        }\n      },\n      \"incididuntf\": {\n        \"value\": {},\n        \"contentType\": \"<string>\",\n        \"created\": {\n          \"time\": \"<long>\",\n          \"actor\": \"<string>\"\n        }\n      }\n    }\n  },\n  {\n    \"entityUrn\": \"<string>\",\n    \"entityType\": \"<string>\",\n    \"aspects\": {\n      \"Excepteur_bb\": {\n        \"value\": {},\n        \"contentType\": \"<string>\",\n        \"created\": {\n          \"time\": \"<long>\",\n          \"actor\": \"<string>\"\n        }\n      },\n      \"exercitation_8\": {\n        \"value\": {},\n        \"contentType\": \"<string>\",\n        \"created\": {\n          \"time\": \"<long>\",\n          \"actor\": \"<string>\"\n        }\n      }\n    }\n  }\n]",
+                      "createdAt": "2026-06-05T15:07:19.000Z",
+                      "updatedAt": "2026-06-05T15:07:19.000Z",
+                      "uid": "35240-a5d16a84-af76-4275-90fb-929bf8696375"
+                    },
+                    {
+                      "id": "5e469c4d-0ab8-4ebd-a7c8-bfa3fbba65bf",
+                      "name": "Invalid URN format or mixed entity types in a single request",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/entities/v1/latest?urns=<string>&aspectNames=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "entities",
+                            "v1",
+                            "latest"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) One or more entity URNs to operate on. Only a single entity type may be queried per request. URNs follow the format urn:li:{entityType}:{key}.",
+                              "key": "urns",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Specific aspect names to retrieve for the requested entities. If not provided, all aspects are returned.",
+                              "key": "aspectNames",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"exceptionClass\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:07:19.000Z",
+                      "updatedAt": "2026-06-05T15:07:19.000Z",
+                      "uid": "35240-5e469c4d-0ab8-4ebd-a7c8-bfa3fbba65bf"
+                    },
+                    {
+                      "id": "11dd2b52-3ce8-43c8-9402-a891526a195b",
+                      "name": "Authentication required or token is invalid",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/entities/v1/latest?urns=<string>&aspectNames=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "entities",
+                            "v1",
+                            "latest"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) One or more entity URNs to operate on. Only a single entity type may be queried per request. URNs follow the format urn:li:{entityType}:{key}.",
+                              "key": "urns",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Specific aspect names to retrieve for the requested entities. If not provided, all aspects are returned.",
+                              "key": "aspectNames",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"exceptionClass\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:07:19.000Z",
+                      "updatedAt": "2026-06-05T15:07:19.000Z",
+                      "uid": "35240-11dd2b52-3ce8-43c8-9402-a891526a195b"
+                    },
+                    {
+                      "id": "67065b1a-dc85-45fe-a78b-b0645ca33548",
+                      "name": "Entity not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/entities/v1/latest?urns=<string>&aspectNames=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "entities",
+                            "v1",
+                            "latest"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) One or more entity URNs to operate on. Only a single entity type may be queried per request. URNs follow the format urn:li:{entityType}:{key}.",
+                              "key": "urns",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Specific aspect names to retrieve for the requested entities. If not provided, all aspects are returned.",
+                              "key": "aspectNames",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"exceptionClass\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:07:19.000Z",
+                      "updatedAt": "2026-06-05T15:07:19.000Z",
+                      "uid": "35240-67065b1a-dc85-45fe-a78b-b0645ca33548"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:07:19.000Z",
+                  "updatedAt": "2026-06-05T15:07:19.000Z",
+                  "uid": "35240-c5717eef-766a-4e7f-8f01-bca50a1f6300"
+                }
+              ],
+              "id": "48f87822-e040-465e-b3e5-ff1be0b5f2a9",
+              "createdAt": "2026-06-05T15:07:19.000Z",
+              "updatedAt": "2026-06-05T15:07:19.000Z",
+              "uid": "35240-48f87822-e040-465e-b3e5-ff1be0b5f2a9"
+            },
+            {
+              "name": "DataHub Upsert entity aspects",
+              "id": "cead2145-6295-4a9f-bd29-5d58828cc64b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"entityUrn\": \"<string>\",\n    \"entityType\": \"<string>\",\n    \"aspectName\": \"<string>\",\n    \"aspect\": {}\n  },\n  {\n    \"entityUrn\": \"<string>\",\n    \"entityType\": \"<string>\",\n    \"aspectName\": \"<string>\",\n    \"aspect\": {}\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/entities/v1/?createEntityIfNotExists=false",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "entities",
+                    "v1",
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "When set to true, the entity will only be created if it does not already exist. If the entity already exists, the request is ignored.",
+                      "key": "createEntityIfNotExists",
+                      "value": "false"
+                    }
+                  ]
+                },
+                "description": "Create or update one or more entity aspects in the DataHub metadata graph. Supports upserting entity-aspect pairs where the entire DataHub metadata model is available for writing. Use the createEntityIfNotExists query parameter to conditionally create entities only if they do not already exist."
+              },
+              "response": [
+                {
+                  "id": "793b349d-6a1b-48d0-83c4-e34268a4ccd5",
+                  "name": "Entities upserted successfully",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "[\n  {\n    \"entityUrn\": \"<string>\",\n    \"entityType\": \"<string>\",\n    \"aspectName\": \"<string>\",\n    \"aspect\": {}\n  },\n  {\n    \"entityUrn\": \"<string>\",\n    \"entityType\": \"<string>\",\n    \"aspectName\": \"<string>\",\n    \"aspect\": {}\n  }\n]",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/entities/v1/?createEntityIfNotExists=false",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "entities",
+                        "v1",
+                        ""
+                      ],
+                      "query": [
+                        {
+                          "description": "When set to true, the entity will only be created if it does not already exist. If the entity already exists, the request is ignored.",
+                          "key": "createEntityIfNotExists",
+                          "value": "false"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "[\n  {\n    \"entityUrn\": \"<string>\",\n    \"entityType\": \"<string>\",\n    \"aspects\": {\n      \"proident30b\": {\n        \"value\": {},\n        \"contentType\": \"<string>\",\n        \"created\": {\n          \"time\": \"<long>\",\n          \"actor\": \"<string>\"\n        }\n      },\n      \"incididuntf\": {\n        \"value\": {},\n        \"contentType\": \"<string>\",\n        \"created\": {\n          \"time\": \"<long>\",\n          \"actor\": \"<string>\"\n        }\n      }\n    }\n  },\n  {\n    \"entityUrn\": \"<string>\",\n    \"entityType\": \"<string>\",\n    \"aspects\": {\n      \"Excepteur_bb\": {\n        \"value\": {},\n        \"contentType\": \"<string>\",\n        \"created\": {\n          \"time\": \"<long>\",\n          \"actor\": \"<string>\"\n        }\n      },\n      \"exercitation_8\": {\n        \"value\": {},\n        \"contentType\": \"<string>\",\n        \"created\": {\n          \"time\": \"<long>\",\n          \"actor\": \"<string>\"\n        }\n      }\n    }\n  }\n]",
+                  "createdAt": "2026-06-05T15:07:19.000Z",
+                  "updatedAt": "2026-06-05T15:07:19.000Z",
+                  "uid": "35240-793b349d-6a1b-48d0-83c4-e34268a4ccd5"
+                },
+                {
+                  "id": "8dc7c40a-211c-4ab7-a315-9efdb7d01588",
+                  "name": "Invalid request body or schema validation failure",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "[\n  {\n    \"entityUrn\": \"<string>\",\n    \"entityType\": \"<string>\",\n    \"aspectName\": \"<string>\",\n    \"aspect\": {}\n  },\n  {\n    \"entityUrn\": \"<string>\",\n    \"entityType\": \"<string>\",\n    \"aspectName\": \"<string>\",\n    \"aspect\": {}\n  }\n]",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/entities/v1/?createEntityIfNotExists=false",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "entities",
+                        "v1",
+                        ""
+                      ],
+                      "query": [
+                        {
+                          "description": "When set to true, the entity will only be created if it does not already exist. If the entity already exists, the request is ignored.",
+                          "key": "createEntityIfNotExists",
+                          "value": "false"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"exceptionClass\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:07:19.000Z",
+                  "updatedAt": "2026-06-05T15:07:19.000Z",
+                  "uid": "35240-8dc7c40a-211c-4ab7-a315-9efdb7d01588"
+                },
+                {
+                  "id": "f1e85af2-cd76-48ec-9636-a75d53306d12",
+                  "name": "Authentication required or token is invalid",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "[\n  {\n    \"entityUrn\": \"<string>\",\n    \"entityType\": \"<string>\",\n    \"aspectName\": \"<string>\",\n    \"aspect\": {}\n  },\n  {\n    \"entityUrn\": \"<string>\",\n    \"entityType\": \"<string>\",\n    \"aspectName\": \"<string>\",\n    \"aspect\": {}\n  }\n]",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/entities/v1/?createEntityIfNotExists=false",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "entities",
+                        "v1",
+                        ""
+                      ],
+                      "query": [
+                        {
+                          "description": "When set to true, the entity will only be created if it does not already exist. If the entity already exists, the request is ignored.",
+                          "key": "createEntityIfNotExists",
+                          "value": "false"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"exceptionClass\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:07:19.000Z",
+                  "updatedAt": "2026-06-05T15:07:19.000Z",
+                  "uid": "35240-f1e85af2-cd76-48ec-9636-a75d53306d12"
+                }
+              ],
+              "createdAt": "2026-06-05T15:07:19.000Z",
+              "updatedAt": "2026-06-05T15:07:19.000Z",
+              "uid": "35240-cead2145-6295-4a9f-bd29-5d58828cc64b"
+            },
+            {
+              "name": "DataHub Delete entities",
+              "id": "3a8ecab9-8bba-4688-bfc1-c35b4f944de0",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/entities/v1/?urns=<string>&urns=<string>&soft=true",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "entities",
+                    "v1",
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) One or more entity URNs to operate on. Only a single entity type may be queried per request. URNs follow the format urn:li:{entityType}:{key}.",
+                      "key": "urns",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) One or more entity URNs to operate on. Only a single entity type may be queried per request. URNs follow the format urn:li:{entityType}:{key}.",
+                      "key": "urns",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Whether to perform a soft delete (marking the entity as removed while preserving metadata) or a hard delete (permanently removing all metadata). Defaults to true (soft delete).",
+                      "key": "soft",
+                      "value": "true"
+                    }
+                  ]
+                },
+                "description": "Delete one or more entities from the DataHub metadata graph. Supports both soft deletes (marking entities as removed while preserving metadata) and hard deletes (permanently removing all entity metadata). Soft delete is the default behavior."
+              },
+              "response": [
+                {
+                  "id": "4bf07f67-5a8b-466b-be2e-2c86b9aeeaba",
+                  "name": "Entities deleted successfully",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/entities/v1/?urns=<string>&soft=true",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "entities",
+                        "v1",
+                        ""
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) One or more entity URNs to operate on. Only a single entity type may be queried per request. URNs follow the format urn:li:{entityType}:{key}.",
+                          "key": "urns",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Whether to perform a soft delete (marking the entity as removed while preserving metadata) or a hard delete (permanently removing all metadata). Defaults to true (soft delete).",
+                          "key": "soft",
+                          "value": "true"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:07:19.000Z",
+                  "updatedAt": "2026-06-05T15:07:19.000Z",
+                  "uid": "35240-4bf07f67-5a8b-466b-be2e-2c86b9aeeaba"
+                },
+                {
+                  "id": "8c39c345-46f0-46fd-a6e1-243afac76e55",
+                  "name": "Invalid URN format or missing required parameters",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/entities/v1/?urns=<string>&soft=true",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "entities",
+                        "v1",
+                        ""
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) One or more entity URNs to operate on. Only a single entity type may be queried per request. URNs follow the format urn:li:{entityType}:{key}.",
+                          "key": "urns",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Whether to perform a soft delete (marking the entity as removed while preserving metadata) or a hard delete (permanently removing all metadata). Defaults to true (soft delete).",
+                          "key": "soft",
+                          "value": "true"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"exceptionClass\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:07:19.000Z",
+                  "updatedAt": "2026-06-05T15:07:19.000Z",
+                  "uid": "35240-8c39c345-46f0-46fd-a6e1-243afac76e55"
+                },
+                {
+                  "id": "90ce7f13-f437-4e4c-8f74-1cb39797ad94",
+                  "name": "Authentication required or token is invalid",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/entities/v1/?urns=<string>&soft=true",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "entities",
+                        "v1",
+                        ""
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) One or more entity URNs to operate on. Only a single entity type may be queried per request. URNs follow the format urn:li:{entityType}:{key}.",
+                          "key": "urns",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Whether to perform a soft delete (marking the entity as removed while preserving metadata) or a hard delete (permanently removing all metadata). Defaults to true (soft delete).",
+                          "key": "soft",
+                          "value": "true"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"exceptionClass\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:07:19.000Z",
+                  "updatedAt": "2026-06-05T15:07:19.000Z",
+                  "uid": "35240-90ce7f13-f437-4e4c-8f74-1cb39797ad94"
+                },
+                {
+                  "id": "31f43fe0-46b8-47bd-8840-aef1ed01fe32",
+                  "name": "One or more entities not found",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/entities/v1/?urns=<string>&soft=true",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "entities",
+                        "v1",
+                        ""
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) One or more entity URNs to operate on. Only a single entity type may be queried per request. URNs follow the format urn:li:{entityType}:{key}.",
+                          "key": "urns",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Whether to perform a soft delete (marking the entity as removed while preserving metadata) or a hard delete (permanently removing all metadata). Defaults to true (soft delete).",
+                          "key": "soft",
+                          "value": "true"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"exceptionClass\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:07:19.000Z",
+                  "updatedAt": "2026-06-05T15:07:19.000Z",
+                  "uid": "35240-31f43fe0-46b8-47bd-8840-aef1ed01fe32"
+                }
+              ],
+              "createdAt": "2026-06-05T15:07:19.000Z",
+              "updatedAt": "2026-06-05T15:07:19.000Z",
+              "uid": "35240-3a8ecab9-8bba-4688-bfc1-c35b4f944de0"
+            }
+          ],
+          "id": "e8092840-c407-46d3-840d-4c69e2de726c",
+          "createdAt": "2026-06-05T15:07:19.000Z",
+          "updatedAt": "2026-06-05T15:07:19.000Z",
+          "uid": "35240-e8092840-c407-46d3-840d-4c69e2de726c"
+        }
+      ],
+      "id": "3d8f45ca-982e-41b7-979d-aa448498d0e4",
+      "createdAt": "2026-06-05T15:07:19.000Z",
+      "updatedAt": "2026-06-05T15:07:19.000Z",
+      "uid": "35240-3d8f45ca-982e-41b7-979d-aa448498d0e4"
+    },
+    {
+      "name": "relationships",
+      "item": [
+        {
+          "name": "v1",
+          "item": [
+            {
+              "name": "DataHub Query entity relationships",
+              "id": "03665705-0bc0-4c39-a1f2-3c4573baa41c",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/relationships/v1/?urn=<string>&relationshipTypes=<string>&relationshipTypes=<string>&direction=INCOMING&start=0&count=10",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "relationships",
+                    "v1",
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The URN of the target entity to query relationships for.",
+                      "key": "urn",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter results to specific relationship types such as OwnedBy, Contains, DownstreamOf, or Produces.",
+                      "key": "relationshipTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter results to specific relationship types such as OwnedBy, Contains, DownstreamOf, or Produces.",
+                      "key": "relationshipTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Direction of relationship traversal relative to the target entity.",
+                      "key": "direction",
+                      "value": "INCOMING"
+                    },
+                    {
+                      "description": "Pagination offset for the result set.",
+                      "key": "start",
+                      "value": "0"
+                    },
+                    {
+                      "description": "Maximum number of relationships to return.",
+                      "key": "count",
+                      "value": "10"
+                    }
+                  ]
+                },
+                "description": "Query the relationship graph to navigate connections between entities. Returns relationships for a given entity URN, with support for filtering by relationship type and traversal direction. Use this endpoint to discover lineage, ownership, containment, and other graph edges."
+              },
+              "response": [
+                {
+                  "id": "5780aedb-9107-401b-85c4-cd7316adb5ca",
+                  "name": "Relationships retrieved successfully",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/relationships/v1/?urn=<string>&relationshipTypes=<string>&direction=INCOMING&start=0&count=10",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "relationships",
+                        "v1",
+                        ""
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The URN of the target entity to query relationships for.",
+                          "key": "urn",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filter results to specific relationship types such as OwnedBy, Contains, DownstreamOf, or Produces.",
+                          "key": "relationshipTypes",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Direction of relationship traversal relative to the target entity.",
+                          "key": "direction",
+                          "value": "INCOMING"
+                        },
+                        {
+                          "description": "Pagination offset for the result set.",
+                          "key": "start",
+                          "value": "0"
+                        },
+                        {
+                          "description": "Maximum number of relationships to return.",
+                          "key": "count",
+                          "value": "10"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"start\": \"<integer>\",\n  \"count\": \"<integer>\",\n  \"total\": \"<integer>\",\n  \"relationships\": [\n    {\n      \"type\": \"<string>\",\n      \"entity\": \"<string>\",\n      \"direction\": \"INCOMING\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"entity\": \"<string>\",\n      \"direction\": \"INCOMING\"\n    }\n  ]\n}",
+                  "createdAt": "2026-06-05T15:07:19.000Z",
+                  "updatedAt": "2026-06-05T15:07:19.000Z",
+                  "uid": "35240-5780aedb-9107-401b-85c4-cd7316adb5ca"
+                },
+                {
+                  "id": "b348ab4e-ac58-487f-861c-a192f790cc75",
+                  "name": "Invalid URN format or query parameters",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/relationships/v1/?urn=<string>&relationshipTypes=<string>&direction=INCOMING&start=0&count=10",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "relationships",
+                        "v1",
+                        ""
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The URN of the target entity to query relationships for.",
+                          "key": "urn",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filter results to specific relationship types such as OwnedBy, Contains, DownstreamOf, or Produces.",
+                          "key": "relationshipTypes",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Direction of relationship traversal relative to the target entity.",
+                          "key": "direction",
+                          "value": "INCOMING"
+                        },
+                        {
+                          "description": "Pagination offset for the result set.",
+                          "key": "start",
+                          "value": "0"
+                        },
+                        {
+                          "description": "Maximum number of relationships to return.",
+                          "key": "count",
+                          "value": "10"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"exceptionClass\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:07:19.000Z",
+                  "updatedAt": "2026-06-05T15:07:19.000Z",
+                  "uid": "35240-b348ab4e-ac58-487f-861c-a192f790cc75"
+                },
+                {
+                  "id": "42d675db-32fc-4a62-8e68-1d33cc5359a2",
+                  "name": "Authentication required or token is invalid",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/relationships/v1/?urn=<string>&relationshipTypes=<string>&direction=INCOMING&start=0&count=10",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "relationships",
+                        "v1",
+                        ""
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The URN of the target entity to query relationships for.",
+                          "key": "urn",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filter results to specific relationship types such as OwnedBy, Contains, DownstreamOf, or Produces.",
+                          "key": "relationshipTypes",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Direction of relationship traversal relative to the target entity.",
+                          "key": "direction",
+                          "value": "INCOMING"
+                        },
+                        {
+                          "description": "Pagination offset for the result set.",
+                          "key": "start",
+                          "value": "0"
+                        },
+                        {
+                          "description": "Maximum number of relationships to return.",
+                          "key": "count",
+                          "value": "10"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"exceptionClass\": \"<string>\"\n}",
+                  "createdAt": "2026-06-05T15:07:19.000Z",
+                  "updatedAt": "2026-06-05T15:07:19.000Z",
+                  "uid": "35240-42d675db-32fc-4a62-8e68-1d33cc5359a2"
+                }
+              ],
+              "createdAt": "2026-06-05T15:07:19.000Z",
+              "updatedAt": "2026-06-05T15:07:19.000Z",
+              "uid": "35240-03665705-0bc0-4c39-a1f2-3c4573baa41c"
+            }
+          ],
+          "id": "390de9b7-ccba-45d8-9271-77b5c0520f00",
+          "createdAt": "2026-06-05T15:07:19.000Z",
+          "updatedAt": "2026-06-05T15:07:19.000Z",
+          "uid": "35240-390de9b7-ccba-45d8-9271-77b5c0520f00"
+        }
+      ],
+      "id": "5ff86bb5-8b38-4fd3-a09c-dd6e060d5bc5",
+      "createdAt": "2026-06-05T15:07:19.000Z",
+      "updatedAt": "2026-06-05T15:07:19.000Z",
+      "uid": "35240-5ff86bb5-8b38-4fd3-a09c-dd6e060d5bc5"
+    },
+    {
+      "name": "timeline",
+      "item": [
+        {
+          "name": "DataHub Query entity timeline",
+          "id": "d6733fba-298a-467a-a760-ce575d97491c",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/timeline/?urn=<string>&aspectNames=<string>&aspectNames=<string>&startTimeMillis=<long>&endTimeMillis=<long>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "timeline",
+                ""
+              ],
+              "query": [
+                {
+                  "description": "(Required) The URN of the entity whose timeline to retrieve.",
+                  "key": "urn",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The names of aspects to include in the timeline. If not specified, all aspects are returned.",
+                  "key": "aspectNames",
+                  "value": "<string>"
+                },
+                {
+                  "description": "The names of aspects to include in the timeline. If not specified, all aspects are returned.",
+                  "key": "aspectNames",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Start of the time range in epoch milliseconds.",
+                  "key": "startTimeMillis",
+                  "value": "<long>"
+                },
+                {
+                  "description": "End of the time range in epoch milliseconds.",
+                  "key": "endTimeMillis",
+                  "value": "<long>"
+                }
+              ]
+            },
+            "description": "Query the versioned history of an entity's aspects over time. Useful for tracking changes such as schema modifications, documentation updates, ownership transfers, and tag additions that have occurred on a given entity. Returns a chronological list of aspect versions with timestamps and audit information."
+          },
+          "response": [
+            {
+              "id": "208f9ba9-2b4e-4cd5-9baa-3a324370bfa3",
+              "name": "Timeline retrieved successfully",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/timeline/?urn=<string>&aspectNames=<string>&startTimeMillis=<long>&endTimeMillis=<long>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "timeline",
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The URN of the entity whose timeline to retrieve.",
+                      "key": "urn",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The names of aspects to include in the timeline. If not specified, all aspects are returned.",
+                      "key": "aspectNames",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Start of the time range in epoch milliseconds.",
+                      "key": "startTimeMillis",
+                      "value": "<long>"
+                    },
+                    {
+                      "description": "End of the time range in epoch milliseconds.",
+                      "key": "endTimeMillis",
+                      "value": "<long>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"changeTransactions\": [\n    {\n      \"timestamp\": \"<long>\",\n      \"semVer\": \"<string>\",\n      \"versionStamp\": \"<string>\",\n      \"changeEvents\": [\n        {\n          \"changeType\": \"MODIFY\",\n          \"semVerChange\": \"MINOR\",\n          \"description\": \"<string>\",\n          \"target\": \"<string>\"\n        },\n        {\n          \"changeType\": \"MODIFY\",\n          \"semVerChange\": \"MINOR\",\n          \"description\": \"<string>\",\n          \"target\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"timestamp\": \"<long>\",\n      \"semVer\": \"<string>\",\n      \"versionStamp\": \"<string>\",\n      \"changeEvents\": [\n        {\n          \"changeType\": \"ADD\",\n          \"semVerChange\": \"PATCH\",\n          \"description\": \"<string>\",\n          \"target\": \"<string>\"\n        },\n        {\n          \"changeType\": \"ADD\",\n          \"semVerChange\": \"MINOR\",\n          \"description\": \"<string>\",\n          \"target\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:07:19.000Z",
+              "updatedAt": "2026-06-05T15:07:19.000Z",
+              "uid": "35240-208f9ba9-2b4e-4cd5-9baa-3a324370bfa3"
+            },
+            {
+              "id": "78f88e8b-1bdb-4923-818e-be9cf59bc533",
+              "name": "Invalid URN format or query parameters",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/timeline/?urn=<string>&aspectNames=<string>&startTimeMillis=<long>&endTimeMillis=<long>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "timeline",
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The URN of the entity whose timeline to retrieve.",
+                      "key": "urn",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The names of aspects to include in the timeline. If not specified, all aspects are returned.",
+                      "key": "aspectNames",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Start of the time range in epoch milliseconds.",
+                      "key": "startTimeMillis",
+                      "value": "<long>"
+                    },
+                    {
+                      "description": "End of the time range in epoch milliseconds.",
+                      "key": "endTimeMillis",
+                      "value": "<long>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"exceptionClass\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:07:19.000Z",
+              "updatedAt": "2026-06-05T15:07:19.000Z",
+              "uid": "35240-78f88e8b-1bdb-4923-818e-be9cf59bc533"
+            },
+            {
+              "id": "fdf5d451-c59a-4db5-b5f4-8db9ce4c5907",
+              "name": "Authentication required or token is invalid",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/timeline/?urn=<string>&aspectNames=<string>&startTimeMillis=<long>&endTimeMillis=<long>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "timeline",
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The URN of the entity whose timeline to retrieve.",
+                      "key": "urn",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The names of aspects to include in the timeline. If not specified, all aspects are returned.",
+                      "key": "aspectNames",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Start of the time range in epoch milliseconds.",
+                      "key": "startTimeMillis",
+                      "value": "<long>"
+                    },
+                    {
+                      "description": "End of the time range in epoch milliseconds.",
+                      "key": "endTimeMillis",
+                      "value": "<long>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"exceptionClass\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:07:19.000Z",
+              "updatedAt": "2026-06-05T15:07:19.000Z",
+              "uid": "35240-fdf5d451-c59a-4db5-b5f4-8db9ce4c5907"
+            },
+            {
+              "id": "2126b44a-142a-4b9f-a256-391a6f8db527",
+              "name": "Entity not found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/timeline/?urn=<string>&aspectNames=<string>&startTimeMillis=<long>&endTimeMillis=<long>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "timeline",
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The URN of the entity whose timeline to retrieve.",
+                      "key": "urn",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The names of aspects to include in the timeline. If not specified, all aspects are returned.",
+                      "key": "aspectNames",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Start of the time range in epoch milliseconds.",
+                      "key": "startTimeMillis",
+                      "value": "<long>"
+                    },
+                    {
+                      "description": "End of the time range in epoch milliseconds.",
+                      "key": "endTimeMillis",
+                      "value": "<long>"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"exceptionClass\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:07:19.000Z",
+              "updatedAt": "2026-06-05T15:07:19.000Z",
+              "uid": "35240-2126b44a-142a-4b9f-a256-391a6f8db527"
+            }
+          ],
+          "createdAt": "2026-06-05T15:07:19.000Z",
+          "updatedAt": "2026-06-05T15:07:19.000Z",
+          "uid": "35240-d6733fba-298a-467a-a760-ce575d97491c"
+        }
+      ],
+      "id": "0de867b8-9b64-41b5-b3ef-2b0e93252afd",
+      "createdAt": "2026-06-05T15:07:19.000Z",
+      "updatedAt": "2026-06-05T15:07:19.000Z",
+      "uid": "35240-0de867b8-9b64-41b5-b3ef-2b0e93252afd"
+    },
+    {
+      "name": "platform",
+      "item": [
+        {
+          "name": "entities",
+          "item": [
+            {
+              "name": "v1",
+              "item": [
+                {
+                  "name": "DataHub Emit platform metadata events",
+                  "id": "daee89b6-4b7d-47be-bd7e-3aec045e1433",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "[\n  {\n    \"entityUrn\": \"<string>\",\n    \"entityType\": \"<string>\",\n    \"aspectName\": \"<string>\",\n    \"changeType\": \"CREATE\",\n    \"aspect\": {},\n    \"systemMetadata\": {\n      \"runId\": \"<string>\",\n      \"lastObserved\": \"<long>\",\n      \"registryName\": \"<string>\",\n      \"registryVersion\": \"<string>\"\n    }\n  },\n  {\n    \"entityUrn\": \"<string>\",\n    \"entityType\": \"<string>\",\n    \"aspectName\": \"<string>\",\n    \"changeType\": \"DELETE\",\n    \"aspect\": {},\n    \"systemMetadata\": {\n      \"runId\": \"<string>\",\n      \"lastObserved\": \"<long>\",\n      \"registryName\": \"<string>\",\n      \"registryVersion\": \"<string>\"\n    }\n  }\n]",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/platform/entities/v1",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "platform",
+                        "entities",
+                        "v1"
+                      ]
+                    },
+                    "description": "Write metadata events using the standard platform format. Provides an alternative ingestion path for emitting metadata change proposals (MCPs) to the DataHub metadata graph. Events are processed asynchronously and undergo basic schema validation upon receipt."
+                  },
+                  "response": [
+                    {
+                      "id": "aa83be2a-82d1-499a-8a81-46a54efa1b26",
+                      "name": "Platform events accepted for processing",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "[\n  {\n    \"entityUrn\": \"<string>\",\n    \"entityType\": \"<string>\",\n    \"aspectName\": \"<string>\",\n    \"changeType\": \"CREATE\",\n    \"aspect\": {},\n    \"systemMetadata\": {\n      \"runId\": \"<string>\",\n      \"lastObserved\": \"<long>\",\n      \"registryName\": \"<string>\",\n      \"registryVersion\": \"<string>\"\n    }\n  },\n  {\n    \"entityUrn\": \"<string>\",\n    \"entityType\": \"<string>\",\n    \"aspectName\": \"<string>\",\n    \"changeType\": \"DELETE\",\n    \"aspect\": {},\n    \"systemMetadata\": {\n      \"runId\": \"<string>\",\n      \"lastObserved\": \"<long>\",\n      \"registryName\": \"<string>\",\n      \"registryVersion\": \"<string>\"\n    }\n  }\n]",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/platform/entities/v1",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "platform",
+                            "entities",
+                            "v1"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-06-05T15:07:19.000Z",
+                      "updatedAt": "2026-06-05T15:07:19.000Z",
+                      "uid": "35240-aa83be2a-82d1-499a-8a81-46a54efa1b26"
+                    },
+                    {
+                      "id": "6f5a5304-9280-4063-ae78-b93af35d841d",
+                      "name": "Invalid event format or schema validation failure",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "[\n  {\n    \"entityUrn\": \"<string>\",\n    \"entityType\": \"<string>\",\n    \"aspectName\": \"<string>\",\n    \"changeType\": \"CREATE\",\n    \"aspect\": {},\n    \"systemMetadata\": {\n      \"runId\": \"<string>\",\n      \"lastObserved\": \"<long>\",\n      \"registryName\": \"<string>\",\n      \"registryVersion\": \"<string>\"\n    }\n  },\n  {\n    \"entityUrn\": \"<string>\",\n    \"entityType\": \"<string>\",\n    \"aspectName\": \"<string>\",\n    \"changeType\": \"DELETE\",\n    \"aspect\": {},\n    \"systemMetadata\": {\n      \"runId\": \"<string>\",\n      \"lastObserved\": \"<long>\",\n      \"registryName\": \"<string>\",\n      \"registryVersion\": \"<string>\"\n    }\n  }\n]",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/platform/entities/v1",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "platform",
+                            "entities",
+                            "v1"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"exceptionClass\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:07:19.000Z",
+                      "updatedAt": "2026-06-05T15:07:19.000Z",
+                      "uid": "35240-6f5a5304-9280-4063-ae78-b93af35d841d"
+                    },
+                    {
+                      "id": "f1980d0a-3c41-4723-93d7-c1a9fef67a17",
+                      "name": "Authentication required or token is invalid",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "[\n  {\n    \"entityUrn\": \"<string>\",\n    \"entityType\": \"<string>\",\n    \"aspectName\": \"<string>\",\n    \"changeType\": \"CREATE\",\n    \"aspect\": {},\n    \"systemMetadata\": {\n      \"runId\": \"<string>\",\n      \"lastObserved\": \"<long>\",\n      \"registryName\": \"<string>\",\n      \"registryVersion\": \"<string>\"\n    }\n  },\n  {\n    \"entityUrn\": \"<string>\",\n    \"entityType\": \"<string>\",\n    \"aspectName\": \"<string>\",\n    \"changeType\": \"DELETE\",\n    \"aspect\": {},\n    \"systemMetadata\": {\n      \"runId\": \"<string>\",\n      \"lastObserved\": \"<long>\",\n      \"registryName\": \"<string>\",\n      \"registryVersion\": \"<string>\"\n    }\n  }\n]",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/platform/entities/v1",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "platform",
+                            "entities",
+                            "v1"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"exceptionClass\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:07:19.000Z",
+                      "updatedAt": "2026-06-05T15:07:19.000Z",
+                      "uid": "35240-f1980d0a-3c41-4723-93d7-c1a9fef67a17"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:07:19.000Z",
+                  "updatedAt": "2026-06-05T15:07:19.000Z",
+                  "uid": "35240-daee89b6-4b7d-47be-bd7e-3aec045e1433"
+                }
+              ],
+              "id": "2d96b6e3-1a0e-43bf-ba86-8a2a70320cab",
+              "createdAt": "2026-06-05T15:07:19.000Z",
+              "updatedAt": "2026-06-05T15:07:19.000Z",
+              "uid": "35240-2d96b6e3-1a0e-43bf-ba86-8a2a70320cab"
+            }
+          ],
+          "id": "739c255a-b42f-4253-bf09-94344e8146d4",
+          "createdAt": "2026-06-05T15:07:19.000Z",
+          "updatedAt": "2026-06-05T15:07:19.000Z",
+          "uid": "35240-739c255a-b42f-4253-bf09-94344e8146d4"
+        }
+      ],
+      "id": "9bc5459a-7bb7-4e86-8ff7-00573cdc6612",
+      "createdAt": "2026-06-05T15:07:19.000Z",
+      "updatedAt": "2026-06-05T15:07:19.000Z",
+      "uid": "35240-9bc5459a-7bb7-4e86-8ff7-00573cdc6612"
+    },
+    {
+      "name": "v3",
+      "item": [
+        {
+          "name": "entity",
+          "item": [
+            {
+              "name": "{entityName}",
+              "item": [
+                {
+                  "name": "batchGet",
+                  "item": [
+                    {
+                      "name": "DataHub Batch fetch entities",
+                      "id": "5aa97231-2cc2-4784-9b20-e1dbde8b5cd4",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "[\n  {\n    \"urn\": \"<string>\",\n    \"aspectNames\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  {\n    \"urn\": \"<string>\",\n    \"aspectNames\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n]",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v3/entity/:entityName/batchGet",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v3",
+                            "entity",
+                            ":entityName",
+                            "batchGet"
+                          ],
+                          "variable": [
+                            {
+                              "id": "afea90b3-dc9c-4d6f-b563-4b89e8901b41",
+                              "key": "entityName",
+                              "value": "<string>",
+                              "description": "(Required) The type name of the entities to fetch, such as dataset, chart, dashboard, dataFlow, dataJob, or corpUser."
+                            }
+                          ]
+                        },
+                        "description": "Fetch multiple entities and their aspects in a single request. Supports retrieving specific aspect versions using the If-Version-Match header for conditional reads. Allows fetching entities in bulk with fine-grained control over which aspects and versions are returned."
+                      },
+                      "response": [
+                        {
+                          "id": "f8884518-c824-48e0-afe6-c9a55ebe32ab",
+                          "name": "Entities fetched successfully",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "[\n  {\n    \"urn\": \"<string>\",\n    \"aspectNames\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  {\n    \"urn\": \"<string>\",\n    \"aspectNames\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n]",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/entity/:entityName/batchGet",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "entity",
+                                ":entityName",
+                                "batchGet"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "entityName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "[\n  {\n    \"entityUrn\": \"<string>\",\n    \"entityType\": \"<string>\",\n    \"aspects\": {\n      \"proident30b\": {\n        \"value\": {},\n        \"contentType\": \"<string>\",\n        \"created\": {\n          \"time\": \"<long>\",\n          \"actor\": \"<string>\"\n        }\n      },\n      \"incididuntf\": {\n        \"value\": {},\n        \"contentType\": \"<string>\",\n        \"created\": {\n          \"time\": \"<long>\",\n          \"actor\": \"<string>\"\n        }\n      }\n    }\n  },\n  {\n    \"entityUrn\": \"<string>\",\n    \"entityType\": \"<string>\",\n    \"aspects\": {\n      \"Excepteur_bb\": {\n        \"value\": {},\n        \"contentType\": \"<string>\",\n        \"created\": {\n          \"time\": \"<long>\",\n          \"actor\": \"<string>\"\n        }\n      },\n      \"exercitation_8\": {\n        \"value\": {},\n        \"contentType\": \"<string>\",\n        \"created\": {\n          \"time\": \"<long>\",\n          \"actor\": \"<string>\"\n        }\n      }\n    }\n  }\n]",
+                          "createdAt": "2026-06-05T15:07:19.000Z",
+                          "updatedAt": "2026-06-05T15:07:19.000Z",
+                          "uid": "35240-f8884518-c824-48e0-afe6-c9a55ebe32ab"
+                        },
+                        {
+                          "id": "9ada7743-18d8-4361-80bb-6a1c76c43849",
+                          "name": "Invalid request body or entity name",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "[\n  {\n    \"urn\": \"<string>\",\n    \"aspectNames\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  {\n    \"urn\": \"<string>\",\n    \"aspectNames\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n]",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/entity/:entityName/batchGet",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "entity",
+                                ":entityName",
+                                "batchGet"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "entityName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"exceptionClass\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:07:19.000Z",
+                          "updatedAt": "2026-06-05T15:07:19.000Z",
+                          "uid": "35240-9ada7743-18d8-4361-80bb-6a1c76c43849"
+                        },
+                        {
+                          "id": "4b03f73f-b408-449d-819d-1c7137ef6ce3",
+                          "name": "Authentication required or token is invalid",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "[\n  {\n    \"urn\": \"<string>\",\n    \"aspectNames\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  {\n    \"urn\": \"<string>\",\n    \"aspectNames\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n]",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v3/entity/:entityName/batchGet",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v3",
+                                "entity",
+                                ":entityName",
+                                "batchGet"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "entityName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"exceptionClass\": \"<string>\"\n}",
+                          "createdAt": "2026-06-05T15:07:19.000Z",
+                          "updatedAt": "2026-06-05T15:07:19.000Z",
+                          "uid": "35240-4b03f73f-b408-449d-819d-1c7137ef6ce3"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:07:19.000Z",
+                      "updatedAt": "2026-06-05T15:07:19.000Z",
+                      "uid": "35240-5aa97231-2cc2-4784-9b20-e1dbde8b5cd4"
+                    }
+                  ],
+                  "id": "25c8ee91-387d-471d-a196-0b883b5bdc9c",
+                  "createdAt": "2026-06-05T15:07:19.000Z",
+                  "updatedAt": "2026-06-05T15:07:19.000Z",
+                  "uid": "35240-25c8ee91-387d-471d-a196-0b883b5bdc9c"
+                }
+              ],
+              "id": "737e13cb-0ac4-4dfd-ab32-7dc551afcb90",
+              "createdAt": "2026-06-05T15:07:19.000Z",
+              "updatedAt": "2026-06-05T15:07:19.000Z",
+              "uid": "35240-737e13cb-0ac4-4dfd-ab32-7dc551afcb90"
+            }
+          ],
+          "id": "dd31e13d-04e4-43d0-b40d-1a3ca657add8",
+          "createdAt": "2026-06-05T15:07:19.000Z",
+          "updatedAt": "2026-06-05T15:07:19.000Z",
+          "uid": "35240-dd31e13d-04e4-43d0-b40d-1a3ca657add8"
+        }
+      ],
+      "id": "a8b6359f-ad06-4cda-bfd6-195bafe8ca0f",
+      "createdAt": "2026-06-05T15:07:19.000Z",
+      "updatedAt": "2026-06-05T15:07:19.000Z",
+      "uid": "35240-a8b6359f-ad06-4cda-bfd6-195bafe8ca0f"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    }
+  ]
+}

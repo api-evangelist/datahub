@@ -170,6 +170,10 @@ apis:
   - type: AsyncAPI
     url: asyncapi/datahub-actions-asyncapi.yml
 common:
+- type: DomainSecurity
+  url: security/datahub-domain-security.yml
+- type: Authentication
+  url: authentication/datahub-authentication.yml
 - type: PostmanWorkspace
   url: https://www.postman.com/kinlaneapi/datahub/overview
 - type: Arazzo

@@ -1,0 +1,16 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/datahub-openapi-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  description: DataHub personal access token or session token. Generate tokens via the DataHub
+    settings panel or programmatically using the token management API. Pass the token in the
+    Authorization header as Bearer <token>.
+  sources:
+  - openapi/datahub-openapi-openapi.yml

@@ -170,6 +170,8 @@ apis:
   - type: AsyncAPI
     url: asyncapi/datahub-actions-asyncapi.yml
 common:
+- type: AgenticAccess
+  url: agentic-access/datahub-agentic-access.yml
 - type: DomainSecurity
   url: security/datahub-domain-security.yml
 - type: Authentication

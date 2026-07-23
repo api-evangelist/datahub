@@ -1,0 +1,145 @@
+openapi: 3.1.0
+info:
+  title: DataHub Open Batch API
+  description: RESTful API endpoints for interacting with DataHub metadata using the OpenAPI standard. Provides endpoints for managing entities, querying relationships, retrieving timeline history, and emitting platform events. The OpenAPI endpoints offer the most powerful and flexible lower-level access to the DataHub metadata graph, supporting reads and writes of entity-aspect pairs, relationship traversal, versioned history queries, and batch operations. Recommended for advanced users who need programmatic control over the metadata graph beyond what the GraphQL API provides.
+  version: 1.4.0
+  contact:
+    name: DataHub Project
+    url: https://datahubproject.io
+  termsOfService: https://datahub.com/privacy-policy/
+servers:
+- url: http://localhost:8080
+  description: DataHub GMS Server (Local Quickstart)
+- url: http://localhost:9002
+  description: DataHub Frontend Proxy (Local Quickstart)
+security:
+- bearerAuth: []
+tags:
+- name: Batch
+  description: Batch operations for fetching multiple entities and their aspects in a single request. Supports version-specific retrieval and conditional writes.
+paths:
+  /v3/entity/{entityName}/batchGet:
+    post:
+      operationId: batchGetEntities
+      summary: DataHub Batch fetch entities
+      description: Fetch multiple entities and their aspects in a single request. Supports retrieving specific aspect versions using the If-Version-Match header for conditional reads. Allows fetching entities in bulk with fine-grained control over which aspects and versions are returned.
+      tags:
+      - Batch
+      parameters:
+      - name: entityName
+        in: path
+        required: true
+        description: The type name of the entities to fetch, such as dataset, chart, dashboard, dataFlow, dataJob, or corpUser.
+        schema:
+          type: string
+          example: dataset
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/BatchGetRequest'
+      responses:
+        '200':
+          description: Entities fetched successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EntityAspectResponse'
+        '400':
+          description: Invalid request body or entity name
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required or token is invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Error:
+      type: object
+      description: An error response from the DataHub API.
+      properties:
+        message:
+          type: string
+          description: A human-readable description of the error.
+        status:
+          type: integer
+          description: The HTTP status code.
+        exceptionClass:
+          type: string
+          description: The exception class name if applicable.
+    AuditStamp:
+      type: object
+      description: An audit stamp recording who made a change and when.
+      properties:
+        time:
+          type: integer
+          format: int64
+          description: The timestamp of the change in epoch milliseconds.
+        actor:
+          type: string
+          description: The URN of the actor who made the change.
+          example: urn:li:corpuser:datahub
+    BatchGetRequest:
+      type: object
+      description: A request to fetch a specific entity and its aspects in a batch operation.
+      required:
+      - urn
+      properties:
+        urn:
+          type: string
+          description: The URN of the entity to fetch.
+          example: urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)
+        aspectNames:
+          type: array
+          description: Specific aspects to retrieve. If not provided, all aspects are returned.
+          items:
+            type: string
+    EntityAspectResponse:
+      type: object
+      description: A response containing an entity and its requested aspects from the DataHub metadata graph.
+      properties:
+        entityUrn:
+          type: string
+          description: The unique URN identifier for the entity.
+          example: urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)
+        entityType:
+          type: string
+          description: The type of the entity.
+          example: dataset
+        aspects:
+          type: object
+          description: A map of aspect names to their values for the requested entity.
+          additionalProperties:
+            $ref: '#/components/schemas/AspectValue'
+    AspectValue:
+      type: object
+      description: The value of an aspect including its content and metadata.
+      properties:
+        value:
+          type: object
+          description: The aspect payload following its PDL schema definition.
+        contentType:
+          type: string
+          description: The content type of the aspect value, typically application/json.
+          example: application/json
+        created:
+          $ref: '#/components/schemas/AuditStamp'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: DataHub personal access token or session token. Generate tokens via the DataHub settings panel or programmatically using the token management API. Pass the token in the Authorization header as Bearer <token>.
+externalDocs:
+  description: DataHub OpenAPI Usage Guide
+  url: https://docs.datahub.com/docs/api/openapi/openapi-usage-guide

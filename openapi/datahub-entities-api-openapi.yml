@@ -1,0 +1,256 @@
+openapi: 3.1.0
+info:
+  title: DataHub Open Batch Entities API
+  description: RESTful API endpoints for interacting with DataHub metadata using the OpenAPI standard. Provides endpoints for managing entities, querying relationships, retrieving timeline history, and emitting platform events. The OpenAPI endpoints offer the most powerful and flexible lower-level access to the DataHub metadata graph, supporting reads and writes of entity-aspect pairs, relationship traversal, versioned history queries, and batch operations. Recommended for advanced users who need programmatic control over the metadata graph beyond what the GraphQL API provides.
+  version: 1.4.0
+  contact:
+    name: DataHub Project
+    url: https://datahubproject.io
+  termsOfService: https://datahub.com/privacy-policy/
+servers:
+- url: http://localhost:8080
+  description: DataHub GMS Server (Local Quickstart)
+- url: http://localhost:9002
+  description: DataHub Frontend Proxy (Local Quickstart)
+security:
+- bearerAuth: []
+tags:
+- name: Entities
+  description: Read, write, and delete metadata entities in the DataHub metadata graph. The entities endpoints support upserting entity-aspect pairs, retrieving the latest aspects for a given entity, and performing soft or hard deletes on entities.
+paths:
+  /entities/v1/:
+    post:
+      operationId: upsertEntities
+      summary: DataHub Upsert entity aspects
+      description: Create or update one or more entity aspects in the DataHub metadata graph. Supports upserting entity-aspect pairs where the entire DataHub metadata model is available for writing. Use the createEntityIfNotExists query parameter to conditionally create entities only if they do not already exist.
+      tags:
+      - Entities
+      parameters:
+      - $ref: '#/components/parameters/CreateEntityIfNotExists'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/EntityAspectRequest'
+      responses:
+        '200':
+          description: Entities upserted successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EntityAspectResponse'
+        '400':
+          description: Invalid request body or schema validation failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required or token is invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      operationId: deleteEntities
+      summary: DataHub Delete entities
+      description: Delete one or more entities from the DataHub metadata graph. Supports both soft deletes (marking entities as removed while preserving metadata) and hard deletes (permanently removing all entity metadata). Soft delete is the default behavior.
+      tags:
+      - Entities
+      parameters:
+      - $ref: '#/components/parameters/Urns'
+      - $ref: '#/components/parameters/SoftDelete'
+      responses:
+        '200':
+          description: Entities deleted successfully
+        '400':
+          description: Invalid URN format or missing required parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required or token is invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: One or more entities not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /entities/v1/latest:
+    get:
+      operationId: getEntityLatestAspects
+      summary: DataHub Retrieve latest entity aspects
+      description: Retrieve the latest aspects for one or more entities from the DataHub metadata graph. Requires raw URN strings and supports fetching specific aspects by name. Only a single entity type may be queried per request.
+      tags:
+      - Entities
+      parameters:
+      - $ref: '#/components/parameters/Urns'
+      - $ref: '#/components/parameters/AspectNames'
+      responses:
+        '200':
+          description: Entity aspects retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EntityAspectResponse'
+        '400':
+          description: Invalid URN format or mixed entity types in a single request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required or token is invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Entity not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    EntityAspectRequest:
+      type: object
+      description: A request to upsert an entity-aspect pair in the DataHub metadata graph. Contains the entity URN, entity type, aspect name, and the aspect value to write.
+      required:
+      - entityUrn
+      - entityType
+      - aspectName
+      - aspect
+      properties:
+        entityUrn:
+          type: string
+          description: The unique URN identifier for the entity being modified.
+          example: urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)
+        entityType:
+          type: string
+          description: The type of the entity being modified, such as dataset, chart, dashboard, dataFlow, or dataJob.
+          example: dataset
+        aspectName:
+          type: string
+          description: The name of the aspect being written, such as datasetProperties, schemaMetadata, ownership, or globalTags.
+          example: datasetProperties
+        aspect:
+          type: object
+          description: The aspect value to write. The structure varies depending on the aspect name and follows the PDL schema definitions in the DataHub metadata models.
+    Error:
+      type: object
+      description: An error response from the DataHub API.
+      properties:
+        message:
+          type: string
+          description: A human-readable description of the error.
+        status:
+          type: integer
+          description: The HTTP status code.
+        exceptionClass:
+          type: string
+          description: The exception class name if applicable.
+    AuditStamp:
+      type: object
+      description: An audit stamp recording who made a change and when.
+      properties:
+        time:
+          type: integer
+          format: int64
+          description: The timestamp of the change in epoch milliseconds.
+        actor:
+          type: string
+          description: The URN of the actor who made the change.
+          example: urn:li:corpuser:datahub
+    EntityAspectResponse:
+      type: object
+      description: A response containing an entity and its requested aspects from the DataHub metadata graph.
+      properties:
+        entityUrn:
+          type: string
+          description: The unique URN identifier for the entity.
+          example: urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)
+        entityType:
+          type: string
+          description: The type of the entity.
+          example: dataset
+        aspects:
+          type: object
+          description: A map of aspect names to their values for the requested entity.
+          additionalProperties:
+            $ref: '#/components/schemas/AspectValue'
+    AspectValue:
+      type: object
+      description: The value of an aspect including its content and metadata.
+      properties:
+        value:
+          type: object
+          description: The aspect payload following its PDL schema definition.
+        contentType:
+          type: string
+          description: The content type of the aspect value, typically application/json.
+          example: application/json
+        created:
+          $ref: '#/components/schemas/AuditStamp'
+  parameters:
+    AspectNames:
+      name: aspectNames
+      in: query
+      required: false
+      description: Specific aspect names to retrieve for the requested entities. If not provided, all aspects are returned.
+      schema:
+        type: array
+        items:
+          type: string
+        example:
+        - datasetProperties
+        - schemaMetadata
+        - ownership
+    SoftDelete:
+      name: soft
+      in: query
+      required: false
+      description: Whether to perform a soft delete (marking the entity as removed while preserving metadata) or a hard delete (permanently removing all metadata). Defaults to true (soft delete).
+      schema:
+        type: boolean
+        default: true
+    Urns:
+      name: urns
+      in: query
+      required: true
+      description: One or more entity URNs to operate on. Only a single entity type may be queried per request. URNs follow the format urn:li:{entityType}:{key}.
+      schema:
+        type: array
+        items:
+          type: string
+        example:
+        - urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)
+    CreateEntityIfNotExists:
+      name: createEntityIfNotExists
+      in: query
+      required: false
+      description: When set to true, the entity will only be created if it does not already exist. If the entity already exists, the request is ignored.
+      schema:
+        type: boolean
+        default: false
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: DataHub personal access token or session token. Generate tokens via the DataHub settings panel or programmatically using the token management API. Pass the token in the Authorization header as Bearer <token>.
+externalDocs:
+  description: DataHub OpenAPI Usage Guide
+  url: https://docs.datahub.com/docs/api/openapi/openapi-usage-guide

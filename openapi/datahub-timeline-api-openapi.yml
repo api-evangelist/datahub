@@ -1,0 +1,158 @@
+openapi: 3.1.0
+info:
+  title: DataHub Open Batch Timeline API
+  description: RESTful API endpoints for interacting with DataHub metadata using the OpenAPI standard. Provides endpoints for managing entities, querying relationships, retrieving timeline history, and emitting platform events. The OpenAPI endpoints offer the most powerful and flexible lower-level access to the DataHub metadata graph, supporting reads and writes of entity-aspect pairs, relationship traversal, versioned history queries, and batch operations. Recommended for advanced users who need programmatic control over the metadata graph beyond what the GraphQL API provides.
+  version: 1.4.0
+  contact:
+    name: DataHub Project
+    url: https://datahubproject.io
+  termsOfService: https://datahub.com/privacy-policy/
+servers:
+- url: http://localhost:8080
+  description: DataHub GMS Server (Local Quickstart)
+- url: http://localhost:9002
+  description: DataHub Frontend Proxy (Local Quickstart)
+security:
+- bearerAuth: []
+tags:
+- name: Timeline
+  description: Query the versioned history of entity aspects over time. Useful for tracking schema changes, documentation updates, and other temporal metadata modifications for a given entity.
+paths:
+  /timeline/:
+    get:
+      operationId: getTimeline
+      summary: DataHub Query entity timeline
+      description: Query the versioned history of an entity's aspects over time. Useful for tracking changes such as schema modifications, documentation updates, ownership transfers, and tag additions that have occurred on a given entity. Returns a chronological list of aspect versions with timestamps and audit information.
+      tags:
+      - Timeline
+      parameters:
+      - name: urn
+        in: query
+        required: true
+        description: The URN of the entity whose timeline to retrieve.
+        schema:
+          type: string
+          example: urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)
+      - name: aspectNames
+        in: query
+        required: false
+        description: The names of aspects to include in the timeline. If not specified, all aspects are returned.
+        schema:
+          type: array
+          items:
+            type: string
+      - name: startTimeMillis
+        in: query
+        required: false
+        description: Start of the time range in epoch milliseconds.
+        schema:
+          type: integer
+          format: int64
+      - name: endTimeMillis
+        in: query
+        required: false
+        description: End of the time range in epoch milliseconds.
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Timeline retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimelineResponse'
+        '400':
+          description: Invalid URN format or query parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required or token is invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Entity not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    ChangeTransaction:
+      type: object
+      description: A single change transaction in the entity's timeline representing one or more aspect modifications at a specific point in time.
+      properties:
+        timestamp:
+          type: integer
+          format: int64
+          description: The timestamp of the change in epoch milliseconds.
+        semVer:
+          type: string
+          description: The semantic version assigned to this change.
+        versionStamp:
+          type: string
+          description: A version stamp uniquely identifying this change.
+        changeEvents:
+          type: array
+          description: The individual change events within this transaction.
+          items:
+            $ref: '#/components/schemas/ChangeEvent'
+    ChangeEvent:
+      type: object
+      description: An individual change event describing a modification to a specific aspect of an entity.
+      properties:
+        changeType:
+          type: string
+          description: The type of change that occurred.
+          enum:
+          - ADD
+          - MODIFY
+          - REMOVE
+        semVerChange:
+          type: string
+          description: The semantic versioning category of this change.
+          enum:
+          - MAJOR
+          - MINOR
+          - PATCH
+        description:
+          type: string
+          description: A human-readable description of the change.
+        target:
+          type: string
+          description: The target element that was changed, such as a field name.
+    TimelineResponse:
+      type: object
+      description: Response containing the versioned history of an entity's aspects.
+      properties:
+        changeTransactions:
+          type: array
+          description: A chronological list of change transactions for the entity.
+          items:
+            $ref: '#/components/schemas/ChangeTransaction'
+    Error:
+      type: object
+      description: An error response from the DataHub API.
+      properties:
+        message:
+          type: string
+          description: A human-readable description of the error.
+        status:
+          type: integer
+          description: The HTTP status code.
+        exceptionClass:
+          type: string
+          description: The exception class name if applicable.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: DataHub personal access token or session token. Generate tokens via the DataHub settings panel or programmatically using the token management API. Pass the token in the Authorization header as Bearer <token>.
+externalDocs:
+  description: DataHub OpenAPI Usage Guide
+  url: https://docs.datahub.com/docs/api/openapi/openapi-usage-guide

@@ -1,0 +1,145 @@
+openapi: 3.1.0
+info:
+  title: DataHub Open Batch Relationships API
+  description: RESTful API endpoints for interacting with DataHub metadata using the OpenAPI standard. Provides endpoints for managing entities, querying relationships, retrieving timeline history, and emitting platform events. The OpenAPI endpoints offer the most powerful and flexible lower-level access to the DataHub metadata graph, supporting reads and writes of entity-aspect pairs, relationship traversal, versioned history queries, and batch operations. Recommended for advanced users who need programmatic control over the metadata graph beyond what the GraphQL API provides.
+  version: 1.4.0
+  contact:
+    name: DataHub Project
+    url: https://datahubproject.io
+  termsOfService: https://datahub.com/privacy-policy/
+servers:
+- url: http://localhost:8080
+  description: DataHub GMS Server (Local Quickstart)
+- url: http://localhost:9002
+  description: DataHub Frontend Proxy (Local Quickstart)
+security:
+- bearerAuth: []
+tags:
+- name: Relationships
+  description: Query the relationship graph to navigate connections between entities. Supports filtering by relationship type and traversal direction (incoming or outgoing) from a given entity URN.
+paths:
+  /relationships/v1/:
+    get:
+      operationId: getRelationships
+      summary: DataHub Query entity relationships
+      description: Query the relationship graph to navigate connections between entities. Returns relationships for a given entity URN, with support for filtering by relationship type and traversal direction. Use this endpoint to discover lineage, ownership, containment, and other graph edges.
+      tags:
+      - Relationships
+      parameters:
+      - name: urn
+        in: query
+        required: true
+        description: The URN of the target entity to query relationships for.
+        schema:
+          type: string
+          example: urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)
+      - name: relationshipTypes
+        in: query
+        required: false
+        description: Filter results to specific relationship types such as OwnedBy, Contains, DownstreamOf, or Produces.
+        schema:
+          type: array
+          items:
+            type: string
+      - name: direction
+        in: query
+        required: false
+        description: Direction of relationship traversal relative to the target entity.
+        schema:
+          type: string
+          enum:
+          - INCOMING
+          - OUTGOING
+      - name: start
+        in: query
+        required: false
+        description: Pagination offset for the result set.
+        schema:
+          type: integer
+          default: 0
+      - name: count
+        in: query
+        required: false
+        description: Maximum number of relationships to return.
+        schema:
+          type: integer
+          default: 10
+      responses:
+        '200':
+          description: Relationships retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RelationshipsResponse'
+        '400':
+          description: Invalid URN format or query parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required or token is invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Relationship:
+      type: object
+      description: A named edge connecting two entities in the metadata graph.
+      properties:
+        type:
+          type: string
+          description: The relationship type name, such as OwnedBy, Contains, DownstreamOf, or Produces.
+          example: DownstreamOf
+        entity:
+          type: string
+          description: The URN of the related entity.
+          example: urn:li:dataset:(urn:li:dataPlatform:hive,OtherDataset,PROD)
+        direction:
+          type: string
+          description: The traversal direction of this relationship.
+          enum:
+          - INCOMING
+          - OUTGOING
+    RelationshipsResponse:
+      type: object
+      description: Response containing relationships for a queried entity.
+      properties:
+        start:
+          type: integer
+          description: The pagination offset of the result set.
+        count:
+          type: integer
+          description: The number of relationships returned.
+        total:
+          type: integer
+          description: The total number of matching relationships.
+        relationships:
+          type: array
+          description: The list of relationships matching the query.
+          items:
+            $ref: '#/components/schemas/Relationship'
+    Error:
+      type: object
+      description: An error response from the DataHub API.
+      properties:
+        message:
+          type: string
+          description: A human-readable description of the error.
+        status:
+          type: integer
+          description: The HTTP status code.
+        exceptionClass:
+          type: string
+          description: The exception class name if applicable.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: DataHub personal access token or session token. Generate tokens via the DataHub settings panel or programmatically using the token management API. Pass the token in the Authorization header as Bearer <token>.
+externalDocs:
+  description: DataHub OpenAPI Usage Guide
+  url: https://docs.datahub.com/docs/api/openapi/openapi-usage-guide

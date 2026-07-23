@@ -1,0 +1,126 @@
+openapi: 3.1.0
+info:
+  title: DataHub Open Batch Platform API
+  description: RESTful API endpoints for interacting with DataHub metadata using the OpenAPI standard. Provides endpoints for managing entities, querying relationships, retrieving timeline history, and emitting platform events. The OpenAPI endpoints offer the most powerful and flexible lower-level access to the DataHub metadata graph, supporting reads and writes of entity-aspect pairs, relationship traversal, versioned history queries, and batch operations. Recommended for advanced users who need programmatic control over the metadata graph beyond what the GraphQL API provides.
+  version: 1.4.0
+  contact:
+    name: DataHub Project
+    url: https://datahubproject.io
+  termsOfService: https://datahub.com/privacy-policy/
+servers:
+- url: http://localhost:8080
+  description: DataHub GMS Server (Local Quickstart)
+- url: http://localhost:9002
+  description: DataHub Frontend Proxy (Local Quickstart)
+security:
+- bearerAuth: []
+tags:
+- name: Platform
+  description: Write metadata events using the standard platform format. Provides an alternative ingestion path for emitting metadata change proposals to the DataHub metadata graph.
+paths:
+  /platform/entities/v1:
+    post:
+      operationId: emitPlatformEvents
+      summary: DataHub Emit platform metadata events
+      description: Write metadata events using the standard platform format. Provides an alternative ingestion path for emitting metadata change proposals (MCPs) to the DataHub metadata graph. Events are processed asynchronously and undergo basic schema validation upon receipt.
+      tags:
+      - Platform
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/MetadataChangeProposal'
+      responses:
+        '200':
+          description: Platform events accepted for processing
+        '400':
+          description: Invalid event format or schema validation failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required or token is invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    MetadataChangeProposal:
+      type: object
+      description: A metadata change proposal (MCP) representing a proposed change to the metadata graph. MCPs are the standard format for ingesting metadata into DataHub and are processed asynchronously.
+      required:
+      - entityUrn
+      - entityType
+      - aspectName
+      - changeType
+      - aspect
+      properties:
+        entityUrn:
+          type: string
+          description: The unique URN identifier for the target entity.
+          example: urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)
+        entityType:
+          type: string
+          description: The type of the target entity.
+          example: dataset
+        aspectName:
+          type: string
+          description: The name of the aspect being changed.
+          example: datasetProperties
+        changeType:
+          type: string
+          description: The type of change being proposed.
+          enum:
+          - UPSERT
+          - CREATE
+          - DELETE
+          - RESTATE
+        aspect:
+          type: object
+          description: The new aspect value following its PDL schema definition.
+        systemMetadata:
+          $ref: '#/components/schemas/SystemMetadata'
+    SystemMetadata:
+      type: object
+      description: System-level metadata associated with a metadata change, including ingestion run identifiers and provenance information.
+      properties:
+        runId:
+          type: string
+          description: The identifier of the ingestion run that produced this change.
+        lastObserved:
+          type: integer
+          format: int64
+          description: The timestamp when this metadata was last observed in epoch milliseconds.
+        registryName:
+          type: string
+          description: The name of the model registry associated with this change.
+        registryVersion:
+          type: string
+          description: The version of the model registry.
+    Error:
+      type: object
+      description: An error response from the DataHub API.
+      properties:
+        message:
+          type: string
+          description: A human-readable description of the error.
+        status:
+          type: integer
+          description: The HTTP status code.
+        exceptionClass:
+          type: string
+          description: The exception class name if applicable.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: DataHub personal access token or session token. Generate tokens via the DataHub settings panel or programmatically using the token management API. Pass the token in the Authorization header as Bearer <token>.
+externalDocs:
+  description: DataHub OpenAPI Usage Guide
+  url: https://docs.datahub.com/docs/api/openapi/openapi-usage-guide

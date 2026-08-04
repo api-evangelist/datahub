@@ -1,0 +1,771 @@
+openapi: 3.1.0
+info:
+  title: DataHub OpenAPI
+  description: >-
+    RESTful API endpoints for interacting with DataHub metadata using the OpenAPI
+    standard. Provides endpoints for managing entities, querying relationships,
+    retrieving timeline history, and emitting platform events. The OpenAPI
+    endpoints offer the most powerful and flexible lower-level access to the
+    DataHub metadata graph, supporting reads and writes of entity-aspect pairs,
+    relationship traversal, versioned history queries, and batch operations.
+    Recommended for advanced users who need programmatic control over the
+    metadata graph beyond what the GraphQL API provides.
+  version: '1.4.0'
+  contact:
+    name: DataHub Project
+    url: https://datahubproject.io
+  termsOfService: https://datahub.com/privacy-policy/
+externalDocs:
+  description: DataHub OpenAPI Usage Guide
+  url: https://docs.datahub.com/docs/api/openapi/openapi-usage-guide
+servers:
+  - url: http://localhost:8080
+    description: DataHub GMS Server (Local Quickstart)
+  - url: http://localhost:9002
+    description: DataHub Frontend Proxy (Local Quickstart)
+tags:
+  - name: Batch
+    description: >-
+      Batch operations for fetching multiple entities and their aspects in a
+      single request. Supports version-specific retrieval and conditional
+      writes.
+  - name: Entities
+    description: >-
+      Read, write, and delete metadata entities in the DataHub metadata graph.
+      The entities endpoints support upserting entity-aspect pairs, retrieving
+      the latest aspects for a given entity, and performing soft or hard deletes
+      on entities.
+  - name: Platform
+    description: >-
+      Write metadata events using the standard platform format. Provides an
+      alternative ingestion path for emitting metadata change proposals to the
+      DataHub metadata graph.
+  - name: Relationships
+    description: >-
+      Query the relationship graph to navigate connections between entities.
+      Supports filtering by relationship type and traversal direction (incoming
+      or outgoing) from a given entity URN.
+  - name: Timeline
+    description: >-
+      Query the versioned history of entity aspects over time. Useful for
+      tracking schema changes, documentation updates, and other temporal
+      metadata modifications for a given entity.
+security:
+  - bearerAuth: []
+paths:
+  /entities/v1/:
+    post:
+      operationId: upsertEntities
+      summary: DataHub Upsert entity aspects
+      description: >-
+        Create or update one or more entity aspects in the DataHub metadata
+        graph. Supports upserting entity-aspect pairs where the entire DataHub
+        metadata model is available for writing. Use the
+        createEntityIfNotExists query parameter to conditionally create entities
+        only if they do not already exist.
+      tags:
+        - Entities
+      parameters:
+        - $ref: '#/components/parameters/CreateEntityIfNotExists'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/EntityAspectRequest'
+      responses:
+        '200':
+          description: Entities upserted successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EntityAspectResponse'
+        '400':
+          description: Invalid request body or schema validation failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required or token is invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      operationId: deleteEntities
+      summary: DataHub Delete entities
+      description: >-
+        Delete one or more entities from the DataHub metadata graph. Supports
+        both soft deletes (marking entities as removed while preserving
+        metadata) and hard deletes (permanently removing all entity metadata).
+        Soft delete is the default behavior.
+      tags:
+        - Entities
+      parameters:
+        - $ref: '#/components/parameters/Urns'
+        - $ref: '#/components/parameters/SoftDelete'
+      responses:
+        '200':
+          description: Entities deleted successfully
+        '400':
+          description: Invalid URN format or missing required parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required or token is invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: One or more entities not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /entities/v1/latest:
+    get:
+      operationId: getEntityLatestAspects
+      summary: DataHub Retrieve latest entity aspects
+      description: >-
+        Retrieve the latest aspects for one or more entities from the DataHub
+        metadata graph. Requires raw URN strings and supports fetching specific
+        aspects by name. Only a single entity type may be queried per request.
+      tags:
+        - Entities
+      parameters:
+        - $ref: '#/components/parameters/Urns'
+        - $ref: '#/components/parameters/AspectNames'
+      responses:
+        '200':
+          description: Entity aspects retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EntityAspectResponse'
+        '400':
+          description: Invalid URN format or mixed entity types in a single request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required or token is invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Entity not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /relationships/v1/:
+    get:
+      operationId: getRelationships
+      summary: DataHub Query entity relationships
+      description: >-
+        Query the relationship graph to navigate connections between entities.
+        Returns relationships for a given entity URN, with support for filtering
+        by relationship type and traversal direction. Use this endpoint to
+        discover lineage, ownership, containment, and other graph edges.
+      tags:
+        - Relationships
+      parameters:
+        - name: urn
+          in: query
+          required: true
+          description: >-
+            The URN of the target entity to query relationships for.
+          schema:
+            type: string
+            example: urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)
+        - name: relationshipTypes
+          in: query
+          required: false
+          description: >-
+            Filter results to specific relationship types such as OwnedBy,
+            Contains, DownstreamOf, or Produces.
+          schema:
+            type: array
+            items:
+              type: string
+        - name: direction
+          in: query
+          required: false
+          description: >-
+            Direction of relationship traversal relative to the target entity.
+          schema:
+            type: string
+            enum:
+              - INCOMING
+              - OUTGOING
+        - name: start
+          in: query
+          required: false
+          description: >-
+            Pagination offset for the result set.
+          schema:
+            type: integer
+            default: 0
+        - name: count
+          in: query
+          required: false
+          description: >-
+            Maximum number of relationships to return.
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: Relationships retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RelationshipsResponse'
+        '400':
+          description: Invalid URN format or query parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required or token is invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /timeline/:
+    get:
+      operationId: getTimeline
+      summary: DataHub Query entity timeline
+      description: >-
+        Query the versioned history of an entity's aspects over time. Useful for
+        tracking changes such as schema modifications, documentation updates,
+        ownership transfers, and tag additions that have occurred on a given
+        entity. Returns a chronological list of aspect versions with timestamps
+        and audit information.
+      tags:
+        - Timeline
+      parameters:
+        - name: urn
+          in: query
+          required: true
+          description: >-
+            The URN of the entity whose timeline to retrieve.
+          schema:
+            type: string
+            example: urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)
+        - name: aspectNames
+          in: query
+          required: false
+          description: >-
+            The names of aspects to include in the timeline. If not specified,
+            all aspects are returned.
+          schema:
+            type: array
+            items:
+              type: string
+        - name: startTimeMillis
+          in: query
+          required: false
+          description: >-
+            Start of the time range in epoch milliseconds.
+          schema:
+            type: integer
+            format: int64
+        - name: endTimeMillis
+          in: query
+          required: false
+          description: >-
+            End of the time range in epoch milliseconds.
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Timeline retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimelineResponse'
+        '400':
+          description: Invalid URN format or query parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required or token is invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Entity not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /platform/entities/v1:
+    post:
+      operationId: emitPlatformEvents
+      summary: DataHub Emit platform metadata events
+      description: >-
+        Write metadata events using the standard platform format. Provides an
+        alternative ingestion path for emitting metadata change proposals (MCPs)
+        to the DataHub metadata graph. Events are processed asynchronously and
+        undergo basic schema validation upon receipt.
+      tags:
+        - Platform
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/MetadataChangeProposal'
+      responses:
+        '200':
+          description: Platform events accepted for processing
+        '400':
+          description: Invalid event format or schema validation failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required or token is invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /v3/entity/{entityName}/batchGet:
+    post:
+      operationId: batchGetEntities
+      summary: DataHub Batch fetch entities
+      description: >-
+        Fetch multiple entities and their aspects in a single request. Supports
+        retrieving specific aspect versions using the If-Version-Match header
+        for conditional reads. Allows fetching entities in bulk with fine-grained
+        control over which aspects and versions are returned.
+      tags:
+        - Batch
+      parameters:
+        - name: entityName
+          in: path
+          required: true
+          description: >-
+            The type name of the entities to fetch, such as dataset, chart,
+            dashboard, dataFlow, dataJob, or corpUser.
+          schema:
+            type: string
+            example: dataset
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/BatchGetRequest'
+      responses:
+        '200':
+          description: Entities fetched successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EntityAspectResponse'
+        '400':
+          description: Invalid request body or entity name
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required or token is invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: >-
+        DataHub personal access token or session token. Generate tokens via
+        the DataHub settings panel or programmatically using the token
+        management API. Pass the token in the Authorization header as
+        Bearer <token>.
+  parameters:
+    Urns:
+      name: urns
+      in: query
+      required: true
+      description: >-
+        One or more entity URNs to operate on. Only a single entity type may
+        be queried per request. URNs follow the format
+        urn:li:{entityType}:{key}.
+      schema:
+        type: array
+        items:
+          type: string
+        example:
+          - urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)
+    AspectNames:
+      name: aspectNames
+      in: query
+      required: false
+      description: >-
+        Specific aspect names to retrieve for the requested entities. If not
+        provided, all aspects are returned.
+      schema:
+        type: array
+        items:
+          type: string
+        example:
+          - datasetProperties
+          - schemaMetadata
+          - ownership
+    SoftDelete:
+      name: soft
+      in: query
+      required: false
+      description: >-
+        Whether to perform a soft delete (marking the entity as removed while
+        preserving metadata) or a hard delete (permanently removing all
+        metadata). Defaults to true (soft delete).
+      schema:
+        type: boolean
+        default: true
+    CreateEntityIfNotExists:
+      name: createEntityIfNotExists
+      in: query
+      required: false
+      description: >-
+        When set to true, the entity will only be created if it does not
+        already exist. If the entity already exists, the request is ignored.
+      schema:
+        type: boolean
+        default: false
+  schemas:
+    EntityAspectRequest:
+      type: object
+      description: >-
+        A request to upsert an entity-aspect pair in the DataHub metadata
+        graph. Contains the entity URN, entity type, aspect name, and the
+        aspect value to write.
+      required:
+        - entityUrn
+        - entityType
+        - aspectName
+        - aspect
+      properties:
+        entityUrn:
+          type: string
+          description: >-
+            The unique URN identifier for the entity being modified.
+          example: urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)
+        entityType:
+          type: string
+          description: >-
+            The type of the entity being modified, such as dataset, chart,
+            dashboard, dataFlow, or dataJob.
+          example: dataset
+        aspectName:
+          type: string
+          description: >-
+            The name of the aspect being written, such as datasetProperties,
+            schemaMetadata, ownership, or globalTags.
+          example: datasetProperties
+        aspect:
+          type: object
+          description: >-
+            The aspect value to write. The structure varies depending on the
+            aspect name and follows the PDL schema definitions in the DataHub
+            metadata models.
+    EntityAspectResponse:
+      type: object
+      description: >-
+        A response containing an entity and its requested aspects from the
+        DataHub metadata graph.
+      properties:
+        entityUrn:
+          type: string
+          description: >-
+            The unique URN identifier for the entity.
+          example: urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)
+        entityType:
+          type: string
+          description: >-
+            The type of the entity.
+          example: dataset
+        aspects:
+          type: object
+          description: >-
+            A map of aspect names to their values for the requested entity.
+          additionalProperties:
+            $ref: '#/components/schemas/AspectValue'
+    AspectValue:
+      type: object
+      description: >-
+        The value of an aspect including its content and metadata.
+      properties:
+        value:
+          type: object
+          description: >-
+            The aspect payload following its PDL schema definition.
+        contentType:
+          type: string
+          description: >-
+            The content type of the aspect value, typically
+            application/json.
+          example: application/json
+        created:
+          $ref: '#/components/schemas/AuditStamp'
+    AuditStamp:
+      type: object
+      description: >-
+        An audit stamp recording who made a change and when.
+      properties:
+        time:
+          type: integer
+          format: int64
+          description: >-
+            The timestamp of the change in epoch milliseconds.
+        actor:
+          type: string
+          description: >-
+            The URN of the actor who made the change.
+          example: urn:li:corpuser:datahub
+    MetadataChangeProposal:
+      type: object
+      description: >-
+        A metadata change proposal (MCP) representing a proposed change to
+        the metadata graph. MCPs are the standard format for ingesting
+        metadata into DataHub and are processed asynchronously.
+      required:
+        - entityUrn
+        - entityType
+        - aspectName
+        - changeType
+        - aspect
+      properties:
+        entityUrn:
+          type: string
+          description: >-
+            The unique URN identifier for the target entity.
+          example: urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)
+        entityType:
+          type: string
+          description: >-
+            The type of the target entity.
+          example: dataset
+        aspectName:
+          type: string
+          description: >-
+            The name of the aspect being changed.
+          example: datasetProperties
+        changeType:
+          type: string
+          description: >-
+            The type of change being proposed.
+          enum:
+            - UPSERT
+            - CREATE
+            - DELETE
+            - RESTATE
+        aspect:
+          type: object
+          description: >-
+            The new aspect value following its PDL schema definition.
+        systemMetadata:
+          $ref: '#/components/schemas/SystemMetadata'
+    SystemMetadata:
+      type: object
+      description: >-
+        System-level metadata associated with a metadata change, including
+        ingestion run identifiers and provenance information.
+      properties:
+        runId:
+          type: string
+          description: >-
+            The identifier of the ingestion run that produced this change.
+        lastObserved:
+          type: integer
+          format: int64
+          description: >-
+            The timestamp when this metadata was last observed in epoch
+            milliseconds.
+        registryName:
+          type: string
+          description: >-
+            The name of the model registry associated with this change.
+        registryVersion:
+          type: string
+          description: >-
+            The version of the model registry.
+    RelationshipsResponse:
+      type: object
+      description: >-
+        Response containing relationships for a queried entity.
+      properties:
+        start:
+          type: integer
+          description: >-
+            The pagination offset of the result set.
+        count:
+          type: integer
+          description: >-
+            The number of relationships returned.
+        total:
+          type: integer
+          description: >-
+            The total number of matching relationships.
+        relationships:
+          type: array
+          description: >-
+            The list of relationships matching the query.
+          items:
+            $ref: '#/components/schemas/Relationship'
+    Relationship:
+      type: object
+      description: >-
+        A named edge connecting two entities in the metadata graph.
+      properties:
+        type:
+          type: string
+          description: >-
+            The relationship type name, such as OwnedBy, Contains,
+            DownstreamOf, or Produces.
+          example: DownstreamOf
+        entity:
+          type: string
+          description: >-
+            The URN of the related entity.
+          example: urn:li:dataset:(urn:li:dataPlatform:hive,OtherDataset,PROD)
+        direction:
+          type: string
+          description: >-
+            The traversal direction of this relationship.
+          enum:
+            - INCOMING
+            - OUTGOING
+    TimelineResponse:
+      type: object
+      description: >-
+        Response containing the versioned history of an entity's aspects.
+      properties:
+        changeTransactions:
+          type: array
+          description: >-
+            A chronological list of change transactions for the entity.
+          items:
+            $ref: '#/components/schemas/ChangeTransaction'
+    ChangeTransaction:
+      type: object
+      description: >-
+        A single change transaction in the entity's timeline representing
+        one or more aspect modifications at a specific point in time.
+      properties:
+        timestamp:
+          type: integer
+          format: int64
+          description: >-
+            The timestamp of the change in epoch milliseconds.
+        semVer:
+          type: string
+          description: >-
+            The semantic version assigned to this change.
+        versionStamp:
+          type: string
+          description: >-
+            A version stamp uniquely identifying this change.
+        changeEvents:
+          type: array
+          description: >-
+            The individual change events within this transaction.
+          items:
+            $ref: '#/components/schemas/ChangeEvent'
+    ChangeEvent:
+      type: object
+      description: >-
+        An individual change event describing a modification to a specific
+        aspect of an entity.
+      properties:
+        changeType:
+          type: string
+          description: >-
+            The type of change that occurred.
+          enum:
+            - ADD
+            - MODIFY
+            - REMOVE
+        semVerChange:
+          type: string
+          description: >-
+            The semantic versioning category of this change.
+          enum:
+            - MAJOR
+            - MINOR
+            - PATCH
+        description:
+          type: string
+          description: >-
+            A human-readable description of the change.
+        target:
+          type: string
+          description: >-
+            The target element that was changed, such as a field name.
+    BatchGetRequest:
+      type: object
+      description: >-
+        A request to fetch a specific entity and its aspects in a batch
+        operation.
+      required:
+        - urn
+      properties:
+        urn:
+          type: string
+          description: >-
+            The URN of the entity to fetch.
+          example: urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)
+        aspectNames:
+          type: array
+          description: >-
+            Specific aspects to retrieve. If not provided, all aspects are
+            returned.
+          items:
+            type: string
+    Error:
+      type: object
+      description: >-
+        An error response from the DataHub API.
+      properties:
+        message:
+          type: string
+          description: >-
+            A human-readable description of the error.
+        status:
+          type: integer
+          description: >-
+            The HTTP status code.
+        exceptionClass:
+          type: string
+          description: >-
+            The exception class name if applicable.

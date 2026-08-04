@@ -1,0 +1,22 @@
+{
+  "provider": "datahub",
+  "sources": [
+    "datahub-batch-api-openapi.yml",
+    "datahub-entities-api-openapi.yml",
+    "datahub-platform-api-openapi.yml",
+    "datahub-relationships-api-openapi.yml",
+    "datahub-timeline-api-openapi.yml"
+  ],
+  "outputs": [
+    "datahub-batch-api-openapi.yml",
+    "datahub-entities-api-openapi.yml",
+    "datahub-platform-api-openapi.yml",
+    "datahub-relationships-api-openapi.yml",
+    "datahub-timeline-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

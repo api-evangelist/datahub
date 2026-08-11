@@ -245,6 +245,17 @@ apis:
   - type: JSONSchema
     url: json-schema/datahub-metadata-change-log-event-schema.json
 common:
+- type: IssueTracker
+  url: https://github.com/datahub-project/datahub/issues
+- type: SecurityPolicy
+  url: https://github.com/datahub-project/datahub/blob/master/SECURITY.md
+- type: CodeOfConduct
+  url: https://github.com/datahub-project/datahub/blob/master/docs/CODE_OF_CONDUCT.md
+- type: ContributionGuide
+  url: https://github.com/datahub-project/datahub/blob/master/docs/CONTRIBUTING.md
+- type: License
+  name: Apache-2.0
+  url: https://github.com/datahub-project/datahub/blob/master/LICENSE
 - type: AgenticAccess
   url: agentic-access/datahub-agentic-access.yml
 - type: DomainSecurity
@@ -310,8 +321,6 @@ common:
   url: json-ld/datahub-context.jsonld
 - type: Vocabulary
   url: vocabulary/datahub-vocabulary.yml
-- type: Capabilities
-  url: capabilities/datahub-capabilities.yml
 - type: Rules
   url: rules/datahub-rules.yml
 maintainers:

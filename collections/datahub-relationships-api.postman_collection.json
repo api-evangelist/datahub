@@ -1,0 +1,325 @@
+{
+  "item": [
+    {
+      "id": "ee85f548-89dc-4810-a4a0-dcbcacc51ae2",
+      "name": "Relationships",
+      "description": {
+        "content": "Query the relationship graph to navigate connections between entities. Supports filtering by relationship type and traversal direction (incoming or outgoing) from a given entity URN.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "677839c7-916d-4fd0-8272-54ea54ceffb3",
+          "name": "DataHub Query entity relationships",
+          "request": {
+            "name": "DataHub Query entity relationships",
+            "description": {
+              "content": "Query the relationship graph to navigate connections between entities. Returns relationships for a given entity URN, with support for filtering by relationship type and traversal direction. Use this endpoint to discover lineage, ownership, containment, and other graph edges.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "relationships",
+                "v1",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "urn",
+                  "value": "<string>",
+                  "description": "(Required) The URN of the target entity to query relationships for."
+                },
+                {
+                  "disabled": false,
+                  "key": "relationshipTypes",
+                  "value": "<string>",
+                  "description": "Filter results to specific relationship types such as OwnedBy, Contains, DownstreamOf, or Produces."
+                },
+                {
+                  "disabled": false,
+                  "key": "relationshipTypes",
+                  "value": "<string>",
+                  "description": "Filter results to specific relationship types such as OwnedBy, Contains, DownstreamOf, or Produces."
+                },
+                {
+                  "disabled": false,
+                  "key": "direction",
+                  "value": "<string>",
+                  "description": "Direction of relationship traversal relative to the target entity."
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "0",
+                  "description": "Pagination offset for the result set."
+                },
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "10",
+                  "description": "Maximum number of relationships to return."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ae6b81a5-79bf-4ce4-b44e-203bd96ae57e",
+              "name": "Relationships retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "relationships",
+                    "v1",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "urn",
+                      "value": "urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)"
+                    },
+                    {
+                      "key": "relationshipTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "relationshipTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "direction",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "0"
+                    },
+                    {
+                      "key": "count",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"start\": 283,\n  \"count\": 7869,\n  \"total\": 1833,\n  \"relationships\": [\n    {\n      \"type\": \"DownstreamOf\",\n      \"entity\": \"urn:li:dataset:(urn:li:dataPlatform:hive,OtherDataset,PROD)\",\n      \"direction\": \"OUTGOING\"\n    },\n    {\n      \"type\": \"DownstreamOf\",\n      \"entity\": \"urn:li:dataset:(urn:li:dataPlatform:hive,OtherDataset,PROD)\",\n      \"direction\": \"OUTGOING\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3651d264-6035-42d5-8f96-be5b48abf456",
+              "name": "Invalid URN format or query parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "relationships",
+                    "v1",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "urn",
+                      "value": "urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)"
+                    },
+                    {
+                      "key": "relationshipTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "relationshipTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "direction",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "0"
+                    },
+                    {
+                      "key": "count",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 7965,\n  \"exceptionClass\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1637daa7-b7aa-48fa-bec1-5e0059c13a6a",
+              "name": "Authentication required or token is invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "relationships",
+                    "v1",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "urn",
+                      "value": "urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)"
+                    },
+                    {
+                      "key": "relationshipTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "relationshipTypes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "direction",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "0"
+                    },
+                    {
+                      "key": "count",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 7965,\n  \"exceptionClass\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:8080",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "0f57513f-b506-4832-bc24-afb1937457ad",
+    "name": "DataHub Open Batch Relationships API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "RESTful API endpoints for interacting with DataHub metadata using the OpenAPI standard. Provides endpoints for managing entities, querying relationships, retrieving timeline history, and emitting platform events. The OpenAPI endpoints offer the most powerful and flexible lower-level access to the DataHub metadata graph, supporting reads and writes of entity-aspect pairs, relationship traversal, versioned history queries, and batch operations. Recommended for advanced users who need programmatic control over the metadata graph beyond what the GraphQL API provides.\n\nContact Support:\n Name: DataHub Project",
+      "type": "text/plain"
+    }
+  }
+}

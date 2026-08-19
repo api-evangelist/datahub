@@ -1,0 +1,97 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DataHub Open Batch Entities API",
+    "version": "1.4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Entities",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "DataHub Upsert entity aspects",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8080/entities/v1/",
+            "params": [
+              {
+                "name": "createEntityIfNotExists",
+                "value": "",
+                "type": "query",
+                "description": "When set to true, the entity will only be created if it does not already exist. If the entity already exists, the request is ignored."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create or update one or more entity aspects in the DataHub metadata graph. Supports upserting entity-aspect pairs where the entire DataHub metadata model is available for writing. Use the createEntityIfNotExists query parameter to conditionally create entities only if they do not already exist."
+        },
+        {
+          "info": {
+            "name": "DataHub Delete entities",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:8080/entities/v1/",
+            "params": [
+              {
+                "name": "urns",
+                "value": "",
+                "type": "query",
+                "description": "One or more entity URNs to operate on. Only a single entity type may be queried per request. URNs follow the format urn:li:{entityType}:{key}."
+              },
+              {
+                "name": "soft",
+                "value": "",
+                "type": "query",
+                "description": "Whether to perform a soft delete (marking the entity as removed while preserving metadata) or a hard delete (permanently removing all metadata). Defaults to true (soft delete)."
+              }
+            ]
+          },
+          "docs": "Delete one or more entities from the DataHub metadata graph. Supports both soft deletes (marking entities as removed while preserving metadata) and hard deletes (permanently removing all entity metadata). Soft delete is the default behavior."
+        },
+        {
+          "info": {
+            "name": "DataHub Retrieve latest entity aspects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8080/entities/v1/latest",
+            "params": [
+              {
+                "name": "urns",
+                "value": "",
+                "type": "query",
+                "description": "One or more entity URNs to operate on. Only a single entity type may be queried per request. URNs follow the format urn:li:{entityType}:{key}."
+              },
+              {
+                "name": "aspectNames",
+                "value": "",
+                "type": "query",
+                "description": "Specific aspect names to retrieve for the requested entities. If not provided, all aspects are returned."
+              }
+            ]
+          },
+          "docs": "Retrieve the latest aspects for one or more entities from the DataHub metadata graph. Requires raw URN strings and supports fetching specific aspects by name. Only a single entity type may be queried per request."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,67 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DataHub Open Batch Relationships API",
+    "version": "1.4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Relationships",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "DataHub Query entity relationships",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8080/relationships/v1/",
+            "params": [
+              {
+                "name": "urn",
+                "value": "",
+                "type": "query",
+                "description": "The URN of the target entity to query relationships for."
+              },
+              {
+                "name": "relationshipTypes",
+                "value": "",
+                "type": "query",
+                "description": "Filter results to specific relationship types such as OwnedBy, Contains, DownstreamOf, or Produces."
+              },
+              {
+                "name": "direction",
+                "value": "",
+                "type": "query",
+                "description": "Direction of relationship traversal relative to the target entity."
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset for the result set."
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of relationships to return."
+              }
+            ]
+          },
+          "docs": "Query the relationship graph to navigate connections between entities. Returns relationships for a given entity URN, with support for filtering by relationship type and traversal direction. Use this endpoint to discover lineage, ownership, containment, and other graph edges."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

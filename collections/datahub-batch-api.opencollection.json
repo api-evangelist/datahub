@@ -1,0 +1,47 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DataHub Open Batch API",
+    "version": "1.4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Batch",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "DataHub Batch fetch entities",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8080/v3/entity/:entityName/batchGet",
+            "params": [
+              {
+                "name": "entityName",
+                "value": "",
+                "type": "path",
+                "description": "The type name of the entities to fetch, such as dataset, chart, dashboard, dataFlow, dataJob, or corpUser."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Fetch multiple entities and their aspects in a single request. Supports retrieving specific aspect versions using the If-Version-Match header for conditional reads. Allows fetching entities in bulk with fine-grained control over which aspects and versions are returned."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

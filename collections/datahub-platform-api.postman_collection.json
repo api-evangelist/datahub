@@ -1,0 +1,246 @@
+{
+  "item": [
+    {
+      "id": "38d6a90a-d823-482b-954f-59c89cf98f84",
+      "name": "Platform",
+      "description": {
+        "content": "Write metadata events using the standard platform format. Provides an alternative ingestion path for emitting metadata change proposals to the DataHub metadata graph.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "13411fec-daa2-43be-bef2-7c475b7b6608",
+          "name": "DataHub Emit platform metadata events",
+          "request": {
+            "name": "DataHub Emit platform metadata events",
+            "description": {
+              "content": "Write metadata events using the standard platform format. Provides an alternative ingestion path for emitting metadata change proposals (MCPs) to the DataHub metadata graph. Events are processed asynchronously and undergo basic schema validation upon receipt.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "platform",
+                "entities",
+                "v1"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"entityUrn\": \"<string>\",\n    \"entityType\": \"<string>\",\n    \"aspectName\": \"<string>\",\n    \"changeType\": \"<string>\",\n    \"aspect\": \"<object>\",\n    \"systemMetadata\": {\n      \"runId\": \"<string>\",\n      \"lastObserved\": \"<long>\",\n      \"registryName\": \"<string>\",\n      \"registryVersion\": \"<string>\"\n    }\n  },\n  {\n    \"entityUrn\": \"<string>\",\n    \"entityType\": \"<string>\",\n    \"aspectName\": \"<string>\",\n    \"changeType\": \"<string>\",\n    \"aspect\": \"<object>\",\n    \"systemMetadata\": {\n      \"runId\": \"<string>\",\n      \"lastObserved\": \"<long>\",\n      \"registryName\": \"<string>\",\n      \"registryVersion\": \"<string>\"\n    }\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7c203e20-4de4-4626-b218-b661274009df",
+              "name": "Platform events accepted for processing",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "platform",
+                    "entities",
+                    "v1"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"entityUrn\": \"urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)\",\n    \"entityType\": \"dataset\",\n    \"aspectName\": \"datasetProperties\",\n    \"changeType\": \"RESTATE\",\n    \"aspect\": {},\n    \"systemMetadata\": {\n      \"runId\": \"string\",\n      \"lastObserved\": 6180,\n      \"registryName\": \"string\",\n      \"registryVersion\": \"string\"\n    }\n  },\n  {\n    \"entityUrn\": \"urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)\",\n    \"entityType\": \"dataset\",\n    \"aspectName\": \"datasetProperties\",\n    \"changeType\": \"RESTATE\",\n    \"aspect\": {},\n    \"systemMetadata\": {\n      \"runId\": \"string\",\n      \"lastObserved\": 8529,\n      \"registryName\": \"string\",\n      \"registryVersion\": \"string\"\n    }\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c1777398-6ac7-4b01-a55f-44f30b71ee7e",
+              "name": "Invalid event format or schema validation failure",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "platform",
+                    "entities",
+                    "v1"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"entityUrn\": \"urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)\",\n    \"entityType\": \"dataset\",\n    \"aspectName\": \"datasetProperties\",\n    \"changeType\": \"RESTATE\",\n    \"aspect\": {},\n    \"systemMetadata\": {\n      \"runId\": \"string\",\n      \"lastObserved\": 6180,\n      \"registryName\": \"string\",\n      \"registryVersion\": \"string\"\n    }\n  },\n  {\n    \"entityUrn\": \"urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)\",\n    \"entityType\": \"dataset\",\n    \"aspectName\": \"datasetProperties\",\n    \"changeType\": \"RESTATE\",\n    \"aspect\": {},\n    \"systemMetadata\": {\n      \"runId\": \"string\",\n      \"lastObserved\": 8529,\n      \"registryName\": \"string\",\n      \"registryVersion\": \"string\"\n    }\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 3371,\n  \"exceptionClass\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "88a838b0-0726-4605-9747-f7e53cb19f4d",
+              "name": "Authentication required or token is invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "platform",
+                    "entities",
+                    "v1"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"entityUrn\": \"urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)\",\n    \"entityType\": \"dataset\",\n    \"aspectName\": \"datasetProperties\",\n    \"changeType\": \"RESTATE\",\n    \"aspect\": {},\n    \"systemMetadata\": {\n      \"runId\": \"string\",\n      \"lastObserved\": 6180,\n      \"registryName\": \"string\",\n      \"registryVersion\": \"string\"\n    }\n  },\n  {\n    \"entityUrn\": \"urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)\",\n    \"entityType\": \"dataset\",\n    \"aspectName\": \"datasetProperties\",\n    \"changeType\": \"RESTATE\",\n    \"aspect\": {},\n    \"systemMetadata\": {\n      \"runId\": \"string\",\n      \"lastObserved\": 8529,\n      \"registryName\": \"string\",\n      \"registryVersion\": \"string\"\n    }\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 3371,\n  \"exceptionClass\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:8080",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "6df5658d-0434-4488-bad9-8ae6655f9fff",
+    "name": "DataHub Open Batch Platform API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "RESTful API endpoints for interacting with DataHub metadata using the OpenAPI standard. Provides endpoints for managing entities, querying relationships, retrieving timeline history, and emitting platform events. The OpenAPI endpoints offer the most powerful and flexible lower-level access to the DataHub metadata graph, supporting reads and writes of entity-aspect pairs, relationship traversal, versioned history queries, and batch operations. Recommended for advanced users who need programmatic control over the metadata graph beyond what the GraphQL API provides.\n\nContact Support:\n Name: DataHub Project",
+      "type": "text/plain"
+    }
+  }
+}

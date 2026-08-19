@@ -1,0 +1,61 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DataHub Open Batch Timeline API",
+    "version": "1.4.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Timeline",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "DataHub Query entity timeline",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8080/timeline/",
+            "params": [
+              {
+                "name": "urn",
+                "value": "",
+                "type": "query",
+                "description": "The URN of the entity whose timeline to retrieve."
+              },
+              {
+                "name": "aspectNames",
+                "value": "",
+                "type": "query",
+                "description": "The names of aspects to include in the timeline. If not specified, all aspects are returned."
+              },
+              {
+                "name": "startTimeMillis",
+                "value": "",
+                "type": "query",
+                "description": "Start of the time range in epoch milliseconds."
+              },
+              {
+                "name": "endTimeMillis",
+                "value": "",
+                "type": "query",
+                "description": "End of the time range in epoch milliseconds."
+              }
+            ]
+          },
+          "docs": "Query the versioned history of an entity's aspects over time. Useful for tracking changes such as schema modifications, documentation updates, ownership transfers, and tag additions that have occurred on a given entity. Returns a chronological list of aspect versions with timestamps and audit information."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

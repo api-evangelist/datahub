@@ -1,0 +1,368 @@
+{
+  "item": [
+    {
+      "id": "6ff7245b-7f58-4a66-8873-b43a7c981465",
+      "name": "Timeline",
+      "description": {
+        "content": "Query the versioned history of entity aspects over time. Useful for tracking schema changes, documentation updates, and other temporal metadata modifications for a given entity.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "95d0a3da-3101-4e0a-8bfc-1cc7d7b240f2",
+          "name": "DataHub Query entity timeline",
+          "request": {
+            "name": "DataHub Query entity timeline",
+            "description": {
+              "content": "Query the versioned history of an entity's aspects over time. Useful for tracking changes such as schema modifications, documentation updates, ownership transfers, and tag additions that have occurred on a given entity. Returns a chronological list of aspect versions with timestamps and audit information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "timeline",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "urn",
+                  "value": "<string>",
+                  "description": "(Required) The URN of the entity whose timeline to retrieve."
+                },
+                {
+                  "disabled": false,
+                  "key": "aspectNames",
+                  "value": "<string>",
+                  "description": "The names of aspects to include in the timeline. If not specified, all aspects are returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "aspectNames",
+                  "value": "<string>",
+                  "description": "The names of aspects to include in the timeline. If not specified, all aspects are returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "startTimeMillis",
+                  "value": "<long>",
+                  "description": "Start of the time range in epoch milliseconds."
+                },
+                {
+                  "disabled": false,
+                  "key": "endTimeMillis",
+                  "value": "<long>",
+                  "description": "End of the time range in epoch milliseconds."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "32cf7c0c-2b62-422e-9205-4db9c1a561be",
+              "name": "Timeline retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "timeline",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "urn",
+                      "value": "urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)"
+                    },
+                    {
+                      "key": "aspectNames",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "aspectNames",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startTimeMillis",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "endTimeMillis",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"changeTransactions\": [\n    {\n      \"timestamp\": 9066,\n      \"semVer\": \"string\",\n      \"versionStamp\": \"string\",\n      \"changeEvents\": [\n        {\n          \"changeType\": \"MODIFY\",\n          \"semVerChange\": \"PATCH\",\n          \"description\": \"string\",\n          \"target\": \"string\"\n        },\n        {\n          \"changeType\": \"ADD\",\n          \"semVerChange\": \"PATCH\",\n          \"description\": \"string\",\n          \"target\": \"string\"\n        }\n      ]\n    },\n    {\n      \"timestamp\": 7058,\n      \"semVer\": \"string\",\n      \"versionStamp\": \"string\",\n      \"changeEvents\": [\n        {\n          \"changeType\": \"ADD\",\n          \"semVerChange\": \"PATCH\",\n          \"description\": \"string\",\n          \"target\": \"string\"\n        },\n        {\n          \"changeType\": \"MODIFY\",\n          \"semVerChange\": \"MAJOR\",\n          \"description\": \"string\",\n          \"target\": \"string\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "286bef9c-e285-4c43-ac6f-674b08ffbe9a",
+              "name": "Invalid URN format or query parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "timeline",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "urn",
+                      "value": "urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)"
+                    },
+                    {
+                      "key": "aspectNames",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "aspectNames",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startTimeMillis",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "endTimeMillis",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 2701,\n  \"exceptionClass\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "464af7fa-998e-4170-ae0f-9d6acaaccabc",
+              "name": "Authentication required or token is invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "timeline",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "urn",
+                      "value": "urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)"
+                    },
+                    {
+                      "key": "aspectNames",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "aspectNames",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startTimeMillis",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "endTimeMillis",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 2701,\n  \"exceptionClass\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "45fd09d3-aa03-454a-ac3a-dfd42d2a9cb9",
+              "name": "Entity not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "timeline",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "urn",
+                      "value": "urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)"
+                    },
+                    {
+                      "key": "aspectNames",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "aspectNames",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startTimeMillis",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "endTimeMillis",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 2701,\n  \"exceptionClass\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:8080",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f1f95819-8e7f-48c2-ae73-c0e7d9649a1a",
+    "name": "DataHub Open Batch Timeline API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "RESTful API endpoints for interacting with DataHub metadata using the OpenAPI standard. Provides endpoints for managing entities, querying relationships, retrieving timeline history, and emitting platform events. The OpenAPI endpoints offer the most powerful and flexible lower-level access to the DataHub metadata graph, supporting reads and writes of entity-aspect pairs, relationship traversal, versioned history queries, and batch operations. Recommended for advanced users who need programmatic control over the metadata graph beyond what the GraphQL API provides.\n\nContact Support:\n Name: DataHub Project",
+      "type": "text/plain"
+    }
+  }
+}

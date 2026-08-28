@@ -12,8 +12,14 @@ info:
     underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: datahubApi
-  url: ../openapi/datahub-openapi-openapi.yml
+- name: batchApi
+  url: ../openapi/datahub-batch-api-openapi.yml
+  type: openapi
+- name: entitiesApi
+  url: ../openapi/datahub-entities-api-openapi.yml
+  type: openapi
+- name: relationshipsApi
+  url: ../openapi/datahub-relationships-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: trace-lineage

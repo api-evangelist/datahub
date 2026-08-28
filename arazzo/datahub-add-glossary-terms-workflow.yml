@@ -12,8 +12,11 @@ info:
     underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: datahubApi
-  url: ../openapi/datahub-openapi-openapi.yml
+- name: entitiesApi
+  url: ../openapi/datahub-entities-api-openapi.yml
+  type: openapi
+- name: timelineApi
+  url: ../openapi/datahub-timeline-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: add-glossary-terms

@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: DataHub Open Batch Entities API
-  description: RESTful API endpoints for interacting with DataHub metadata using the OpenAPI standard. Provides endpoints for managing entities, querying relationships, retrieving timeline history, and emitting platform events. The OpenAPI endpoints offer the most powerful and flexible lower-level access to the DataHub metadata graph, supporting reads and writes of entity-aspect pairs, relationship traversal, versioned history queries, and batch operations. Recommended for advanced users who need programmatic control over the metadata graph beyond what the GraphQL API provides.
+  title: DataHub Open Entities API
+  description: RESTful API endpoints for interacting with DataHub metadata using the OpenAPI standard.
   version: 1.4.0
   contact:
     name: DataHub Project
@@ -125,6 +125,35 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    AuditStamp:
+      type: object
+      description: An audit stamp recording who made a change and when.
+      properties:
+        time:
+          type: integer
+          format: int64
+          description: The timestamp of the change in epoch milliseconds.
+        actor:
+          type: string
+          description: The URN of the actor who made the change.
+          example: urn:li:corpuser:datahub
+    EntityAspectResponse:
+      type: object
+      description: A response containing an entity and its requested aspects from the DataHub metadata graph.
+      properties:
+        entityUrn:
+          type: string
+          description: The unique URN identifier for the entity.
+          example: urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)
+        entityType:
+          type: string
+          description: The type of the entity.
+          example: dataset
+        aspects:
+          type: object
+          description: A map of aspect names to their values for the requested entity.
+          additionalProperties:
+            $ref: '#/components/schemas/AspectValue'
     EntityAspectRequest:
       type: object
       description: A request to upsert an entity-aspect pair in the DataHub metadata graph. Contains the entity URN, entity type, aspect name, and the aspect value to write.
@@ -162,35 +191,6 @@ components:
         exceptionClass:
           type: string
           description: The exception class name if applicable.
-    AuditStamp:
-      type: object
-      description: An audit stamp recording who made a change and when.
-      properties:
-        time:
-          type: integer
-          format: int64
-          description: The timestamp of the change in epoch milliseconds.
-        actor:
-          type: string
-          description: The URN of the actor who made the change.
-          example: urn:li:corpuser:datahub
-    EntityAspectResponse:
-      type: object
-      description: A response containing an entity and its requested aspects from the DataHub metadata graph.
-      properties:
-        entityUrn:
-          type: string
-          description: The unique URN identifier for the entity.
-          example: urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)
-        entityType:
-          type: string
-          description: The type of the entity.
-          example: dataset
-        aspects:
-          type: object
-          description: A map of aspect names to their values for the requested entity.
-          additionalProperties:
-            $ref: '#/components/schemas/AspectValue'
     AspectValue:
       type: object
       description: The value of an aspect including its content and metadata.
@@ -205,6 +205,14 @@ components:
         created:
           $ref: '#/components/schemas/AuditStamp'
   parameters:
+    CreateEntityIfNotExists:
+      name: createEntityIfNotExists
+      in: query
+      required: false
+      description: When set to true, the entity will only be created if it does not already exist. If the entity already exists, the request is ignored.
+      schema:
+        type: boolean
+        default: false
     AspectNames:
       name: aspectNames
       in: query
@@ -218,14 +226,6 @@ components:
         - datasetProperties
         - schemaMetadata
         - ownership
-    SoftDelete:
-      name: soft
-      in: query
-      required: false
-      description: Whether to perform a soft delete (marking the entity as removed while preserving metadata) or a hard delete (permanently removing all metadata). Defaults to true (soft delete).
-      schema:
-        type: boolean
-        default: true
     Urns:
       name: urns
       in: query
@@ -237,14 +237,14 @@ components:
           type: string
         example:
         - urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)
-    CreateEntityIfNotExists:
-      name: createEntityIfNotExists
+    SoftDelete:
+      name: soft
       in: query
       required: false
-      description: When set to true, the entity will only be created if it does not already exist. If the entity already exists, the request is ignored.
+      description: Whether to perform a soft delete (marking the entity as removed while preserving metadata) or a hard delete (permanently removing all metadata). Defaults to true (soft delete).
       schema:
         type: boolean
-        default: false
+        default: true
   securitySchemes:
     bearerAuth:
       type: http

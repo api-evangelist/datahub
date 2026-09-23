@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: DataHub Open Batch Timeline API
-  description: RESTful API endpoints for interacting with DataHub metadata using the OpenAPI standard. Provides endpoints for managing entities, querying relationships, retrieving timeline history, and emitting platform events. The OpenAPI endpoints offer the most powerful and flexible lower-level access to the DataHub metadata graph, supporting reads and writes of entity-aspect pairs, relationship traversal, versioned history queries, and batch operations. Recommended for advanced users who need programmatic control over the metadata graph beyond what the GraphQL API provides.
+  title: DataHub Open Timeline API
+  description: RESTful API endpoints for interacting with DataHub metadata using the OpenAPI standard.
   version: 1.4.0
   contact:
     name: DataHub Project
@@ -82,25 +82,15 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    ChangeTransaction:
+    TimelineResponse:
       type: object
-      description: A single change transaction in the entity's timeline representing one or more aspect modifications at a specific point in time.
+      description: Response containing the versioned history of an entity's aspects.
       properties:
-        timestamp:
-          type: integer
-          format: int64
-          description: The timestamp of the change in epoch milliseconds.
-        semVer:
-          type: string
-          description: The semantic version assigned to this change.
-        versionStamp:
-          type: string
-          description: A version stamp uniquely identifying this change.
-        changeEvents:
+        changeTransactions:
           type: array
-          description: The individual change events within this transaction.
+          description: A chronological list of change transactions for the entity.
           items:
-            $ref: '#/components/schemas/ChangeEvent'
+            $ref: '#/components/schemas/ChangeTransaction'
     ChangeEvent:
       type: object
       description: An individual change event describing a modification to a specific aspect of an entity.
@@ -125,15 +115,6 @@ components:
         target:
           type: string
           description: The target element that was changed, such as a field name.
-    TimelineResponse:
-      type: object
-      description: Response containing the versioned history of an entity's aspects.
-      properties:
-        changeTransactions:
-          type: array
-          description: A chronological list of change transactions for the entity.
-          items:
-            $ref: '#/components/schemas/ChangeTransaction'
     Error:
       type: object
       description: An error response from the DataHub API.
@@ -147,6 +128,25 @@ components:
         exceptionClass:
           type: string
           description: The exception class name if applicable.
+    ChangeTransaction:
+      type: object
+      description: A single change transaction in the entity's timeline representing one or more aspect modifications at a specific point in time.
+      properties:
+        timestamp:
+          type: integer
+          format: int64
+          description: The timestamp of the change in epoch milliseconds.
+        semVer:
+          type: string
+          description: The semantic version assigned to this change.
+        versionStamp:
+          type: string
+          description: A version stamp uniquely identifying this change.
+        changeEvents:
+          type: array
+          description: The individual change events within this transaction.
+          items:
+            $ref: '#/components/schemas/ChangeEvent'
   securitySchemes:
     bearerAuth:
       type: http

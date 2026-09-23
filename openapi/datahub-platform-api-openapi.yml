@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: DataHub Open Batch Platform API
-  description: RESTful API endpoints for interacting with DataHub metadata using the OpenAPI standard. Provides endpoints for managing entities, querying relationships, retrieving timeline history, and emitting platform events. The OpenAPI endpoints offer the most powerful and flexible lower-level access to the DataHub metadata graph, supporting reads and writes of entity-aspect pairs, relationship traversal, versioned history queries, and batch operations. Recommended for advanced users who need programmatic control over the metadata graph beyond what the GraphQL API provides.
+  title: DataHub Open Platform API
+  description: RESTful API endpoints for interacting with DataHub metadata using the OpenAPI standard.
   version: 1.4.0
   contact:
     name: DataHub Project
@@ -50,6 +50,36 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    SystemMetadata:
+      type: object
+      description: System-level metadata associated with a metadata change, including ingestion run identifiers and provenance information.
+      properties:
+        runId:
+          type: string
+          description: The identifier of the ingestion run that produced this change.
+        lastObserved:
+          type: integer
+          format: int64
+          description: The timestamp when this metadata was last observed in epoch milliseconds.
+        registryName:
+          type: string
+          description: The name of the model registry associated with this change.
+        registryVersion:
+          type: string
+          description: The version of the model registry.
+    Error:
+      type: object
+      description: An error response from the DataHub API.
+      properties:
+        message:
+          type: string
+          description: A human-readable description of the error.
+        status:
+          type: integer
+          description: The HTTP status code.
+        exceptionClass:
+          type: string
+          description: The exception class name if applicable.
     MetadataChangeProposal:
       type: object
       description: A metadata change proposal (MCP) representing a proposed change to the metadata graph. MCPs are the standard format for ingesting metadata into DataHub and are processed asynchronously.
@@ -85,36 +115,6 @@ components:
           description: The new aspect value following its PDL schema definition.
         systemMetadata:
           $ref: '#/components/schemas/SystemMetadata'
-    SystemMetadata:
-      type: object
-      description: System-level metadata associated with a metadata change, including ingestion run identifiers and provenance information.
-      properties:
-        runId:
-          type: string
-          description: The identifier of the ingestion run that produced this change.
-        lastObserved:
-          type: integer
-          format: int64
-          description: The timestamp when this metadata was last observed in epoch milliseconds.
-        registryName:
-          type: string
-          description: The name of the model registry associated with this change.
-        registryVersion:
-          type: string
-          description: The version of the model registry.
-    Error:
-      type: object
-      description: An error response from the DataHub API.
-      properties:
-        message:
-          type: string
-          description: A human-readable description of the error.
-        status:
-          type: integer
-          description: The HTTP status code.
-        exceptionClass:
-          type: string
-          description: The exception class name if applicable.
   securitySchemes:
     bearerAuth:
       type: http

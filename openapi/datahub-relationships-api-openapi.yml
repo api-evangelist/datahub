@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: DataHub Open Batch Relationships API
-  description: RESTful API endpoints for interacting with DataHub metadata using the OpenAPI standard. Provides endpoints for managing entities, querying relationships, retrieving timeline history, and emitting platform events. The OpenAPI endpoints offer the most powerful and flexible lower-level access to the DataHub metadata graph, supporting reads and writes of entity-aspect pairs, relationship traversal, versioned history queries, and batch operations. Recommended for advanced users who need programmatic control over the metadata graph beyond what the GraphQL API provides.
+  title: DataHub Open Relationships API
+  description: RESTful API endpoints for interacting with DataHub metadata using the OpenAPI standard.
   version: 1.4.0
   contact:
     name: DataHub Project
@@ -85,24 +85,19 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    Relationship:
+    Error:
       type: object
-      description: A named edge connecting two entities in the metadata graph.
+      description: An error response from the DataHub API.
       properties:
-        type:
+        message:
           type: string
-          description: The relationship type name, such as OwnedBy, Contains, DownstreamOf, or Produces.
-          example: DownstreamOf
-        entity:
+          description: A human-readable description of the error.
+        status:
+          type: integer
+          description: The HTTP status code.
+        exceptionClass:
           type: string
-          description: The URN of the related entity.
-          example: urn:li:dataset:(urn:li:dataPlatform:hive,OtherDataset,PROD)
-        direction:
-          type: string
-          description: The traversal direction of this relationship.
-          enum:
-          - INCOMING
-          - OUTGOING
+          description: The exception class name if applicable.
     RelationshipsResponse:
       type: object
       description: Response containing relationships for a queried entity.
@@ -121,19 +116,24 @@ components:
           description: The list of relationships matching the query.
           items:
             $ref: '#/components/schemas/Relationship'
-    Error:
+    Relationship:
       type: object
-      description: An error response from the DataHub API.
+      description: A named edge connecting two entities in the metadata graph.
       properties:
-        message:
+        type:
           type: string
-          description: A human-readable description of the error.
-        status:
-          type: integer
-          description: The HTTP status code.
-        exceptionClass:
+          description: The relationship type name, such as OwnedBy, Contains, DownstreamOf, or Produces.
+          example: DownstreamOf
+        entity:
           type: string
-          description: The exception class name if applicable.
+          description: The URN of the related entity.
+          example: urn:li:dataset:(urn:li:dataPlatform:hive,OtherDataset,PROD)
+        direction:
+          type: string
+          description: The traversal direction of this relationship.
+          enum:
+          - INCOMING
+          - OUTGOING
   securitySchemes:
     bearerAuth:
       type: http

@@ -1,11 +1,7 @@
 {
   "provider": "datahub",
   "sources": [
-    "datahub-batch-api-openapi.yml",
-    "datahub-entities-api-openapi.yml",
-    "datahub-platform-api-openapi.yml",
-    "datahub-relationships-api-openapi.yml",
-    "datahub-timeline-api-openapi.yml"
+    "_original/datahub-openapi-openapi.yml"
   ],
   "outputs": [
     "datahub-batch-api-openapi.yml",
@@ -17,6 +13,16 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "datahub-openapi-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "datahub-batch-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "datahub-entities-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "datahub-platform-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "datahub-relationships-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "datahub-timeline-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

@@ -91,6 +91,25 @@ components:
           description: A chronological list of change transactions for the entity.
           items:
             $ref: '#/components/schemas/ChangeTransaction'
+    ChangeTransaction:
+      type: object
+      description: A single change transaction in the entity's timeline representing one or more aspect modifications at a specific point in time.
+      properties:
+        timestamp:
+          type: integer
+          format: int64
+          description: The timestamp of the change in epoch milliseconds.
+        semVer:
+          type: string
+          description: The semantic version assigned to this change.
+        versionStamp:
+          type: string
+          description: A version stamp uniquely identifying this change.
+        changeEvents:
+          type: array
+          description: The individual change events within this transaction.
+          items:
+            $ref: '#/components/schemas/ChangeEvent'
     ChangeEvent:
       type: object
       description: An individual change event describing a modification to a specific aspect of an entity.
@@ -128,25 +147,6 @@ components:
         exceptionClass:
           type: string
           description: The exception class name if applicable.
-    ChangeTransaction:
-      type: object
-      description: A single change transaction in the entity's timeline representing one or more aspect modifications at a specific point in time.
-      properties:
-        timestamp:
-          type: integer
-          format: int64
-          description: The timestamp of the change in epoch milliseconds.
-        semVer:
-          type: string
-          description: The semantic version assigned to this change.
-        versionStamp:
-          type: string
-          description: A version stamp uniquely identifying this change.
-        changeEvents:
-          type: array
-          description: The individual change events within this transaction.
-          items:
-            $ref: '#/components/schemas/ChangeEvent'
   securitySchemes:
     bearerAuth:
       type: http

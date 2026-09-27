@@ -125,18 +125,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    AuditStamp:
-      type: object
-      description: An audit stamp recording who made a change and when.
-      properties:
-        time:
-          type: integer
-          format: int64
-          description: The timestamp of the change in epoch milliseconds.
-        actor:
-          type: string
-          description: The URN of the actor who made the change.
-          example: urn:li:corpuser:datahub
     EntityAspectResponse:
       type: object
       description: A response containing an entity and its requested aspects from the DataHub metadata graph.
@@ -154,6 +142,18 @@ components:
           description: A map of aspect names to their values for the requested entity.
           additionalProperties:
             $ref: '#/components/schemas/AspectValue'
+    AuditStamp:
+      type: object
+      description: An audit stamp recording who made a change and when.
+      properties:
+        time:
+          type: integer
+          format: int64
+          description: The timestamp of the change in epoch milliseconds.
+        actor:
+          type: string
+          description: The URN of the actor who made the change.
+          example: urn:li:corpuser:datahub
     EntityAspectRequest:
       type: object
       description: A request to upsert an entity-aspect pair in the DataHub metadata graph. Contains the entity URN, entity type, aspect name, and the aspect value to write.
@@ -178,19 +178,6 @@ components:
         aspect:
           type: object
           description: The aspect value to write. The structure varies depending on the aspect name and follows the PDL schema definitions in the DataHub metadata models.
-    Error:
-      type: object
-      description: An error response from the DataHub API.
-      properties:
-        message:
-          type: string
-          description: A human-readable description of the error.
-        status:
-          type: integer
-          description: The HTTP status code.
-        exceptionClass:
-          type: string
-          description: The exception class name if applicable.
     AspectValue:
       type: object
       description: The value of an aspect including its content and metadata.
@@ -204,7 +191,39 @@ components:
           example: application/json
         created:
           $ref: '#/components/schemas/AuditStamp'
+    Error:
+      type: object
+      description: An error response from the DataHub API.
+      properties:
+        message:
+          type: string
+          description: A human-readable description of the error.
+        status:
+          type: integer
+          description: The HTTP status code.
+        exceptionClass:
+          type: string
+          description: The exception class name if applicable.
   parameters:
+    Urns:
+      name: urns
+      in: query
+      required: true
+      description: One or more entity URNs to operate on. Only a single entity type may be queried per request. URNs follow the format urn:li:{entityType}:{key}.
+      schema:
+        type: array
+        items:
+          type: string
+        example:
+        - urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)
+    SoftDelete:
+      name: soft
+      in: query
+      required: false
+      description: Whether to perform a soft delete (marking the entity as removed while preserving metadata) or a hard delete (permanently removing all metadata). Defaults to true (soft delete).
+      schema:
+        type: boolean
+        default: true
     CreateEntityIfNotExists:
       name: createEntityIfNotExists
       in: query
@@ -226,25 +245,6 @@ components:
         - datasetProperties
         - schemaMetadata
         - ownership
-    Urns:
-      name: urns
-      in: query
-      required: true
-      description: One or more entity URNs to operate on. Only a single entity type may be queried per request. URNs follow the format urn:li:{entityType}:{key}.
-      schema:
-        type: array
-        items:
-          type: string
-        example:
-        - urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)
-    SoftDelete:
-      name: soft
-      in: query
-      required: false
-      description: Whether to perform a soft delete (marking the entity as removed while preserving metadata) or a hard delete (permanently removing all metadata). Defaults to true (soft delete).
-      schema:
-        type: boolean
-        default: true
   securitySchemes:
     bearerAuth:
       type: http

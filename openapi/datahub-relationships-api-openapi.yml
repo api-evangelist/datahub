@@ -85,37 +85,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    Error:
-      type: object
-      description: An error response from the DataHub API.
-      properties:
-        message:
-          type: string
-          description: A human-readable description of the error.
-        status:
-          type: integer
-          description: The HTTP status code.
-        exceptionClass:
-          type: string
-          description: The exception class name if applicable.
-    RelationshipsResponse:
-      type: object
-      description: Response containing relationships for a queried entity.
-      properties:
-        start:
-          type: integer
-          description: The pagination offset of the result set.
-        count:
-          type: integer
-          description: The number of relationships returned.
-        total:
-          type: integer
-          description: The total number of matching relationships.
-        relationships:
-          type: array
-          description: The list of relationships matching the query.
-          items:
-            $ref: '#/components/schemas/Relationship'
     Relationship:
       type: object
       description: A named edge connecting two entities in the metadata graph.
@@ -134,6 +103,37 @@ components:
           enum:
           - INCOMING
           - OUTGOING
+    RelationshipsResponse:
+      type: object
+      description: Response containing relationships for a queried entity.
+      properties:
+        start:
+          type: integer
+          description: The pagination offset of the result set.
+        count:
+          type: integer
+          description: The number of relationships returned.
+        total:
+          type: integer
+          description: The total number of matching relationships.
+        relationships:
+          type: array
+          description: The list of relationships matching the query.
+          items:
+            $ref: '#/components/schemas/Relationship'
+    Error:
+      type: object
+      description: An error response from the DataHub API.
+      properties:
+        message:
+          type: string
+          description: A human-readable description of the error.
+        status:
+          type: integer
+          description: The HTTP status code.
+        exceptionClass:
+          type: string
+          description: The exception class name if applicable.
   securitySchemes:
     bearerAuth:
       type: http

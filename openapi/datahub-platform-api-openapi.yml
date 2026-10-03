@@ -50,23 +50,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    SystemMetadata:
-      type: object
-      description: System-level metadata associated with a metadata change, including ingestion run identifiers and provenance information.
-      properties:
-        runId:
-          type: string
-          description: The identifier of the ingestion run that produced this change.
-        lastObserved:
-          type: integer
-          format: int64
-          description: The timestamp when this metadata was last observed in epoch milliseconds.
-        registryName:
-          type: string
-          description: The name of the model registry associated with this change.
-        registryVersion:
-          type: string
-          description: The version of the model registry.
     Error:
       type: object
       description: An error response from the DataHub API.
@@ -115,6 +98,23 @@ components:
           description: The new aspect value following its PDL schema definition.
         systemMetadata:
           $ref: '#/components/schemas/SystemMetadata'
+    SystemMetadata:
+      type: object
+      description: System-level metadata associated with a metadata change, including ingestion run identifiers and provenance information.
+      properties:
+        runId:
+          type: string
+          description: The identifier of the ingestion run that produced this change.
+        lastObserved:
+          type: integer
+          format: int64
+          description: The timestamp when this metadata was last observed in epoch milliseconds.
+        registryName:
+          type: string
+          description: The name of the model registry associated with this change.
+        registryVersion:
+          type: string
+          description: The version of the model registry.
   securitySchemes:
     bearerAuth:
       type: http

@@ -85,24 +85,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    Relationship:
-      type: object
-      description: A named edge connecting two entities in the metadata graph.
-      properties:
-        type:
-          type: string
-          description: The relationship type name, such as OwnedBy, Contains, DownstreamOf, or Produces.
-          example: DownstreamOf
-        entity:
-          type: string
-          description: The URN of the related entity.
-          example: urn:li:dataset:(urn:li:dataPlatform:hive,OtherDataset,PROD)
-        direction:
-          type: string
-          description: The traversal direction of this relationship.
-          enum:
-          - INCOMING
-          - OUTGOING
     RelationshipsResponse:
       type: object
       description: Response containing relationships for a queried entity.
@@ -121,6 +103,24 @@ components:
           description: The list of relationships matching the query.
           items:
             $ref: '#/components/schemas/Relationship'
+    Relationship:
+      type: object
+      description: A named edge connecting two entities in the metadata graph.
+      properties:
+        type:
+          type: string
+          description: The relationship type name, such as OwnedBy, Contains, DownstreamOf, or Produces.
+          example: DownstreamOf
+        entity:
+          type: string
+          description: The URN of the related entity.
+          example: urn:li:dataset:(urn:li:dataPlatform:hive,OtherDataset,PROD)
+        direction:
+          type: string
+          description: The traversal direction of this relationship.
+          enum:
+          - INCOMING
+          - OUTGOING
     Error:
       type: object
       description: An error response from the DataHub API.

@@ -124,6 +124,47 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 components:
+  parameters:
+    SoftDelete:
+      name: soft
+      in: query
+      required: false
+      description: Whether to perform a soft delete (marking the entity as removed while preserving metadata) or a hard delete (permanently removing all metadata). Defaults to true (soft delete).
+      schema:
+        type: boolean
+        default: true
+    CreateEntityIfNotExists:
+      name: createEntityIfNotExists
+      in: query
+      required: false
+      description: When set to true, the entity will only be created if it does not already exist. If the entity already exists, the request is ignored.
+      schema:
+        type: boolean
+        default: false
+    Urns:
+      name: urns
+      in: query
+      required: true
+      description: One or more entity URNs to operate on. Only a single entity type may be queried per request. URNs follow the format urn:li:{entityType}:{key}.
+      schema:
+        type: array
+        items:
+          type: string
+        example:
+        - urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)
+    AspectNames:
+      name: aspectNames
+      in: query
+      required: false
+      description: Specific aspect names to retrieve for the requested entities. If not provided, all aspects are returned.
+      schema:
+        type: array
+        items:
+          type: string
+        example:
+        - datasetProperties
+        - schemaMetadata
+        - ownership
   schemas:
     EntityAspectResponse:
       type: object
@@ -154,6 +195,19 @@ components:
           type: string
           description: The URN of the actor who made the change.
           example: urn:li:corpuser:datahub
+    Error:
+      type: object
+      description: An error response from the DataHub API.
+      properties:
+        message:
+          type: string
+          description: A human-readable description of the error.
+        status:
+          type: integer
+          description: The HTTP status code.
+        exceptionClass:
+          type: string
+          description: The exception class name if applicable.
     EntityAspectRequest:
       type: object
       description: A request to upsert an entity-aspect pair in the DataHub metadata graph. Contains the entity URN, entity type, aspect name, and the aspect value to write.
@@ -191,60 +245,6 @@ components:
           example: application/json
         created:
           $ref: '#/components/schemas/AuditStamp'
-    Error:
-      type: object
-      description: An error response from the DataHub API.
-      properties:
-        message:
-          type: string
-          description: A human-readable description of the error.
-        status:
-          type: integer
-          description: The HTTP status code.
-        exceptionClass:
-          type: string
-          description: The exception class name if applicable.
-  parameters:
-    Urns:
-      name: urns
-      in: query
-      required: true
-      description: One or more entity URNs to operate on. Only a single entity type may be queried per request. URNs follow the format urn:li:{entityType}:{key}.
-      schema:
-        type: array
-        items:
-          type: string
-        example:
-        - urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)
-    SoftDelete:
-      name: soft
-      in: query
-      required: false
-      description: Whether to perform a soft delete (marking the entity as removed while preserving metadata) or a hard delete (permanently removing all metadata). Defaults to true (soft delete).
-      schema:
-        type: boolean
-        default: true
-    CreateEntityIfNotExists:
-      name: createEntityIfNotExists
-      in: query
-      required: false
-      description: When set to true, the entity will only be created if it does not already exist. If the entity already exists, the request is ignored.
-      schema:
-        type: boolean
-        default: false
-    AspectNames:
-      name: aspectNames
-      in: query
-      required: false
-      description: Specific aspect names to retrieve for the requested entities. If not provided, all aspects are returned.
-      schema:
-        type: array
-        items:
-          type: string
-        example:
-        - datasetProperties
-        - schemaMetadata
-        - ownership
   securitySchemes:
     bearerAuth:
       type: http

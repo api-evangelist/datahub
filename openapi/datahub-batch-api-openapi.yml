@@ -81,31 +81,6 @@ components:
           description: A map of aspect names to their values for the requested entity.
           additionalProperties:
             $ref: '#/components/schemas/AspectValue'
-    AuditStamp:
-      type: object
-      description: An audit stamp recording who made a change and when.
-      properties:
-        time:
-          type: integer
-          format: int64
-          description: The timestamp of the change in epoch milliseconds.
-        actor:
-          type: string
-          description: The URN of the actor who made the change.
-          example: urn:li:corpuser:datahub
-    AspectValue:
-      type: object
-      description: The value of an aspect including its content and metadata.
-      properties:
-        value:
-          type: object
-          description: The aspect payload following its PDL schema definition.
-        contentType:
-          type: string
-          description: The content type of the aspect value, typically application/json.
-          example: application/json
-        created:
-          $ref: '#/components/schemas/AuditStamp'
     BatchGetRequest:
       type: object
       description: A request to fetch a specific entity and its aspects in a batch operation.
@@ -134,6 +109,31 @@ components:
         exceptionClass:
           type: string
           description: The exception class name if applicable.
+    AspectValue:
+      type: object
+      description: The value of an aspect including its content and metadata.
+      properties:
+        value:
+          type: object
+          description: The aspect payload following its PDL schema definition.
+        contentType:
+          type: string
+          description: The content type of the aspect value, typically application/json.
+          example: application/json
+        created:
+          $ref: '#/components/schemas/AuditStamp'
+    AuditStamp:
+      type: object
+      description: An audit stamp recording who made a change and when.
+      properties:
+        time:
+          type: integer
+          format: int64
+          description: The timestamp of the change in epoch milliseconds.
+        actor:
+          type: string
+          description: The URN of the actor who made the change.
+          example: urn:li:corpuser:datahub
   securitySchemes:
     bearerAuth:
       type: http

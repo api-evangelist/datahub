@@ -125,33 +125,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   parameters:
-    SoftDelete:
-      name: soft
-      in: query
-      required: false
-      description: Whether to perform a soft delete (marking the entity as removed while preserving metadata) or a hard delete (permanently removing all metadata). Defaults to true (soft delete).
-      schema:
-        type: boolean
-        default: true
-    CreateEntityIfNotExists:
-      name: createEntityIfNotExists
-      in: query
-      required: false
-      description: When set to true, the entity will only be created if it does not already exist. If the entity already exists, the request is ignored.
-      schema:
-        type: boolean
-        default: false
-    Urns:
-      name: urns
-      in: query
-      required: true
-      description: One or more entity URNs to operate on. Only a single entity type may be queried per request. URNs follow the format urn:li:{entityType}:{key}.
-      schema:
-        type: array
-        items:
-          type: string
-        example:
-        - urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)
     AspectNames:
       name: aspectNames
       in: query
@@ -165,7 +138,47 @@ components:
         - datasetProperties
         - schemaMetadata
         - ownership
+    CreateEntityIfNotExists:
+      name: createEntityIfNotExists
+      in: query
+      required: false
+      description: When set to true, the entity will only be created if it does not already exist. If the entity already exists, the request is ignored.
+      schema:
+        type: boolean
+        default: false
+    SoftDelete:
+      name: soft
+      in: query
+      required: false
+      description: Whether to perform a soft delete (marking the entity as removed while preserving metadata) or a hard delete (permanently removing all metadata). Defaults to true (soft delete).
+      schema:
+        type: boolean
+        default: true
+    Urns:
+      name: urns
+      in: query
+      required: true
+      description: One or more entity URNs to operate on. Only a single entity type may be queried per request. URNs follow the format urn:li:{entityType}:{key}.
+      schema:
+        type: array
+        items:
+          type: string
+        example:
+        - urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)
   schemas:
+    AspectValue:
+      type: object
+      description: The value of an aspect including its content and metadata.
+      properties:
+        value:
+          type: object
+          description: The aspect payload following its PDL schema definition.
+        contentType:
+          type: string
+          description: The content type of the aspect value, typically application/json.
+          example: application/json
+        created:
+          $ref: '#/components/schemas/AuditStamp'
     EntityAspectResponse:
       type: object
       description: A response containing an entity and its requested aspects from the DataHub metadata graph.
@@ -183,6 +196,30 @@ components:
           description: A map of aspect names to their values for the requested entity.
           additionalProperties:
             $ref: '#/components/schemas/AspectValue'
+    EntityAspectRequest:
+      type: object
+      description: A request to upsert an entity-aspect pair in the DataHub metadata graph. Contains the entity URN, entity type, aspect name, and the aspect value to write.
+      required:
+      - entityUrn
+      - entityType
+      - aspectName
+      - aspect
+      properties:
+        entityUrn:
+          type: string
+          description: The unique URN identifier for the entity being modified.
+          example: urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)
+        entityType:
+          type: string
+          description: The type of the entity being modified, such as dataset, chart, dashboard, dataFlow, or dataJob.
+          example: dataset
+        aspectName:
+          type: string
+          description: The name of the aspect being written, such as datasetProperties, schemaMetadata, ownership, or globalTags.
+          example: datasetProperties
+        aspect:
+          type: object
+          description: The aspect value to write. The structure varies depending on the aspect name and follows the PDL schema definitions in the DataHub metadata models.
     AuditStamp:
       type: object
       description: An audit stamp recording who made a change and when.
@@ -208,43 +245,6 @@ components:
         exceptionClass:
           type: string
           description: The exception class name if applicable.
-    EntityAspectRequest:
-      type: object
-      description: A request to upsert an entity-aspect pair in the DataHub metadata graph. Contains the entity URN, entity type, aspect name, and the aspect value to write.
-      required:
-      - entityUrn
-      - entityType
-      - aspectName
-      - aspect
-      properties:
-        entityUrn:
-          type: string
-          description: The unique URN identifier for the entity being modified.
-          example: urn:li:dataset:(urn:li:dataPlatform:hive,SampleHiveDataset,PROD)
-        entityType:
-          type: string
-          description: The type of the entity being modified, such as dataset, chart, dashboard, dataFlow, or dataJob.
-          example: dataset
-        aspectName:
-          type: string
-          description: The name of the aspect being written, such as datasetProperties, schemaMetadata, ownership, or globalTags.
-          example: datasetProperties
-        aspect:
-          type: object
-          description: The aspect value to write. The structure varies depending on the aspect name and follows the PDL schema definitions in the DataHub metadata models.
-    AspectValue:
-      type: object
-      description: The value of an aspect including its content and metadata.
-      properties:
-        value:
-          type: object
-          description: The aspect payload following its PDL schema definition.
-        contentType:
-          type: string
-          description: The content type of the aspect value, typically application/json.
-          example: application/json
-        created:
-          $ref: '#/components/schemas/AuditStamp'
   securitySchemes:
     bearerAuth:
       type: http

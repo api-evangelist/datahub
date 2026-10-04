@@ -50,19 +50,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    Error:
-      type: object
-      description: An error response from the DataHub API.
-      properties:
-        message:
-          type: string
-          description: A human-readable description of the error.
-        status:
-          type: integer
-          description: The HTTP status code.
-        exceptionClass:
-          type: string
-          description: The exception class name if applicable.
     MetadataChangeProposal:
       type: object
       description: A metadata change proposal (MCP) representing a proposed change to the metadata graph. MCPs are the standard format for ingesting metadata into DataHub and are processed asynchronously.
@@ -115,6 +102,19 @@ components:
         registryVersion:
           type: string
           description: The version of the model registry.
+    Error:
+      type: object
+      description: An error response from the DataHub API.
+      properties:
+        message:
+          type: string
+          description: A human-readable description of the error.
+        status:
+          type: integer
+          description: The HTTP status code.
+        exceptionClass:
+          type: string
+          description: The exception class name if applicable.
   securitySchemes:
     bearerAuth:
       type: http

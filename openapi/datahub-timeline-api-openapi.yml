@@ -82,19 +82,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    Error:
-      type: object
-      description: An error response from the DataHub API.
-      properties:
-        message:
-          type: string
-          description: A human-readable description of the error.
-        status:
-          type: integer
-          description: The HTTP status code.
-        exceptionClass:
-          type: string
-          description: The exception class name if applicable.
     ChangeEvent:
       type: object
       description: An individual change event describing a modification to a specific aspect of an entity.
@@ -147,6 +134,19 @@ components:
           description: A chronological list of change transactions for the entity.
           items:
             $ref: '#/components/schemas/ChangeTransaction'
+    Error:
+      type: object
+      description: An error response from the DataHub API.
+      properties:
+        message:
+          type: string
+          description: A human-readable description of the error.
+        status:
+          type: integer
+          description: The HTTP status code.
+        exceptionClass:
+          type: string
+          description: The exception class name if applicable.
   securitySchemes:
     bearerAuth:
       type: http

@@ -276,6 +276,9 @@ apis:
   - type: JSONSchema
     url: json-schema/datahub-metadata-change-log-event-schema.json
 common:
+- type: CapabilityMap
+  url: capabilities/datahub-capability-edges.yml
+  name: DataHub Business Capability Map
 - type: IssueTracker
   url: https://github.com/datahub-project/datahub/issues
 - type: SecurityPolicy

@@ -276,6 +276,12 @@ apis:
   - type: JSONSchema
     url: json-schema/datahub-metadata-change-log-event-schema.json
 common:
+- type: Plans
+  url: plans/datahub-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/datahub-rate-limits.yml
+- type: FinOps
+  url: finops/datahub-finops.yml
 - type: CapabilityMap
   url: capabilities/datahub-capability-edges.yml
   name: DataHub Business Capability Map

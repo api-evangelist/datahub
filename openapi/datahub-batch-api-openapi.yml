@@ -79,6 +79,31 @@ components:
           description: Specific aspects to retrieve. If not provided, all aspects are returned.
           items:
             type: string
+    Error:
+      type: object
+      description: An error response from the DataHub API.
+      properties:
+        message:
+          type: string
+          description: A human-readable description of the error.
+        status:
+          type: integer
+          description: The HTTP status code.
+        exceptionClass:
+          type: string
+          description: The exception class name if applicable.
+    AuditStamp:
+      type: object
+      description: An audit stamp recording who made a change and when.
+      properties:
+        time:
+          type: integer
+          format: int64
+          description: The timestamp of the change in epoch milliseconds.
+        actor:
+          type: string
+          description: The URN of the actor who made the change.
+          example: urn:li:corpuser:datahub
     AspectValue:
       type: object
       description: The value of an aspect including its content and metadata.
@@ -109,31 +134,6 @@ components:
           description: A map of aspect names to their values for the requested entity.
           additionalProperties:
             $ref: '#/components/schemas/AspectValue'
-    AuditStamp:
-      type: object
-      description: An audit stamp recording who made a change and when.
-      properties:
-        time:
-          type: integer
-          format: int64
-          description: The timestamp of the change in epoch milliseconds.
-        actor:
-          type: string
-          description: The URN of the actor who made the change.
-          example: urn:li:corpuser:datahub
-    Error:
-      type: object
-      description: An error response from the DataHub API.
-      properties:
-        message:
-          type: string
-          description: A human-readable description of the error.
-        status:
-          type: integer
-          description: The HTTP status code.
-        exceptionClass:
-          type: string
-          description: The exception class name if applicable.
   securitySchemes:
     bearerAuth:
       type: http

@@ -1,4 +1,4 @@
-# DataHub (datahub)
+# DataHub
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,207 +66,220 @@
 
 DataHub is LinkedIn's generalized metadata search and discovery platform, providing a unified data catalog, lineage graph, governance tooling, and event-driven Actions Framework. It exposes GraphQL, OpenAPI, and Rest.li APIs along with Python and Java SDKs and a CLI for metadata ingestion.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/datahub/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/datahub/refs/heads/main/apis.yml)
+**Areas:** Data Catalog · Data Discovery · Data Governance · Data Lineage · Metadata · Real-Time
 
-## Scope
+## DataHub on APIs.io
 
-- **Type:** Index
-- **Position:** Consumer
-- **Access:** 3rd-Party
+Everything profiled for DataHub is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/datahub/](https://apis.io/providers/datahub/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (11)
 
-- Data Catalog
-- Data Discovery
-- Data Governance
-- Data Lineage
-- Metadata
+- [DataHub GraphQL API](https://apis.io/apis/datahub/datahub-graphql-api/) — Primary API for querying and mutating metadata in DataHub. The GraphQL API serves as the main public API for the platform and can be used to fetch and…
+- [DataHub REST API](https://apis.io/apis/datahub/datahub-rest-api/) — The Rest.li API represents the underlying persistence layer and exposes the raw PDL models used in storage. It powers the GraphQL API under the hood and is…
+- [DataHub Python SDK](https://apis.io/apis/datahub/datahub-python-sdk/) — Python client for interacting with DataHub. The acryl-datahub package provides a CLI and SDK for DataHub, including REST and Kafka emitter APIs for pushing…
+- [DataHub Java SDK](https://apis.io/apis/datahub/datahub-java-sdk/) — Java client for interacting with DataHub. The io.acryl datahub-client package offers REST emitter APIs that can be used to emit metadata from JVM-based…
+- [DataHub CLI](https://apis.io/apis/datahub/datahub-cli/) — Command line tool for interacting with DataHub. The datahub CLI allows you to perform common operations including metadata ingestion, entity management, and…
+- [DataHub Actions Framework](https://apis.io/apis/datahub/datahub-actions-framework/) — Event-driven framework for responding to real-time changes in the DataHub metadata graph. The Actions Framework allows you to configure event sources,…
+- [DataHub Batch API](https://apis.io/apis/datahub/datahub-batch-api/) — Batch operations for fetching multiple entities and their aspects in a single request. Supports version-specific retrieval and conditional writes.
+- [DataHub Entities API](https://apis.io/apis/datahub/datahub-entities-api/) — Read, write, and delete metadata entities in the DataHub metadata graph. The entities endpoints support upserting entity-aspect pairs, retrieving the latest…
+- [DataHub Platform API](https://apis.io/apis/datahub/datahub-platform-api/) — Write metadata events using the standard platform format. Provides an alternative ingestion path for emitting metadata change proposals to the DataHub…
+- [DataHub Relationships API](https://apis.io/apis/datahub/datahub-relationships-api/) — Query the relationship graph to navigate connections between entities. Supports filtering by relationship type and traversal direction (incoming or…
+- [DataHub Timeline API](https://apis.io/apis/datahub/datahub-timeline-api/) — Query the versioned history of entity aspects over time. Useful for tracking schema changes, documentation updates, and other temporal metadata…
 
-## Timestamps
+### Published properties
 
-- **Created:** 2024-01-15
-- **Modified:** 2026-05-19
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### Arazzo workflows (7)
 
-### DataHub GraphQL API
+Multi-step workflows that chain operations into a business task.
 
-Primary API for querying and mutating metadata in DataHub. The GraphQL API serves as the main public API for the platform and can be used to fetch and update metadata programmatically in the language of your choice. It mirrors the capabilities available in the DataHub UI.
+- [DataHub Add Glossary Terms to a Dataset](https://apis.io/arazzos/datahub/datahub-add-glossary-terms-workflow/)
+- [DataHub Assign Dataset Ownership](https://apis.io/arazzos/datahub/datahub-assign-ownership-workflow/)
+- [DataHub Decommission a Dataset](https://apis.io/arazzos/datahub/datahub-decommission-dataset-workflow/)
+- [DataHub Emit Platform Event and Audit](https://apis.io/arazzos/datahub/datahub-emit-and-audit-workflow/)
+- [DataHub Tag a Dataset](https://apis.io/arazzos/datahub/datahub-tag-dataset-workflow/)
+- [DataHub Trace Dataset Lineage](https://apis.io/arazzos/datahub/datahub-trace-lineage-workflow/)
+- [DataHub Upsert Dataset and Verify](https://apis.io/arazzos/datahub/datahub-upsert-dataset-workflow/)
 
-- **Human URL:** [https://docs.datahub.com/docs/api/graphql/overview](https://docs.datahub.com/docs/api/graphql/overview)
-- **Base URL:** `http://localhost:8080/api/graphql`
+#### AsyncAPI (1)
 
-#### Tags
+Event-driven and webhook contracts.
 
-- GraphQL
-- Metadata
-- Queries
-- Search
+- [DataHub Actions Framework Events](https://apis.io/asyncapis/datahub/datahub-actions-asyncapi/)
 
-#### Properties
+#### Event channels (3)
 
-- [Documentation](https://docs.datahub.com/docs/api/graphql/overview)
-- [Getting Started](https://docs.datahub.com/docs/api/graphql/getting-started)
-- [Reference](https://docs.datahub.com/docs/graphql/queries)
-- [Playground](http://localhost:8080/api/graphiql)
-- [Postman Collection](collections/datahub-openapi.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/datahub-openapi.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Individual events and webhooks the provider emits.
 
-### DataHub OpenAPI
+- [MetadataChangeLog_Timeseries_v1](https://apis.io/channels/datahub/metadatachangelog-timeseries-v1/)
+- [MetadataChangeLog_Versioned_v1](https://apis.io/channels/datahub/metadatachangelog-versioned-v1/)
+- [PlatformEvent_v1](https://apis.io/channels/datahub/platformevent-v1/)
 
-RESTful API endpoints documented using the OpenAPI standard for interacting with DataHub metadata. Provides endpoints for entities, relationships, timeline, and platform events. The OpenAPI spec is auto-generated and available via Swagger UI for interactive exploration. Recommended for advanced users who need lower-level access to the metadata graph.
+#### GraphQL (1)
 
-- **Human URL:** [https://docs.datahub.com/docs/api/openapi/openapi-usage-guide](https://docs.datahub.com/docs/api/openapi/openapi-usage-guide)
-- **Base URL:** `http://localhost:8080/openapi/`
+GraphQL schemas.
 
-#### Tags
+- [DataHub GraphQL API](https://apis.io/graphqls/datahub/datahub-graphql/)
 
-- Entities
-- Metadata
-- OpenAPI
-- REST
+#### MCP servers (1)
 
-#### Properties
+Model Context Protocol servers that expose the API to agents.
 
-- [Documentation](https://docs.datahub.com/docs/api/openapi/openapi-usage-guide)
-- [OpenAPI](openapi/datahub-openapi-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/datahub-openapi.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/datahub-openapi.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [JSON Schema](json-schema/datahub-metadata-change-log-event-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [datahub](https://apis.io/servers/datahub/datahub/)
 
-### DataHub REST API
+#### Agentic access (1)
 
-The Rest.li API represents the underlying persistence layer and exposes the raw PDL models used in storage. It powers the GraphQL API under the hood and is used for system-specific ingestion of metadata by the Metadata Ingestion Framework. This API is considered system-internal and is not recommended for direct external use.
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- **Human URL:** [https://docs.datahub.com/docs/api/datahub-apis](https://docs.datahub.com/docs/api/datahub-apis)
-- **Base URL:** `http://localhost:8080/`
+- [Datahub Agentic Access](https://apis.io/agentic-access/datahub/datahub-agentic-access/)
 
-#### Tags
+#### JSON Schema (14)
 
-- Entities
-- Internal
-- Metadata
-- REST
+The data models the API reads and writes.
 
-#### Properties
+- [AspectValue](https://apis.io/schemas/datahub/datahub-aspectvalue/)
+- [AuditStamp](https://apis.io/schemas/datahub/datahub-auditstamp/)
+- [BatchGetRequest](https://apis.io/schemas/datahub/datahub-batchgetrequest/)
+- [ChangeEvent](https://apis.io/schemas/datahub/datahub-changeevent/)
+- [ChangeTransaction](https://apis.io/schemas/datahub/datahub-changetransaction/)
+- [EntityAspectRequest](https://apis.io/schemas/datahub/datahub-entityaspectrequest/)
+- [EntityAspectResponse](https://apis.io/schemas/datahub/datahub-entityaspectresponse/)
+- [Error](https://apis.io/schemas/datahub/datahub-error/)
+- [DataHub Metadata Change Log Event](https://apis.io/schemas/datahub/datahub-metadata-change-log-event/)
+- [MetadataChangeProposal](https://apis.io/schemas/datahub/datahub-metadatachangeproposal/)
+- [Relationship](https://apis.io/schemas/datahub/datahub-relationship/)
+- [RelationshipsResponse](https://apis.io/schemas/datahub/datahub-relationshipsresponse/)
+- [SystemMetadata](https://apis.io/schemas/datahub/datahub-systemmetadata/)
+- [TimelineResponse](https://apis.io/schemas/datahub/datahub-timelineresponse/)
 
-- [Documentation](https://docs.datahub.com/docs/api/datahub-apis)
-- [Postman Collection](collections/datahub-openapi.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/datahub-openapi.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### JSON Structure (1)
 
-### DataHub Python SDK
+Data models expressed in JSON Structure.
 
-Python client for interacting with DataHub. The acryl-datahub package provides a CLI and SDK for DataHub, including REST and Kafka emitter APIs for pushing metadata programmatically. It is one of the most recommended tools for extending and customizing DataHub behavior, especially for ingestion and bulk metadata operations.
+- [Datahub Structure](https://apis.io/json-structure/datahub/datahub-structure/)
 
-- **Human URL:** [https://docs.datahub.com/docs/metadata-ingestion/as-a-library](https://docs.datahub.com/docs/metadata-ingestion/as-a-library)
-- **Base URL:** `https://pypi.org/project/acryl-datahub/`
+#### JSON-LD (1)
 
-#### Tags
+Linked-data contexts for the provider's vocabulary.
 
-- Emitter
-- Ingestion
-- Python
-- SDK
+- [Datahub Context](https://apis.io/jsonld/datahub/datahub-context/)
 
-#### Properties
+#### Vocabulary (1)
 
-- [Documentation](https://docs.datahub.com/docs/metadata-ingestion/as-a-library)
-- [GitHub Repository](https://github.com/datahub-project/datahub)
-- [S D Ks](https://pypi.org/project/acryl-datahub/)
-- [Postman Collection](collections/datahub-openapi.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/datahub-openapi.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+The provider's domain terms, defined.
 
-### DataHub Java SDK
+- [DataHub Vocabulary](https://apis.io/vocabularies/datahub/datahub-vocabulary/)
 
-Java client for interacting with DataHub. The io.acryl datahub-client package offers REST emitter APIs that can be used to emit metadata from JVM-based systems. It supports all major DataHub entity types including Dataset, Chart, Dashboard, Container, DataFlow, DataJob, MLModel, and MLModelGroup.
+#### Collections (7)
 
-- **Human URL:** [https://docs.datahub.com/docs/metadata-integration/java/as-a-library](https://docs.datahub.com/docs/metadata-integration/java/as-a-library)
-- **Base URL:** `https://github.com/datahub-project/datahub`
+Postman and Open Collection request collections.
 
-#### Tags
+- [DataHub Open Batch API](https://apis.io/collections/datahub/open-datahub-batch-api/)
+- [DataHub Open Batch Entities API](https://apis.io/collections/datahub/open-datahub-entities-api/)
+- [DataHub OpenAPI](https://apis.io/collections/datahub/open-datahub-openapi/)
+- [DataHub Open Batch Platform API](https://apis.io/collections/datahub/open-datahub-platform-api/)
+- [DataHub Open Batch Relationships API](https://apis.io/collections/datahub/open-datahub-relationships-api/)
+- [DataHub Open Batch Timeline API](https://apis.io/collections/datahub/open-datahub-timeline-api/)
+- [DataHub OpenAPI](https://apis.io/collections/datahub/postman-datahub-openapi/)
 
-- Emitter
-- Java
-- Metadata
-- SDK
+#### Governance rules (3)
 
-#### Properties
+Spectral rulesets for the provider's contracts.
 
-- [Documentation](https://docs.datahub.com/docs/metadata-integration/java/as-a-library)
-- [GitHub Repository](https://github.com/datahub-project/datahub)
-- [Postman Collection](collections/datahub-openapi.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/datahub-openapi.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [DataHub — asyncapi rules](https://apis.io/rules/datahub/datahub-asyncapi-spectral-rules/)
+- [DataHub — jsonschema rules](https://apis.io/rules/datahub/datahub-jsonschema-spectral-rules/)
+- [DataHub API Rules](https://apis.io/rules/datahub/datahub-rules/)
 
-### DataHub CLI
+#### Security (2)
 
-Command line tool for interacting with DataHub. The datahub CLI allows you to perform common operations including metadata ingestion, entity management, and system administration from the command line. It is installed as part of the acryl-datahub Python package and supports a plugin architecture for different data source connectors.
+Authentication, trust centre, and vulnerability disclosure.
 
-- **Human URL:** [https://docs.datahub.com/docs/cli](https://docs.datahub.com/docs/cli)
-- **Base URL:** `https://pypi.org/project/acryl-datahub/`
+- [Datahub Authentication](https://apis.io/security/datahub/datahub-authentication/)
+- [Datahub Domain Security](https://apis.io/security/datahub/datahub-domain-security/)
 
-#### Tags
+#### Plans and pricing (1)
 
-- CLI
-- Command Line
-- Ingestion
-- Metadata
+Published plans, tiers and prices.
 
-#### Properties
+- [Datahub Plans Pricing](https://apis.io/plans/datahub/datahub-plans-pricing/)
 
-- [Documentation](https://docs.datahub.com/docs/cli)
-- [Getting Started](https://docs.datahub.com/docs/metadata-ingestion/cli-ingestion)
-- [S D Ks](https://pypi.org/project/acryl-datahub/)
-- [Postman Collection](collections/datahub-openapi.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/datahub-openapi.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Rate limits (1)
 
-### DataHub Actions Framework
+Published request limits.
 
-Event-driven framework for responding to real-time changes in the DataHub metadata graph. The Actions Framework allows you to configure event sources, transformations, and actions using YAML configuration files. It enables seamless integration of DataHub into a broader event-based architecture by consuming Metadata Change Logs and Platform Events.
+- [Datahub Rate Limits](https://apis.io/rate-limits/datahub/datahub-rate-limits/)
 
-- **Human URL:** [https://docs.datahub.com/docs/actions](https://docs.datahub.com/docs/actions)
-- **Base URL:** `https://pypi.org/project/acryl-datahub-actions/`
+#### FinOps (1)
 
-#### Tags
+What the API costs to run, by operation.
 
-- Actions
-- Automation
-- Events
-- Real-Time
+- [Datahub Finops](https://apis.io/finops/datahub/datahub-finops/)
 
-#### Properties
+## Where to find this API
 
-- [Documentation](https://docs.datahub.com/docs/actions)
-- [Getting Started](https://docs.datahub.com/docs/actions/quickstart)
-- [S D Ks](https://pypi.org/project/acryl-datahub-actions/)
-- [AsyncAPI](asyncapi/datahub-actions-asyncapi.yml) — [AsyncAPI Specification](https://www.asyncapi.com/docs/reference/specification/latest)
-- [Postman Collection](collections/datahub-openapi.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/datahub-openapi.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-## Common Properties
-
-- [Arazzo Workflows](arazzo/) — [Arazzo Specification](https://spec.openapis.org/arazzo/latest.html)
 - [Website](https://datahub.com)
-- [Portal](https://docs.datahub.com)
 - [Documentation](https://docs.datahub.com/docs/)
-- [Getting Started](https://docs.datahub.com/docs/quickstart)
-- [Authentication](https://docs.datahub.com/docs/authentication)
-- [GitHub Repository](https://github.com/datahub-project/datahub)
-- [Slack](https://slack.datahubproject.io)
-- [Blog](https://datahub.com/blog/)
-- [Demo](https://demo.datahubproject.io/)
+- [Getting started](https://docs.datahub.com/docs/quickstart)
 - [Changelog](https://github.com/datahub-project/datahub/releases)
-- [Status Page](https://status.datahub.com)
-- [Community](https://forum.datahubproject.io/)
-- [YouTube](https://youtube.com/@datahubproject)
-- [LinkedIn](https://www.linkedin.com/company/datahub-cloud)
-- [Privacy Policy](https://datahub.com/privacy-policy/)
+- [Blog](https://datahub.com/blog/)
 - [Security](https://docs.datahub.com/docs/security_stance)
-- [JSON-LD](json-ld/datahub-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
-- [Vocabulary](vocabulary/datahub-vocabulary.yml)
-- [Capabilities](capabilities/datahub-capabilities.yml)
-- [Rules](rules/datahub-rules.yml)
+- [Privacy policy](https://datahub.com/privacy-policy/)
+- [Status](https://status.datahub.com)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 55.6** — strong · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 60.0 |
+| Contract quality | 61.8 |
+| Contract governance | 27.3 |
+| Operational transparency | 52.6 |
+| Developer ergonomics | 66.7 |
+| Access clarity | 15.8 |
+
+**Agent readiness 48.9** — agent-ready (gated down from agent-native)
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | verified |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | derived (partial credit) |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | verified |
+| Dynamic Client Registration | yes |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 20.6** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/datahub/](https://apis.io/providers/datahub/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for DataHub: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/datahub/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
